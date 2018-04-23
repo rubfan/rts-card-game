@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <script src="/javascript/main.js"></script>
+    </head>
+    <body>
+        <div class="game-site-header" style="width: 100%">
+            <ul class="ul-info">
+                <li><a href="/rooms.html">Rooms</a></li>
+                <li><a class="active" href="/gameplay.html">Gameplay</a></li>
+                <li><a href="/achievements.html">Achievements</a></li>
+                <li><a href="/login.html">Login</a></li>
+            </ul>
+        </div>
+        <div style="padding: 80px; padding-left: 200px; padding-right: 200px">
+            <button onclick="restRequest('GET', REST_API_URL + '/resource/list', jsonToTable)">List of All Resources</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/building/list', jsonToTable)">List of All Buildings</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/update/list', jsonToTable)">List of All Updates</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/card/list', jsonToTable)">List of All Cards</button>
+
+            <button onclick="restRequest('GET', REST_API_URL + '/account/resource/list', jsonToString)">List of User Resources</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/account/building/list', jsonToString)">List of User Buildings</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/account/update/list', jsonToString)">List of User Updates</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/account/card/list', jsonToString)">List of User Cards</button>
+
+            <button onclick="restRequest('GET', REST_API_URL + '/room/exit', jsonToString)">Action End Game</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/room/1/enter', jsonToString)">Action Start Game</button>
+            <button onclick="restRequest('GET', REST_API_URL + '/card/33/use', jsonToString)">Action Use Card</button>
+
+            <button onclick="restRequest('GET', REST_API_URL + '/account/refresh', jsonToString)">Update All Data</button>
+
+            <br/>
+            <div id="responseText"></div>
+
+            <div id="cards_container" class="cards-container">
+                <div id="cards" class="cards">
+
+                </div>
+            </div>
+
+            <div id="container_left" class="container-left">
+                <div id="items" class="items">
+
+                </div>
+            </div>
+
+            <div id="container_right" class="container-right">
+                <div id="enemy_items" class="enemy-items">
+
+                </div>
+            </div>
+        </div>
+        <script>
+            function createCardList() {
+                var content = "";
+                for (var x = 0; x < 50; x++) {
+                    content += '<button style="height: 150px; width: 130px" class="glow-effect" '
+                        +'onclick="restRequest("GET", REST_API_URL + "/cards/list", jsonToTable)">Card: ' + x + '</button>';
+                }
+                document.getElementById("cards").innerHTML = content;
+            }
+            createCardList();
+
+            function createResourceBuildingsUpdatesList() {
+                var content = "";
+                for (var x = 0; x < 50; x++) {
+                    content += '<button style="height: 130px; width: 150px" class="glow-effect" '
+                        +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Updates: ' + x + '</button>';
+                }
+                document.getElementById("items").innerHTML = content;
+            }
+            createResourceBuildingsUpdatesList();
+
+            function createEnemyResourceBuildingsUpdatesList() {
+                var content = "";
+                for (var x = 0; x < 50; x++) {
+                    content += '<button style="height: 130px; width: 150px" class="glow-effect" '
+                        +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Updates: ' + x + '</button>';
+                }
+                document.getElementById("enemy_items").innerHTML = content;
+            }
+            createEnemyResourceBuildingsUpdatesList();
+        </script>
+    </body>
+<html>
