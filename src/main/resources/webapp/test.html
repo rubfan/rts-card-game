@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <script src="/javascript/main.js"></script>
+        <script src="/javascript/test.js"></script>
+    </head>
+    <body>
+        <div class="game-site-header" style="width: 100%">
+            <ul class="ul-info">
+                <li><a href="/login.html">Back to Login</a></li>
+            </ul>
+        </div>
+
+        <h4 style="padding-top: 80px">All requests for page Gameplay:</h4>
+        <ul>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/resource/list', jsonToTable)">List of All Resources</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/building/list', jsonToTable)">List of All Buildings</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/update/list', jsonToTable)">List of All Updates</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/card/list', jsonToTable)">List of All Cards</button></li>
+
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/resource/list', jsonToString)">List of User Resources</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/building/list', jsonToString)">List of User Buildings</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/update/list', jsonToString)">List of User Updates</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/card/list', jsonToString)">List of User Cards</button></li>
+
+            <li><button onclick="restRequest('GET', REST_API_URL + '/room/exit', jsonToString)">Action End Game</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/room/1/enter', jsonToString)">Action Start Game</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/card/33/use', jsonToString)">Action Use Card</button></li>
+
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/refresh', jsonToString)">Update All Data</button></li>
+        </ul>
+
+        <h4>All requests for page Rooms:</h4>
+        <ul>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/room/list', jsonToTable)">List of all Rooms</button></li>
+        </ul>
+
+        <h4>All requests for page Achievements:</h4>
+        <ul>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/achievements/list', jsonToTable)">List of user Achievements</button></li>
+        </ul>
+
+        <h2>Result:</h2>
+        <div id="testResult"></div>
+    </body>
+<html>

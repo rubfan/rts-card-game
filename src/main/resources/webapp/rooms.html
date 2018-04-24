@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <script src="/javascript/main.js"></script>
+        <script src="/javascript/rooms.js"></script>
     </head>
     <body>
         <div class="game-site-header" style="width: 100%">
@@ -17,32 +18,6 @@
 
         <script>
             restRequest('GET', REST_API_URL + '/room/list', createRoomsTable);
-
-            function createRoomsTable(dataObject) {
-                dataObject = JSON.parse(dataObject);
-                var content = "";
-                for (var x in dataObject) {
-                    if(!content) {
-                        content += "<tr>";
-                        for (var prop in dataObject[x]) {
-                            content += "<th>" + prop + "</th>";
-                        }
-                        content += "<th>Select room</th>";
-                        content += "</tr>"
-                    }
-                    content += "<tr>";
-                    for (var prop in dataObject[x]) {
-                        content += "<td>" + dataObject[x][prop] + "</td>";
-                    }
-                    content += "<td style='text-align: right'><button"
-                          + " onclick=\"restRequest('GET', REST_API_URL + '/room/"
-                          + (dataObject[x]['id']) + "/enter', jsonToString);"
-                          + " window.location.replace(RESOURCE_URL + '/gameplay.html');\">"
-                          + "Join Game</button></td>";
-                    content += "</tr>"
-                }
-                document.getElementById("roomsTable").innerHTML = "<table class='info-table'>" + content + "</table>";
-            }
         </script>
     </body>
 <html>
