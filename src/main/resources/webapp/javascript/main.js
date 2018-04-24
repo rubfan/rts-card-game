@@ -1,3 +1,6 @@
+/**
+ * Created by ruslangramatic on 3/24/18.
+ */
 const RESOURCE_URL = window.location.protocol + "//" + window.location.host;
 const REST_API_URL = RESOURCE_URL + "/rest";
 
@@ -26,36 +29,6 @@ function restRequest(method, url, callback, requestBody) {
             httpRequest.send(json);
             break;
     }
-}
-
-function jsonToTable(dataObject) {
-    dataObject = JSON.parse(dataObject);
-    console.log(dataObject);
-    var table = "<table class='info-table'>";
-    var tbody = "";
-    var theader = "";
-    for (var x in dataObject) {
-        if(!theader) {
-            theader += "<tr>";
-            for (var prop in dataObject[x]) {
-                theader += "<th>" + prop + "</th>";
-            }
-            theader += "</tr>"
-        }
-        tbody += "<tr>";
-        for (var prop in dataObject[x]) {
-            tbody += "<td>" + dataObject[x][prop] + "</td>";
-        }
-        tbody += "</tr>"
-    }
-    table += theader + tbody + "</table>";
-    document.getElementById("responseText").innerHTML = table;
-}
-
-function jsonToString(dataObject) {
-    console.log("==========");
-    console.log(dataObject);
-    document.getElementById("responseText").innerHTML = JSON.stringify(dataObject);
 }
 
 function getCookie(key) {

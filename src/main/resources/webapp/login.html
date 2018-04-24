@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <script src="/javascript/main.js"></script>
+        <script src="/javascript/login.js"></script>
     </head>
     <body class="radial-glow-background">
         <div style="text-align: center; padding-top: 100px">
@@ -26,30 +27,12 @@
             <button id="lets_play" style="background-color: cornflowerblue"
                     onclick="window.location.replace(RESOURCE_URL + '/rooms.html')"><b class="glow-effect">Let's Play!</b>
             </button>
+            <button style="background-color: white; color: #333333"
+                    onclick="window.location.replace(RESOURCE_URL + '/test.html')">Developer Tests
+            </button>
         </div>
 
-        <br/>
-        <div style="text-align: center" id="responseText"></div>
-
         <script>
-            function refreshButtonsStatus() {
-                console.log(getCookie("token") + " =============");
-                if(getCookie("token")){
-                    document.getElementById('logout').style.display = "inline-block";
-                    document.getElementById('login').style.display = "none";
-                    document.getElementById('new_user').style.display = "none";
-                    document.getElementById('lets_play').style.display = "inline-block";
-                    document.getElementById('name').style.display = "none";
-                    document.getElementById('password').style.display = "none";
-                } else {
-                    document.getElementById('logout').style.display = "none";
-                    document.getElementById('login').style.display = "inline-block";
-                    document.getElementById('new_user').style.display = "inline-block";
-                    document.getElementById('lets_play').style.display = "none";
-                    document.getElementById('name').style.display = "inline-block";
-                    document.getElementById('password').style.display = "inline-block";
-                }
-            }
             refreshButtonsStatus();
         </script>
     </body>
