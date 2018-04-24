@@ -8,7 +8,7 @@ import java.sql.*;
 public abstract class QueryHelper<T> {
     private T result;
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
+    private static final String DB_PASSWORD = "";
     private static final String DB_NAME = "card_battle_rts";
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost/?user=" + DB_USER + "&password=" + DB_PASSWORD;

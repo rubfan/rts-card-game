@@ -1,16 +1,21 @@
 package config;
 
+import game.controllers.CardController;
 import game.controllers.RoomController;
 import game.controllers.UserController;
 import game.controllers.impl.AuthenticationFilter;
 import game.controllers.impl.RoomControllerImpl;
 import game.controllers.impl.UserControllerImpl;
+import game.repositories.dao.CardDao;
 import game.repositories.dao.RoomDao;
 import game.repositories.dao.UserDao;
+import game.repositories.dao.impl.CardDaoImpl;
 import game.repositories.dao.impl.RoomDaoImpl;
 import game.repositories.dao.impl.UserDaoImpl;
+import game.services.CardService;
 import game.services.RoomService;
 import game.services.UserService;
+import game.services.impl.CardServiceImpl;
 import game.services.impl.RoomServiceImpl;
 import game.services.impl.UserServiceImpl;
 
@@ -87,6 +92,10 @@ public class AppContextConfig {
                 bindAsContract(RoomDaoImpl.class).to(RoomDao.class);
                 bindAsContract(RoomServiceImpl.class).to(RoomService.class);
                 bindAsContract(RoomControllerImpl.class).to(RoomController.class);
+
+                bindAsContract(CardDaoImpl.class).to(CardDao.class);
+                bindAsContract(CardServiceImpl.class).to(CardService.class);
+                bindAsContract(CardController.class).to(CardController.class);
 
                 bindAsContract(UserDaoImpl.class).to(UserDao.class);
                 bindAsContract(UserServiceImpl.class).to(UserService.class);
