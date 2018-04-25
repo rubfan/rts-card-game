@@ -87,19 +87,19 @@ public class AppContextConfig {
             packages("game");
             register(AuthenticationFilter.class);
             register(new AbstractBinder() {
-                    @Override
-                    protected void configure () {
-                bindAsContract(RoomDaoImpl.class).to(RoomDao.class);
-                bindAsContract(RoomServiceImpl.class).to(RoomService.class);
-                bindAsContract(RoomControllerImpl.class).to(RoomController.class);
+                @Override
+                protected void configure () {
+                    bindAsContract(RoomDaoImpl.class).to(RoomDao.class);
+                    bindAsContract(RoomServiceImpl.class).to(RoomService.class);
+                    bindAsContract(RoomControllerImpl.class).to(RoomController.class);
 
-                bindAsContract(CardDaoImpl.class).to(CardDao.class);
-                bindAsContract(CardServiceImpl.class).to(CardService.class);
-                bindAsContract(CardController.class).to(CardController.class);
+                    bindAsContract(CardDaoImpl.class).to(CardDao.class);
+                    bindAsContract(CardServiceImpl.class).to(CardService.class);
+                    bindAsContract(CardController.class).to(CardController.class);
 
-                bindAsContract(UserDaoImpl.class).to(UserDao.class);
-                bindAsContract(UserServiceImpl.class).to(UserService.class);
-                bindAsContract(UserControllerImpl.class).to(UserController.class);
+                    bindAsContract(UserDaoImpl.class).to(UserDao.class);
+                    bindAsContract(UserServiceImpl.class).to(UserService.class);
+                    bindAsContract(UserControllerImpl.class).to(UserController.class);
                 }
             });
         }};

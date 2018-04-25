@@ -14,6 +14,13 @@ import java.util.Scanner;
  */
 public class DeployDbConfig extends QueryHelper {
 
+    public static final String DB_USER = "root";
+    public static final String DB_PASSWORD = "root";
+    public static final String DB_NAME = "card_battle_rts";
+    public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String DB_CONNECTION_URL = "jdbc:mysql://localhost/?user=" + DB_USER + "&password=" + DB_PASSWORD;
+    public static final String DB_DATABASE_URL = "jdbc:mysql://localhost/" + DB_NAME + "?user=" + DB_USER+ "&password=" + DB_PASSWORD;
+
     private static String DB_SCRIPTS_FOLDER = "db_scripts";
 
     protected void executeQuery(Statement statement, Connection connection) throws SQLException {
