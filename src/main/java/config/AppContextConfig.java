@@ -4,6 +4,7 @@ import game.controllers.CardController;
 import game.controllers.RoomController;
 import game.controllers.UserController;
 import game.controllers.impl.AuthenticationFilter;
+import game.controllers.impl.CardControllerImpl;
 import game.controllers.impl.RoomControllerImpl;
 import game.controllers.impl.UserControllerImpl;
 import game.repositories.dao.CardDao;
@@ -95,7 +96,7 @@ public class AppContextConfig {
 
                 bindAsContract(CardDaoImpl.class).to(CardDao.class);
                 bindAsContract(CardServiceImpl.class).to(CardService.class);
-                bindAsContract(CardController.class).to(CardController.class);
+                bindAsContract(CardControllerImpl.class).to(CardController.class);
 
                 bindAsContract(UserDaoImpl.class).to(UserDao.class);
                 bindAsContract(UserServiceImpl.class).to(UserService.class);
