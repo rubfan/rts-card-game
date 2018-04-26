@@ -1,5 +1,7 @@
 package game.repositories.dao.helpers;
 
+import config.DeployDbConfig;
+
 import java.sql.*;
 
 /**
@@ -7,18 +9,11 @@ import java.sql.*;
  */
 public abstract class QueryHelper<T> {
     private T result;
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
-    private static final String DB_NAME = "card_battle_rts";
-    private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost/?user=" + DB_USER + "&password=" + DB_PASSWORD;
-    private static final String DB_DATABASE_URL = "jdbc:mysql://localhost/" + DB_NAME + "?user=" + DB_USER+ "&password=" + DB_PASSWORD;
-
-    private String connectionUrl = DB_DATABASE_URL;
+    private String connectionUrl = DeployDbConfig.DB_DATABASE_URL;
 
     static {
         try {
-            Class.forName(DB_DRIVER);// This will load the MySQL driver, each DB has its own driver
+            Class.forName(DeployDbConfig.DB_DRIVER);// This will load the MySQL driver, each DB has its own driver
         } catch (ClassNotFoundException e) {
             System.err.println(e.getMessage());
         }
@@ -27,7 +22,7 @@ public abstract class QueryHelper<T> {
     protected abstract void executeQuery(Statement statement, Connection connection) throws SQLException;
 
     public void runWithoutDb() {
-        connectionUrl = DB_CONNECTION_URL;
+        connectionUrl = DeployDbConfig.DB_CONNECTION_URL;
         run();
     }
 

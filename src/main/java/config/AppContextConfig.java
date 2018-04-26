@@ -1,21 +1,25 @@
 package config;
 
+import game.controllers.BuildingController;
 import game.controllers.CardController;
 import game.controllers.RoomController;
 import game.controllers.UserController;
-import game.controllers.impl.AuthenticationFilter;
-import game.controllers.impl.CardControllerImpl;
-import game.controllers.impl.RoomControllerImpl;
-import game.controllers.impl.UserControllerImpl;
+
+import game.controllers.impl.*;
+
+import game.repositories.dao.BuildingDao;
 import game.repositories.dao.CardDao;
 import game.repositories.dao.RoomDao;
 import game.repositories.dao.UserDao;
+import game.repositories.dao.impl.BuildingDaoImpl;
 import game.repositories.dao.impl.CardDaoImpl;
 import game.repositories.dao.impl.RoomDaoImpl;
 import game.repositories.dao.impl.UserDaoImpl;
+import game.services.BuildingService;
 import game.services.CardService;
 import game.services.RoomService;
 import game.services.UserService;
+import game.services.impl.BuildingServiceImpl;
 import game.services.impl.CardServiceImpl;
 import game.services.impl.RoomServiceImpl;
 import game.services.impl.UserServiceImpl;
@@ -88,19 +92,23 @@ public class AppContextConfig {
             packages("game");
             register(AuthenticationFilter.class);
             register(new AbstractBinder() {
-                    @Override
-                    protected void configure () {
-                bindAsContract(RoomDaoImpl.class).to(RoomDao.class);
-                bindAsContract(RoomServiceImpl.class).to(RoomService.class);
-                bindAsContract(RoomControllerImpl.class).to(RoomController.class);
+                @Override
+                protected void configure () {
+                    bindAsContract(RoomDaoImpl.class).to(RoomDao.class);
+                    bindAsContract(RoomServiceImpl.class).to(RoomService.class);
+                    bindAsContract(RoomControllerImpl.class).to(RoomController.class);
 
-                bindAsContract(CardDaoImpl.class).to(CardDao.class);
-                bindAsContract(CardServiceImpl.class).to(CardService.class);
-                bindAsContract(CardControllerImpl.class).to(CardController.class);
+                    bindAsContract(CardDaoImpl.class).to(CardDao.class);
+                    bindAsContract(CardServiceImpl.class).to(CardService.class);
+                    bindAsContract(CardControllerImpl.class).to(CardController.class);
 
-                bindAsContract(UserDaoImpl.class).to(UserDao.class);
-                bindAsContract(UserServiceImpl.class).to(UserService.class);
-                bindAsContract(UserControllerImpl.class).to(UserController.class);
+                    bindAsContract(BuildingDaoImpl.class).to(BuildingDao.class);
+                    bindAsContract(BuildingServiceImpl.class).to(BuildingService.class);
+                    bindAsContract(BuildingControllerImpl.class).to(BuildingController.class);
+
+                    bindAsContract(UserDaoImpl.class).to(UserDao.class);
+                    bindAsContract(UserServiceImpl.class).to(UserService.class);
+                    bindAsContract(UserControllerImpl.class).to(UserController.class);
                 }
             });
         }};
