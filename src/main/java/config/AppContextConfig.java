@@ -7,22 +7,10 @@ import game.controllers.UserController;
 
 import game.controllers.impl.*;
 
-import game.repositories.dao.BuildingDao;
-import game.repositories.dao.CardDao;
-import game.repositories.dao.RoomDao;
-import game.repositories.dao.UserDao;
-import game.repositories.dao.impl.BuildingDaoImpl;
-import game.repositories.dao.impl.CardDaoImpl;
-import game.repositories.dao.impl.RoomDaoImpl;
-import game.repositories.dao.impl.UserDaoImpl;
-import game.services.BuildingService;
-import game.services.CardService;
-import game.services.RoomService;
-import game.services.UserService;
-import game.services.impl.BuildingServiceImpl;
-import game.services.impl.CardServiceImpl;
-import game.services.impl.RoomServiceImpl;
-import game.services.impl.UserServiceImpl;
+import game.repositories.dao.*;
+import game.repositories.dao.impl.*;
+import game.services.*;
+import game.services.impl.*;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
@@ -105,6 +93,10 @@ public class AppContextConfig {
                     bindAsContract(BuildingDaoImpl.class).to(BuildingDao.class);
                     bindAsContract(BuildingServiceImpl.class).to(BuildingService.class);
                     bindAsContract(BuildingControllerImpl.class).to(BuildingController.class);
+
+                    bindAsContract(ResourcesDaoImpl.class).to(ResourcesDao.class);
+                    bindAsContract(ResourcesServiceImpl.class).to(ResourcesService.class);
+                    bindAsContract(ResourcesControllerImpl.class).to(ResourcesControllerImpl.class);
 
                     bindAsContract(UserDaoImpl.class).to(UserDao.class);
                     bindAsContract(UserServiceImpl.class).to(UserService.class);
