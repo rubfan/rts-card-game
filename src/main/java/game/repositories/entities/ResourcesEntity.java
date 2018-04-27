@@ -1,16 +1,16 @@
-package game.controllers.dto;
+package game.repositories.entities;
 
-public class ResourсesDto {
+public class ResourcesEntity {
     private Integer id;
     private Integer number;
     private String name;
     private String description;
 
 
-    public ResourсesDto() {
+    public ResourcesEntity() {
     }
 
-    public ResourсesDto(Integer id, Integer number, String name, String description) {
+    public ResourcesEntity(Integer id, Integer number, String name, String description) {
         this.id = id;
         this.number = number;
         this.name = name;
@@ -51,7 +51,7 @@ public class ResourсesDto {
 
     @Override
     public String toString() {
-        return "ResourсesDto{" +
+        return "ResourcesEntity{" +
                 "id=" + id +
                 ", number=" + number +
                 ", name='" + name + '\'' +
