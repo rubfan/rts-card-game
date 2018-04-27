@@ -12,7 +12,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+<<<<<<< HEAD
 @Path("/resources")
+=======
+@Path("/resource")
+>>>>>>> f51361c04eafcd0a0918362d237cfad9254d7047
 public class ResourcesControllerImpl implements ResourcesController{
 
 
