@@ -5,8 +5,13 @@
         <script src="/javascript/login.js"></script>
     </head>
     <body class="radial-glow-background">
-        <div style="text-align: center; padding-top: 100px">
-            <h1 class="game-logo-font" style="margin-bottom: 30px">RTS Battle Game</h1>
+        <canvas width="250" height="100" id="fire"
+                style="width : 100%; height : 100%; position: absolute; margin-top: -15px; margin-bottom: 15px">
+        </canvas>
+        <img src="images/chicken_1.png" style="position: absolute; top:100px; right: 0">
+        <img src="images/chicken_2.png" style="position: absolute; top:80px; left: 0">
+        <div style="vertical-align:middle; text-align: center; position: absolute; width: 100%; height: 100%">
+            <h1 class="game-logo-font" style="margin-bottom: 30px">Cockfight RTS</h1>
             <input id="name" type="text" class="game-input" placeholder="Name"><br>
             <input id="password" type="password" class="game-input" placeholder="Password"><br>
             <button id="login" class="game-button" onclick="restRequest('POST',
@@ -32,7 +37,13 @@
             </button>
         </div>
 
+        <audio id="loginMusic">
+            <source src="music/login-music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
         <script>
+            playMusic();
             refreshButtonsStatus();
         </script>
     </body>
