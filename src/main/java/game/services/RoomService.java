@@ -9,4 +9,7 @@ import java.util.List;
  */
 public interface RoomService {
     List<RoomDto> getListOfRooms();
+    void joinRoom();
+    void leaveRoom();
+
 }

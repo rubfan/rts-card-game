@@ -34,6 +34,7 @@ public class RoomControllerImpl implements RoomController {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response enterRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);
+
         return Response.status(200).entity("User Entered").build();
     }
 

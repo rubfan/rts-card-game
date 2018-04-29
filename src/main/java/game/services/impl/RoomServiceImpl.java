@@ -29,4 +29,14 @@ public class RoomServiceImpl implements RoomService {
         });
         return rooms;
     }
+
+    @Override
+    public void joinRoom() {
+
+    }
+
+    @Override
+    public void leaveRoom() {
+
+    }
 }

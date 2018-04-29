@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface RoomDao {
     List<RoomEntity> getListOfRooms();
+    void joinRoom();
+    void leaveRoom();
 }
