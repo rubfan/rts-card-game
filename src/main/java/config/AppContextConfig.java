@@ -99,9 +99,9 @@ public class AppContextConfig {
                     bindAsContract(BuildingProductServiceImpl.class).to(BuildingProductService.class);
                     bindAsContract(BuildingProductControllerImpl.class).to(BuildingProductController.class);
 
-                    bindAsContract(ResourcesDaoImpl.class).to(ResourcesDao.class);
-                    bindAsContract(ResourcesServiceImpl.class).to(ResourcesService.class);
-                    bindAsContract(ResourcesControllerImpl.class).to(ResourcesControllerImpl.class);
+                    bindAsContract(ResourceDaoImpl.class).to(ResourceDao.class);
+                    bindAsContract(ResourceServiceImpl.class).to(ResourceService.class);
+                    bindAsContract(ResourceControllerImpl.class).to(ResourceControllerImpl.class);
 
                     bindAsContract(UserDaoImpl.class).to(UserDao.class);
                     bindAsContract(UserServiceImpl.class).to(UserService.class);
