@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AccountBuildingController {
 
-    List<AccountBuildingDto> getAccountBuildingsList(int accountId);
+    List<AccountBuildingDto> getAccountBuildingsList(Integer accountId);
 }
