@@ -1,9 +1,6 @@
 package config;
 
-import game.controllers.BuildingController;
-import game.controllers.CardController;
-import game.controllers.RoomController;
-import game.controllers.UserController;
+import game.controllers.*;
 
 import game.controllers.impl.*;
 
@@ -93,6 +90,14 @@ public class AppContextConfig {
                     bindAsContract(BuildingDaoImpl.class).to(BuildingDao.class);
                     bindAsContract(BuildingServiceImpl.class).to(BuildingService.class);
                     bindAsContract(BuildingControllerImpl.class).to(BuildingController.class);
+
+                    bindAsContract(AccountBuildingDaoImpl.class).to(AccountBuildingDao.class);
+                    bindAsContract(AccountBuildingServiceImpl.class).to(AccountBuildingService.class);
+                    bindAsContract(AccountBuildingControllerImpl.class).to(AccountBuildingController.class);
+
+                    bindAsContract(BuildingProductDaoImpl.class).to(BuildingProductDao.class);
+                    bindAsContract(BuildingProductServiceImpl.class).to(BuildingProductService.class);
+                    bindAsContract(BuildingProductControllerImpl.class).to(BuildingProductController.class);
 
                     bindAsContract(ResourcesDaoImpl.class).to(ResourcesDao.class);
                     bindAsContract(ResourcesServiceImpl.class).to(ResourcesService.class);
