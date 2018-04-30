@@ -58,9 +58,9 @@ CREATE TABLE `Account_Achievement` (
 CREATE TABLE `Message` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`text` varchar(128) NOT NULL,
-	`from_account_id` INT NOT NULL,
-	`to_account_id` INT NOT NULL,
-	`time` DATETIME NOT NULL,
+	`from_account_id` INT,
+	`to_account_id` INT,
+	`time` DATETIME,
 	PRIMARY KEY (`id`)
 );
 
