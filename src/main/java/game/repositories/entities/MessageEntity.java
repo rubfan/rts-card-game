@@ -8,9 +8,7 @@ public class MessageEntity {
     private String text;
     private int from_account_id;
     private int to_account_id;
-    private Date time = new Date();
-
-
+    private Date time;
 
     public MessageEntity() { }
 

@@ -7,7 +7,7 @@ public class MessageDto {
     private String text;
     private int from_account_id;
     private int to_account_id;
-    private Date time = new Date();
+    private Date time;
 
     public MessageDto() { }
 
