@@ -24,6 +24,10 @@ const IMG_URL = {
     "19": "images/wood_resource.png"
 };
 
+const KING_WON = "images/power_chicken_won.png";
+const KING_LOST = "images/power_chicken_lost.png";
+const KING_PLAING = "images/power_chicken_plaing.png";
+
 function createCardList() {
     var content = "";
     for (var x = 0; x < 50; x++) {
@@ -79,3 +83,29 @@ function createChatMessageList(dataObject) {
     document.getElementById("chat_items").innerHTML = "<table class='chat-table'>" + content + "</table>";
 }
 
+function createKings(myPercent , enemyPercent) {
+    var myImage = KING_PLAING;
+    var enemyImage = myImage;
+    if (myPercent >= 100 && enemyPercent < 100) {
+        myImage = KING_WON;
+        enemyImage = KING_LOST;
+    } else if (myPercent < 100 && enemyPercent >= 100) {
+        myImage = KING_LOST;
+        enemyImage = KING_WON;
+    } else if (myPercent > 0 && enemyPercent <= 0) {
+        myImage = KING_WON;
+        enemyImage = KING_LOST;
+    } else if (myPercent <= 0 && enemyPercent > 0) {
+        myImage = KING_LOST;
+        enemyImage = KING_WON;
+    }
+
+    document.getElementById("left_king").innerHTML =
+        '<img src="'+ myImage +'" width="140px" height="140px"'
+        + 'style="-webkit-transform: scaleX(-1); transform: scaleX(-1);">'
+        + '<div class="pedestal-left" style="height: '+ (20 + myPercent * 3) +'px"></div>';
+
+    document.getElementById("right_king").innerHTML =
+        '<img src="' + enemyImage + '" width="140px" height="140px">'
+        + '<div class="pedestal-right" style="height: '+ (20 + enemyPercent * 3) +'px"></div>';
+}
