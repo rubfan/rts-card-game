@@ -1,4 +1,25 @@
 INSERT INTO `Building`
     (`name`,`description`)
 VALUES
-    ('Chicken_House','Getting chickens');
+    ('Granary','ambar ---> zerno'),
+    ('Chicken_House','kuriatnik ---> eggs'),
+    ('Incubator','incubator ---> tsipliata'),
+    ('Cleaning_Center','cleaning center ---> pomet'),
+    ('Chicken_Yard','chicken yard ---> chickens'),
+    ('Cock_House','cock house ---> cocks'),
+    ('Cock_Barrack','cock barracks ---> fighting cocks'),
+    ('Quarry','kamenolomnia ---> stone'),
+    ('Hammer-Stonecutter','moloto-kamenotes ---> cocks with hammers'),
+    ('Throwing_School','metanie ---> cocks with throwers (rogatki)'),
+    ('Blast_furnace','domennaya pech ---> steel'),
+    ('Smithy','kuznitsa ---> cocks with swords (in armor)'),
+    ('Axe_school','axe school ---> cocks with axes (in armor)'),
+    ('Wood_logger','lesorubka ---> wood'),
+    ('Carpentry','plotnitskaya ---> archer cocks'),
+    ('Joinery','stoliarka ---> cocks with pikes'),
+    ('Alchemical_Lab','Alchemical_Lab ---> gunpowder'),
+    ('Armory','armory weapon ---> cocks with guns'),
+    ('Ballistic_Base','ballistic base ---> cocks with bazooka'),
+    ('Sanctuary','altar ---> mana'),
+    ('Magic_School','school of magic ---> cocks-wizards'),
+    ('Ziggurat','zikkurat ---> seer cocks (providtsy)');

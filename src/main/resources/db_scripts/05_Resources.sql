@@ -1,5 +1,25 @@
 INSERT INTO `Resource`
     (`name`,`description`)
 VALUES
-    ('Влад','Влад типок');
-
+    ('Zerno','zerno'),
+    ('Eggs','eggs'),
+    ('Tsipliata','tsipliata'),
+    ('Pomet',' pomet'),
+    ('Chickens','chickens'),
+    ('Cocks','cocks'),
+    ('Fighting_Cocks','fighting cocks'),
+    ('Stone',' stone'),
+    ('Hammer_Cocks',' cocks with hammers'),
+    ('Throwing_Cocks',' cocks with throwers (rogatki)'),
+    ('Steel','steel'),
+    ('Sworded_Cocks',' cocks with swords (in armor)'),
+    ('Axed_Cocks',' cocks with axes (in armor)'),
+    ('Wood',' wood'),
+    ('Archers',' archer cocks'),
+    ('Pikes','cocks with pikes'),
+    ('Gunpowder','gunpowder'),
+    ('Guns',' cocks with guns'),
+    ('Bazookas',' cocks with bazooka'),
+    ('Mana',' mana'),
+    ('Wizards',' cocks-wizards'),
+    ('Seers',' seer cocks (providtsy)');
