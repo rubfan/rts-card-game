@@ -3,6 +3,7 @@ package game.controllers.impl;
 import game.controllers.RoomController;
 import game.controllers.dto.RoomDto;
 import game.services.RoomService;
+import game.services.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -20,6 +21,8 @@ public class RoomControllerImpl implements RoomController {
 
     @Inject
     public RoomService roomService;
+    @Inject
+    public UserService userService;
 
     @GET
     @Path("list")
@@ -34,6 +37,8 @@ public class RoomControllerImpl implements RoomController {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response enterRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);
+        Integer userId = userService.getUserIdByToken(token);
+        roomService.joinRoom(userId, Integer.parseInt(roomId));
         return Response.status(200).entity("User Entered").build();
     }
 
@@ -42,6 +47,7 @@ public class RoomControllerImpl implements RoomController {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response exitRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);
+        roomService.leaveRoom(Integer.parseInt(roomId),userService.getUserIdByToken(token));
         return Response.status(200).entity("User Left").build();
     }
 }
