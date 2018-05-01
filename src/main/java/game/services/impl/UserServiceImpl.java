@@ -41,8 +41,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer getUserIdByToken(String token) {
-        return userDao.getUserIdByToken(token);
+    public UserDto getUserByToken(String token) {
+        UserEntity userEntity = userDao.getUserByToken(token);
+        return new UserDto(
+                userEntity.getId(),
+                userEntity.getName(),
+                userEntity.getPassword(),
+                userEntity.getToken()
+        );
     }
 
 

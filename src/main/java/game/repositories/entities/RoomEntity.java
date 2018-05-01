@@ -9,35 +9,35 @@ public class RoomEntity {
     private Integer id;
     private String name;
     private String description;
-    private Integer account_1_id;
-    private Integer account_2_id;
+    private AccountEntity account1;
+    private AccountEntity account2;
     private Date start_game_time;
 
-    public RoomEntity(Integer id, String name, String description, Integer account_1_id, Integer account_2_id,Date start_game_time) {
+    public RoomEntity(Integer id, String name, String description, AccountEntity account1, AccountEntity account2,Date start_game_time) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.account_1_id = account_1_id;
-        this.account_2_id = account_2_id;
+        this.account1 = account1;
+        this.account2 = account2;
         this.start_game_time=start_game_time;
     }
 
     public RoomEntity() {}
 
-    public Integer getAccount_1_id() {
-        return account_1_id;
+    public AccountEntity getAccount1() {
+        return account1;
     }
 
-    public void setAccount_1_id(Integer account_1_id) {
-        this.account_1_id = account_1_id;
+    public void setAccount1(AccountEntity account1) {
+        this.account1 = account1;
     }
 
-    public Integer getAccount_2_id() {
-        return account_2_id;
+    public AccountEntity getAccount2() {
+        return account2;
     }
 
-    public void setAccount_2_id(Integer account_2_id) {
-        this.account_2_id = account_2_id;
+    public void setAccount2(AccountEntity account2) {
+        this.account2 = account2;
     }
 
     public Integer getId() {
@@ -78,8 +78,8 @@ public class RoomEntity {
         return "id:"+getId()+
                " name:"+getName()+
                " description:"+getDescription()+
-               " account_1_id:"+getAccount_1_id()+
-               " account_2_id:"+getAccount_2_id()+
+               " account1:"+getAccount1()+
+               " account2:"+getAccount2()+
                 "start_game_time:"+getStart_game_time();
     }
 }

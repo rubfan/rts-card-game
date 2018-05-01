@@ -55,15 +55,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Integer getUserIdByToken(String token) {
-        return new QueryHelper<Integer>() {
+    public UserEntity getUserByToken(String token) {
+        return new QueryHelper<UserEntity>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "SELECT id FROM User WHERE token = ?;");
+                        "SELECT id, name, token FROM User WHERE token = ?;");
                 pstmt.setString(1, token);
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    setResult(rs.getInt("id"));
+                    setResult(new UserEntity(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            null,
+                            rs.getString("token")
+                    ));
                 }
             }
         }.run();

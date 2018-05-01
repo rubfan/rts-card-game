@@ -9,6 +9,15 @@ public class UserEntity {
     private String password;
     private String token;
 
+    public UserEntity(Integer id, String name, String password, String token) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.token = token;
+    }
+
+    public UserEntity() {}
+
     public Integer getId() {
         return id;
     }

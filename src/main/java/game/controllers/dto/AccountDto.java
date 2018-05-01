@@ -5,20 +5,18 @@ import java.util.Date;
 public class AccountDto {
 
     private Integer id;
-    private Integer user_id;
-    private Integer room_id;
-
+    private UserDto user;
+    private RoomDto room;
 
     private Date start_game_time;
 
-    public AccountDto() {
-    }
+    public AccountDto() {}
 
-    public AccountDto(Integer id, Integer user_id, Integer room_id, Date start_game_time) {
+    public AccountDto(Integer id, UserDto user, RoomDto room, Date start_game_time) {
         this.id = id;
-        this.user_id = user_id;
-        this.room_id = room_id;
-        this.start_game_time=start_game_time;
+        this.user = user;
+        this.room = room;
+        this.start_game_time = start_game_time;
     }
 
     public Integer getId() {
@@ -29,20 +27,20 @@ public class AccountDto {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public UserDto getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
-    public Integer getRoom_id() {
-        return room_id;
+    public RoomDto getRoom() {
+        return room;
     }
 
-    public void setRoom_id(Integer room_id) {
-        this.room_id = room_id;
+    public void setRoom(RoomDto room) {
+        this.room = room;
     }
 
     public Date getStart_game_time() {
@@ -53,14 +51,12 @@ public class AccountDto {
         this.start_game_time = start_game_time;
     }
 
-
-
     @Override
     public String toString() {
         return "AccountDto{" +
                 "id=" + id +
-                ", user_id=" + user_id +
-                ", room_id=" + room_id +
+                ", user=" + user +
+                ", room=" + room +
                 ",start_game_time+"+getStart_game_time() +
                 '}';
     }

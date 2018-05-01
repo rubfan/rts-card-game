@@ -8,11 +8,11 @@ public class UserDto {
     private Integer id;
     private String name;
     private String password;
-    private Integer token;
+    private String token;
 
     public UserDto() {}
 
-    public UserDto(Integer id, String name, String password, Integer token) {
+    public UserDto(Integer id, String name, String password, String token) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -44,11 +44,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public Integer getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(Integer token) {
+    public void setToken(String token) {
         this.token = token;
     }
 

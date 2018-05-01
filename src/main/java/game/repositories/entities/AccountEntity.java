@@ -3,16 +3,15 @@ package game.repositories.entities;
 public class AccountEntity {
 
     private Integer id;
-    private Integer user_id;
-    private Integer room_id;
+    private UserEntity user;
+    private RoomEntity room;
 
-    public AccountEntity() {
-    }
+    public AccountEntity() {}
 
-    public AccountEntity(Integer id, Integer user_id, Integer room_id) {
+    public AccountEntity(Integer id, UserEntity user, RoomEntity room) {
         this.id = id;
-        this.user_id = user_id;
-        this.room_id = room_id;
+        this.user = user;
+        this.room = room;
     }
 
     public Integer getId() {
@@ -23,29 +22,28 @@ public class AccountEntity {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public Integer getRoom_id() {
-        return room_id;
+    public RoomEntity getRoom() {
+        return room;
     }
 
-    public void setRoom_id(Integer room_id) {
-        this.room_id = room_id;
+    public void setRoom(RoomEntity room) {
+        this.room = room;
     }
-
 
     @Override
     public String toString() {
         return "AccountDto{" +
                 "id=" + id +
-                ", user_id=" + user_id +
-                ", room_id=" + room_id +
+                ", user=" + user +
+                ", room=" + room +
                 '}';
     }
 }

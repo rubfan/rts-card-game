@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface RoomController {
     List<RoomDto> getRoomList();
-    Response enterRoom(String roomId, String token);
+    Response joinRoom(String roomId, String token);
     Response exitRoom(String roomId, String token);
 }

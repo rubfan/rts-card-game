@@ -9,5 +9,5 @@ public interface UserService {
     String loginUser(UserDto user);
     void logoutUser(String token);
     String createNewUser(UserDto user);
-    Integer getUserIdByToken(String token);
+    UserDto getUserByToken(String token);
 }

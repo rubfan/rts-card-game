@@ -1,8 +1,11 @@
 package game.services.impl;
 
+import game.controllers.dto.AccountDto;
 import game.controllers.dto.RoomDto;
+import game.controllers.dto.UserDto;
 import game.repositories.dao.AccountDao;
 import game.repositories.dao.RoomDao;
+import game.repositories.entities.AccountEntity;
 import game.services.RoomService;
 
 import javax.inject.Inject;
@@ -24,10 +27,16 @@ public class RoomServiceImpl implements RoomService {
         roomDao.getListOfRooms().forEach(roomEntity -> {
             rooms.add(new RoomDto(){{
                 setId(roomEntity.getId());
-                setAccount_1_id(roomEntity.getAccount_1_id());
-                setAccount_2_id(roomEntity.getAccount_2_id());
                 setName(roomEntity.getName());
                 setDescription(roomEntity.getDescription());
+                if(roomEntity.getAccount1() != null) {
+                    setAccount1(prepareAccount(roomEntity.getAccount1(),
+                            roomEntity.getAccount1().getId()));
+                }
+                if(roomEntity.getAccount2() != null) {
+                    setAccount2(prepareAccount(roomEntity.getAccount2(),
+                            roomEntity.getAccount2().getId()));
+                }
                 if(!roomDao.checkGameTime(roomEntity.getId())){
                     roomDao.leaveRoom(roomEntity.getId());
                 }
@@ -36,16 +45,28 @@ public class RoomServiceImpl implements RoomService {
         return rooms;
     }
 
+    private AccountDto prepareAccount(AccountEntity accountEntity, Integer id) {
+        AccountDto accountDto = new AccountDto();
+        accountDto.setId(id);
+        if (accountEntity.getUser() != null) {
+            UserDto userDto = new UserDto();
+            userDto.setId(accountEntity.getUser().getId());
+            userDto.setName(accountEntity.getUser().getName());
+            accountDto.setUser(userDto);
+        }
+        return accountDto;
+    }
+
     @Override
-    public void joinRoom(Integer userId, Integer roomId) {
-        accountDao.setRoomForAccount(userId,roomId);
-        roomDao.joinRoom(roomId, accountDao.getAccountIdByUserId(userId), roomDao.getFreeAccountNumberForQuery(roomId));
+    public void joinRoom(UserDto user, Integer roomId) {
+        accountDao.setRoomForAccount(user.getId(),roomId);
+        roomDao.joinRoom(roomId, accountDao.getAccountIdByUserId(user.getId()), roomDao.getFreeAccountNumberForQuery(roomId));
         roomDao.setStartTime(roomId);
     }
 
     @Override
-    public void leaveRoom(Integer roomId, Integer userId) {
+    public void leaveRoom(Integer roomId, UserDto user) {
         roomDao.leaveRoom(roomId);
-        accountDao.deleteRoomFromAccount(userId);
+        accountDao.deleteRoomFromAccount(user.getId());
     }
 }
