@@ -3,17 +3,27 @@ package game.repositories.entities;
 import java.util.List;
 
 public class UpgradeProductEntity {
+    private Integer id;
     private UpgradeEntity upgradeEntity;
     private List<ResourceEntity> resourceEntityList;
     private List<BuildingEntity> buildingEntities;
 
-    public UpgradeProductEntity(UpgradeEntity upgradeEntity, List<ResourceEntity> resourceEntityList, List<BuildingEntity> buildingEntities) {
+    public UpgradeProductEntity(Integer id, UpgradeEntity upgradeEntity, List<ResourceEntity> resourceEntityList, List<BuildingEntity> buildingEntities) {
+        this.id = id;
         this.upgradeEntity = upgradeEntity;
         this.resourceEntityList = resourceEntityList;
         this.buildingEntities = buildingEntities;
     }
 
     UpgradeProductEntity(){}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public UpgradeEntity getUpgradeEntity() {
         return upgradeEntity;
@@ -42,7 +52,8 @@ public class UpgradeProductEntity {
     @Override
     public String toString() {
         return "UpgradeProductEntity{" +
-                "upgradeEntity=" + upgradeEntity +
+                "id=" + id +
+                ", upgradeEntity=" + upgradeEntity +
                 ", resourceEntityList=" + resourceEntityList +
                 ", buildingEntities=" + buildingEntities +
                 '}';
