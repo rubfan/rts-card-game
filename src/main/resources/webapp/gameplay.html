@@ -1,22 +1,21 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <script src="/javascript/main.js"></script>
-        <script src="/javascript/gameplay.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/gameplay.css">
+        <script src="javascript/main.js"></script>
+        <script src="javascript/gameplay.js"></script>
     </head>
-    <body>
+    <body class="gameplay-background">
         <div class="game-site-header" style="width: 100%">
             <ul class="ul-info">
-                <li><a href="/rooms.html">Rooms</a></li>
-                <li><a class="active" href="/gameplay.html">Gameplay</a></li>
-                <li><a href="/achievements.html">Achievements</a></li>
-                <li><a href="/login.html">Login</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a class="active" href="gameplay.html">Gameplay</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </div>
-        <div style="padding: 80px; padding-left: 200px; padding-right: 200px">
-            <br/>
-            <div id="responseText"></div>
 
+        <div class="game-screen">
             <div id="cards_container" class="cards-container">
                 <div id="cards" class="cards"></div>
             </div>
@@ -28,11 +27,52 @@
             <div id="container_right" class="container-right">
                 <div id="enemy_items" class="enemy-items"></div>
             </div>
+
+            <div id="left_resource_container" class="left-resource-container"></div>
+
+            <div id="right_resource_container" class="right-resource-container"></div>
+
+            <div class="chat-component">
+                <div id="chat_container" class="chat-container">
+                    <div id="chat_items" class="chat-items"></div>
+                </div>
+                <div style="width: 100%; display: table">
+                    <input style="width: 64%" id="message" type="text" class="game-input"
+                           placeholder="input message to your opponent">
+                    <button style="width: 20%" id="send_message" class="game-button" onclick="restRequest('POST',
+                        REST_API_URL + '/message/send', createChatMessageList, {
+                            account_id: 1000, //TODO: we need to put right code for getting test account here
+                            message: document.getElementById('message').value
+                        })">Send
+                    </button>
+                </div>
+            </div>
+
+            <div id="left_king" class="left-king"></div>
+
+            <div id="right_king" class="right-king"></div>
         </div>
+
         <script>
             createCardList();
-            createResourceBuildingsUpdatesList();
-            createEnemyResourceBuildingsUpdatesList();
+            createBuildingsUpdatesList();
+            createEnemyBuildingsUpdatesList();
+            createResourceList();
+            createEnemyResourceList();
+            //restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
+            createChatMessageList(JSON.stringify([
+                {name: "Vasea", message: "hello!111 messageTest messageTest messageTest"},
+                {name: "Dima", message: "hello!222"},
+                {name: "Vasea", message: "hello!333"},
+                {name: "Dima", message: "hello!444"},
+                {name: "Vasea", message: "hello!555 messageTest messageTest messageTest, messageTest"},
+                {name: "Dima", message: "hello!666"},
+                {name: "Vasea", message: "hello!777"},
+                {name: "Dima", message: "hello!888"},
+                {name: "Dima", message: "hello!999"},
+                {name: "Dima", message: "hello!1010101"}
+            ]));
+            createKings(100, 55);
         </script>
     </body>
 <html>

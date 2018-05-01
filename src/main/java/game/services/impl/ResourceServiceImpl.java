@@ -1,22 +1,22 @@
 package game.services.impl;
 
-import game.controllers.dto.ResourсesDto;
-import game.repositories.dao.ResourcesDao;
-import game.services.ResourcesService;
+import game.controllers.dto.ResourсeDto;
+import game.repositories.dao.ResourceDao;
+import game.services.ResourceService;
 
 import javax.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ResourcesServiceImpl implements ResourcesService {
+public class ResourceServiceImpl implements ResourceService {
 
     @Inject
-    public ResourcesDao resourcesDao;
+    public ResourceDao resourcesDao;
 
-    public List<ResourсesDto> getListOfResources(){
-        final List<ResourсesDto> resources = new LinkedList<>();
+    public List<ResourсeDto> getListOfResources(){
+        final List<ResourсeDto> resources = new LinkedList<>();
         resourcesDao.getListOfResources().forEach(resourcesEntity -> {
-            resources.add(new ResourсesDto(){{
+            resources.add(new ResourсeDto(){{
                 setId(resourcesEntity.getId());
 //                setNumber( resourcesEntity.getNumber());
                 setName(resourcesEntity.getName());

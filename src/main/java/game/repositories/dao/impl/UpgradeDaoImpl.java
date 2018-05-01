@@ -1,8 +1,9 @@
 package game.repositories.dao.impl;
 
-import game.repositories.dao.ResourcesDao;
+import game.repositories.dao.UpgradeDao;
 import game.repositories.dao.helpers.QueryHelper;
-import game.repositories.entities.ResourcesEntity;
+
+import game.repositories.entities.UpgradeEntity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,28 +12,28 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ResourcesDaoImpl implements ResourcesDao {
+public class UpgradeDaoImpl implements UpgradeDao {
 
-    public List<ResourcesEntity> getListOfResources() {
-        final List<ResourcesEntity> resources = new LinkedList<ResourcesEntity>();
 
-        new QueryHelper() {
+    public List<UpgradeEntity> getListOfUpgrades() {
+        final List<UpgradeEntity> upgrades = new LinkedList<>();
+
+        new QueryHelper(){
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from resource");
+                ResultSet rs = statement.executeQuery("select * from upgrade");
                 while(rs.next()) {
-                    ResourcesEntity resource = new ResourcesEntity(
+                    UpgradeEntity upgrade = new UpgradeEntity(
                             rs.getInt("id"),
-//                            rs.getInt("number"),
                             rs.getString("name"),
                             rs.getString("description")
                     );
-                    resources.add(resource);
+                    upgrades.add(upgrade);
                 }
             }
         }.run();
 
-        return resources;
+        return upgrades;
     }
 
 }

@@ -1,21 +1,17 @@
 package game.repositories.entities;
 
-public class ResourcesEntity {
+public class UpgradeEntity {
     private Integer id;
-//    private Integer number;
     private String name;
     private String description;
 
-
-    public ResourcesEntity() {
-    }
-
-    public ResourcesEntity(Integer id,/* Integer number,*/ String name, String description) {
+    public UpgradeEntity(Integer id, String name, String description) {
         this.id = id;
-//        this.number = number;
         this.name = name;
         this.description = description;
     }
+
+    public UpgradeEntity(){}
 
     public Integer getId() {
         return id;
@@ -24,14 +20,6 @@ public class ResourcesEntity {
     public void setId(Integer id) {
         this.id = id;
     }
-
-//    public Integer getNumber() {
-//        return number;
-//    }
-//
-//    public void setNumber(Integer number) {
-//        this.number = number;
-//    }
 
     public String getName() {
         return name;
@@ -51,9 +39,8 @@ public class ResourcesEntity {
 
     @Override
     public String toString() {
-        return "ResourcesEntity{" +
+        return "UpgradeEntity{" +
                 "id=" + id +
-//                ", number=" + number +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
