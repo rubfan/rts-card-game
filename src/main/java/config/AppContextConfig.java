@@ -91,6 +91,10 @@ public class AppContextConfig {
                     bindAsContract(BuildingServiceImpl.class).to(BuildingService.class);
                     bindAsContract(BuildingControllerImpl.class).to(BuildingController.class);
 
+                    bindAsContract(UpgradeDaoImpl.class).to(UpgradeDao.class);
+                    bindAsContract(UpgradeServiceImpl.class).to(UpgradeService.class);
+                    bindAsContract(UpgradeControllerImpl.class).to(UpgradeController.class);
+
                     bindAsContract(AccountBuildingDaoImpl.class).to(AccountBuildingDao.class);
                     bindAsContract(AccountBuildingServiceImpl.class).to(AccountBuildingService.class);
                     bindAsContract(AccountBuildingControllerImpl.class).to(AccountBuildingController.class);
