@@ -19,7 +19,7 @@ public class CardDaoImpl implements CardDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from card");
+                ResultSet rs = statement.executeQuery("select * from Card");
                 while(rs.next()) {
                     CardEntity card = new CardEntity(
                             rs.getInt("id"),
