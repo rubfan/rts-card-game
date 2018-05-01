@@ -1,6 +1,7 @@
 package game.repositories.entities;
 
 public class ResourceQuantityEntity extends ResourceEntity {
+
     private Float quantity;
 
     public ResourceQuantityEntity(){}

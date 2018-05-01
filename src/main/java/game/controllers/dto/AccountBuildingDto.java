@@ -2,40 +2,40 @@ package game.controllers.dto;
 
 public class AccountBuildingDto {
 
-    private int accountId;
-    private int buildingId;
-    private float number;
+    private Integer accountId;
+    private Integer buildingId;
+    private Float number;
 
     public AccountBuildingDto() {
     }
 
-    public AccountBuildingDto(int accountId, int buildingId, float number) {
+    public AccountBuildingDto(Integer accountId, Integer buildingId, Float number) {
         this.accountId = accountId;
         this.buildingId = buildingId;
         this.number = number;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
-    public int getBuildingId() {
+    public Integer getBuildingId() {
         return buildingId;
     }
 
-    public void setBuildingId(int buildingId) {
+    public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
     }
 
-    public float getNumber() {
+    public Float getNumber() {
         return number;
     }
 
-    public void setNumber(float number) {
+    public void setNumber(Float number) {
         this.number = number;
     }
 
