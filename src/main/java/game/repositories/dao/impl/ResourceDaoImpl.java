@@ -19,7 +19,7 @@ public class ResourceDaoImpl implements ResourceDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from resource");
+                ResultSet rs = statement.executeQuery("select * from Resource");
                 while(rs.next()) {
                     ResourceEntity resource = new ResourceEntity(
                             rs.getInt("id"),

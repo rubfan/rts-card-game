@@ -19,7 +19,7 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from building_product");
+                ResultSet rs = statement.executeQuery("select * from Building_Product");
                 while(rs.next()) {
                     BuildingProductEntity buildingProduct = new BuildingProductEntity(
                             rs.getInt("building_id"),

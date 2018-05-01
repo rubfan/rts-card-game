@@ -108,7 +108,7 @@ public class RoomDaoImpl implements RoomDao {
         return 60 > new QueryHelper<Integer>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "SELECT TIMESTAMPDIFF(MINUTE,(Select start_game_time from room where id=?),now()) time;");
+                        "SELECT TIMESTAMPDIFF(MINUTE,(Select start_game_time from Room where id=?),now()) time;");
                 pstmt.setInt(1, roomId);
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
@@ -123,7 +123,7 @@ public class RoomDaoImpl implements RoomDao {
         final Integer[] playersInRoom = new Integer[1];
                 new QueryHelper() {
                     protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                        ResultSet rs = statement.executeQuery("SELECT (COUNT(a.account_1_id)+COUNT(a.account_2_id)) qty from room a where id="+ roomId + " and (account_1_id IS NOT NULL or account_2_id IS NOT NULL);");
+                        ResultSet rs = statement.executeQuery("SELECT (COUNT(a.account_1_id)+COUNT(a.account_2_id)) qty from Room a where id="+ roomId + " and (account_1_id IS NOT NULL or account_2_id IS NOT NULL);");
                         while(rs.next()) {
                             playersInRoom[0] = rs.getInt("qty");
                         }

@@ -20,7 +20,7 @@ public class BuildingDaoImpl implements BuildingDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from building");
+                ResultSet rs = statement.executeQuery("select * from Building");
                 while(rs.next()) {
                     BuildingEntity building = new BuildingEntity(
                             rs.getInt("id"),
