@@ -19,7 +19,7 @@ public class AccountBuildingDaoImpl implements AccountBuildingDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("elect * from Account_Building WHERE account_id = " + accountId);
+                ResultSet rs = statement.executeQuery("select * from Account_Building WHERE account_id = " + accountId);
                 while(rs.next()) {
                     AccountBuildingEntity accountBuilding = new AccountBuildingEntity(
                             rs.getInt("account_id"),
