@@ -1,4 +1,4 @@
-INSERT INTO `Building_product`
+INSERT INTO `Building_Product`
     (`building_id`,`resource_id`, `number_per_sec`)
 VALUES
     ('1','1', '150'),
