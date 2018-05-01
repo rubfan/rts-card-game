@@ -2,6 +2,7 @@ package game.services.impl;
 
 import game.controllers.dto.UserDto;
 import game.repositories.dao.UserDao;
+import game.repositories.dao.impl.UserDaoImpl;
 import game.repositories.entities.UserEntity;
 import game.services.AccountService;
 import game.services.UserService;
@@ -16,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
     @Inject
     public UserDao userDao;
-    public AccountService accountService;
 
     @Override
     public String loginUser(UserDto user) {
@@ -37,7 +37,13 @@ public class UserServiceImpl implements UserService {
         newUser.setName(user.getName());
         newUser.setPassword(user.getPassword());
         newUser.setToken(new RandomString().nextString());
-        accountService.createAccount(user);
         return userDao.createNewUser(newUser);
     }
+
+    @Override
+    public Integer getUserIdByToken(String token) {
+        return userDao.getUserIdByToken(token);
+    }
+
+
 }

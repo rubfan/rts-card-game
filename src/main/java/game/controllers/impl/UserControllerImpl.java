@@ -2,6 +2,7 @@ package game.controllers.impl;
 
 import game.controllers.UserController;
 import game.controllers.dto.UserDto;
+import game.services.AccountService;
 import game.services.UserService;
 
 import javax.inject.Inject;
@@ -21,6 +22,8 @@ public class UserControllerImpl implements UserController {
 
     @Inject
     public UserService userService;
+    @Inject
+    public AccountService accountService;
 
     @POST
     @Path("login")
@@ -39,7 +42,7 @@ public class UserControllerImpl implements UserController {
     public Response logoutUser(@CookieParam("token") Cookie cookie) {
         userService.logoutUser(cookie.getValue());
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, cookie.getValue());
-        if (cookie != null){
+        if (cookie != null) {
             Cookie preCookie = new Cookie("token", "", "/", "", 1);
             NewCookie newCookie = new NewCookie(preCookie, "Deleted cookie and logged out", -1, false);
             return Response.ok().cookie(newCookie).build();
@@ -55,6 +58,7 @@ public class UserControllerImpl implements UserController {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, user.toString());
         Cookie preCookie = new Cookie("token", token, "/", "", 1);
         NewCookie newCookie = new NewCookie(preCookie, "Created new user and logged in", -1, false);
+        accountService.createAccount(userService.getUserIdByToken(token));
         return Response.status(201).entity("User").cookie(newCookie).build();
     }
 }
