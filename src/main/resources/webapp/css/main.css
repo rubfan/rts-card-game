@@ -10,12 +10,17 @@ html {
 body {
     border-width: 0;
     margin: 0;
-    background-color: #f9f9ff;
+    background-color: #1c202a;
 }
 
 .game-site-header {
     position: fixed;
     z-index: 999;
+    background: #313e4b;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-bottom-color: #232b34;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
 }
 /*==================INFO TABLE=============*/
 .info-table {
@@ -48,7 +53,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background: #313e4b;
 }
 
 .ul-info li {
@@ -64,11 +69,11 @@ body {
 }
 
 .ul-info li a:hover:not(.active) {
-    background-color: #111;
+    background: -webkit-radial-gradient(center,ellipse cover, #af6c00 40%, rgba(76, 123, 182, 0.0) 60%);
 }
 
 .ul-info .active {
-    background-color: #4b7caf;
+    background: -webkit-radial-gradient(center,ellipse cover, #4b7caf 40%, rgba(76, 123, 182, 0.0) 60%);
 }
 
 
