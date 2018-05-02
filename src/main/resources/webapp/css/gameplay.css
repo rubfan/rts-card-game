@@ -5,7 +5,8 @@
 }
 
 .gameplay-background {
-    background-color: #222;
+    background-image: url('/images/noisy-background.png');
+    background-color: #1c202a;
 }
 
 /*====================RESOURCE CONTAINERS==================*/
@@ -37,10 +38,10 @@
 .cards-container {
     background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
+    border-width: 4px;
+    border-style: inset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
     background-color: #ffffff;
     position: absolute;
     right: 190px;
@@ -76,10 +77,10 @@ div.cards button:hover {
 .container-left {
     background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
+    border-width: 4px;
+    border-style: inset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
     background-color: #ffffff;
     position: absolute;
     bottom: 0;
@@ -116,10 +117,10 @@ div.items button:hover {
 .container-right {
     background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
+    border-width: 4px;
+    border-style: inset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
     background-color: #ffffff;
     position: absolute;
     bottom: 0;
@@ -155,10 +156,11 @@ div.enemy-items button:hover {
 
 /*======================CHAT CONTAINER=====================*/
 .chat-component {
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
+    background-color: rgba(130, 150, 170, 0.4);
+    border-width: 4px;
+    border-style: outset;
+    border-radius: 8px;
+    border-color: #556774 #668092 #668092 #556774;
     position: absolute;
     bottom: 200px;
     right: 500px;
@@ -168,10 +170,10 @@ div.enemy-items button:hover {
 
 .chat-container {
     background: -webkit-radial-gradient(center,ellipse cover, #ffda8b 50%, #ab8458 100%);
-    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px 3px inset;
+    border-width: 3px;
+    border-style: inset;
+    border-radius: 8px;
     border-color: #dd9000;
     top: 0;
     bottom: 25px;
@@ -195,7 +197,7 @@ div.chat-items {
 }
 
 .chat-table td, .chat-table th {
-    border: 1px solid #dd9000;
+    border: 1px solid #9a6300;
     padding: 5px;
 }
 
