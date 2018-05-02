@@ -1,9 +1,6 @@
 package config;
 
-import game.controllers.BuildingController;
-import game.controllers.CardController;
-import game.controllers.RoomController;
-import game.controllers.UserController;
+import game.controllers.*;
 
 import game.controllers.impl.*;
 
@@ -94,13 +91,34 @@ public class AppContextConfig {
                     bindAsContract(BuildingServiceImpl.class).to(BuildingService.class);
                     bindAsContract(BuildingControllerImpl.class).to(BuildingController.class);
 
-                    bindAsContract(ResourcesDaoImpl.class).to(ResourcesDao.class);
-                    bindAsContract(ResourcesServiceImpl.class).to(ResourcesService.class);
-                    bindAsContract(ResourcesControllerImpl.class).to(ResourcesControllerImpl.class);
+                    bindAsContract(UpgradeDaoImpl.class).to(UpgradeDao.class);
+                    bindAsContract(UpgradeServiceImpl.class).to(UpgradeService.class);
+                    bindAsContract(UpgradeControllerImpl.class).to(UpgradeController.class);
+
+                    bindAsContract(AccountBuildingDaoImpl.class).to(AccountBuildingDao.class);
+                    bindAsContract(AccountBuildingServiceImpl.class).to(AccountBuildingService.class);
+                    bindAsContract(AccountBuildingControllerImpl.class).to(AccountBuildingController.class);
+
+                    bindAsContract(BuildingProductDaoImpl.class).to(BuildingProductDao.class);
+                    bindAsContract(BuildingProductServiceImpl.class).to(BuildingProductService.class);
+                    bindAsContract(BuildingProductControllerImpl.class).to(BuildingProductController.class);
+
+                    bindAsContract(ResourceDaoImpl.class).to(ResourceDao.class);
+                    bindAsContract(ResourceServiceImpl.class).to(ResourceService.class);
+                    bindAsContract(ResourceControllerImpl.class).to(ResourceControllerImpl.class);
 
                     bindAsContract(UserDaoImpl.class).to(UserDao.class);
                     bindAsContract(UserServiceImpl.class).to(UserService.class);
                     bindAsContract(UserControllerImpl.class).to(UserController.class);
+
+                    bindAsContract(AccountDaoImpl.class).to(AccountDao.class);
+                    bindAsContract(AccountServiceImpl.class).to(AccountService.class);
+                    bindAsContract(AccountControllerImpl.class).to(AccountController.class);
+
+                    bindAsContract(MessageDaoImpl.class).to(MessageDao.class);
+                    bindAsContract(MessageServiceImpl.class).to(MessageService.class);
+                    bindAsContract(MessageControllerImpl.class).to(MessageController.class);
+
                 }
             });
         }};

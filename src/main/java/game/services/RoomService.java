@@ -1,6 +1,7 @@
 package game.services;
 
 import game.controllers.dto.RoomDto;
+import game.controllers.dto.UserDto;
 
 import java.util.List;
 
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface RoomService {
     List<RoomDto> getListOfRooms();
+    void joinRoom(UserDto user, Integer roomId);
+    void leaveRoom(Integer roomId, UserDto user);
 }

@@ -19,6 +19,7 @@ CREATE TABLE `Room` (
 	`description` varchar(128) NOT NULL,
 	`account_1_id` INT,
 	`account_2_id` INT,
+	`start_game_time` DATETIME,
 	PRIMARY KEY (`id`)
 );
 
@@ -57,9 +58,9 @@ CREATE TABLE `Account_Achievement` (
 CREATE TABLE `Message` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`text` varchar(128) NOT NULL,
-	`from_account_id` INT NOT NULL,
-	`to_account_id` INT NOT NULL,
-	`time` DATETIME NOT NULL,
+	`from_account_id` INT,
+	`to_account_id` INT,
+	`time` DATETIME,
 	PRIMARY KEY (`id`)
 );
 
@@ -176,9 +177,9 @@ ALTER TABLE `Room` ADD CONSTRAINT `Room_fk0` FOREIGN KEY (`account_1_id`) REFERE
 
 ALTER TABLE `Room` ADD CONSTRAINT `Room_fk1` FOREIGN KEY (`account_2_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Account_Building` ADD CONSTRAINT `Account_Building_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Account_Building` ADD CONSTRAINT `Account_Building_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Account_Building` ADD CONSTRAINT `Account_Building_fk1` FOREIGN KEY (`building_id`) REFERENCES `Building`(`id`);
+#ALTER TABLE `Account_Building` ADD CONSTRAINT `Account_Building_fk1` FOREIGN KEY (`building_id`) REFERENCES `Building`(`id`);
 
 ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 
@@ -230,7 +231,7 @@ ALTER TABLE `Upgrade_Product` ADD CONSTRAINT `Upgrade_Product_fk2` FOREIGN KEY (
 
 ALTER TABLE `Building_Product` ADD CONSTRAINT `Building_Product_fk0` FOREIGN KEY (`building_id`) REFERENCES `Building`(`id`);
 
-ALTER TABLE `Building_Product` ADD CONSTRAINT `Building_Product_fk1` FOREIGN KEY (`resource_id`) REFERENCES `Resource`(`id`);
+#ALTER TABLE `Building_Product` ADD CONSTRAINT `Building_Product_fk1` FOREIGN KEY (`resource_id`) REFERENCES `Resource`(`id`);
 
 ALTER TABLE `Trigger_Achievement` ADD CONSTRAINT `Trigger_Achievement_fk0` FOREIGN KEY (`achievement_id`) REFERENCES `Achievement`(`id`);
 

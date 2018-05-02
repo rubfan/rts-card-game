@@ -2,7 +2,9 @@ package game.controllers.impl;
 
 import game.controllers.RoomController;
 import game.controllers.dto.RoomDto;
+import game.controllers.dto.UserDto;
 import game.services.RoomService;
+import game.services.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -20,6 +22,8 @@ public class RoomControllerImpl implements RoomController {
 
     @Inject
     public RoomService roomService;
+    @Inject
+    public UserService userService;
 
     @GET
     @Path("list")
@@ -30,10 +34,12 @@ public class RoomControllerImpl implements RoomController {
     }
 
     @GET
-    @Path("{roomId}/enter")
+    @Path("{roomId}/join")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response enterRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
+    public Response joinRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);
+        UserDto user = userService.getUserByToken(token);
+        roomService.joinRoom(user, Integer.parseInt(roomId));
         return Response.status(200).entity("User Entered").build();
     }
 
@@ -42,6 +48,7 @@ public class RoomControllerImpl implements RoomController {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response exitRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);
+        roomService.leaveRoom(Integer.parseInt(roomId),userService.getUserByToken(token));
         return Response.status(200).entity("User Left").build();
     }
 }

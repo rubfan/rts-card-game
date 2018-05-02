@@ -20,6 +20,11 @@ function refreshButtonsStatus() {
     }
 }
 
+function playMusic() {
+    var x = document.getElementById("loginMusic");
+    x.loop = true;
+    x.play();
+}
 
 // start effect when dom is loaded
 document.addEventListener("DOMContentLoaded", function() {

@@ -5,14 +5,14 @@ package game.controllers.dto;
  */
 
 public class UserDto {
-    private int id;
+    private Integer id;
     private String name;
     private String password;
-    private int token;
+    private String token;
 
     public UserDto() {}
 
-    public UserDto(int id, String name, String password, int token) {
+    public UserDto(Integer id, String name, String password, String token) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -20,11 +20,11 @@ public class UserDto {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,11 +44,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public int getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(int token) {
+    public void setToken(String token) {
         this.token = token;
     }
 

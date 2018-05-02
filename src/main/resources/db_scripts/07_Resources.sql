@@ -1,0 +1,25 @@
+INSERT INTO `Resource`
+    (`id`,`name`,`description`)
+VALUES
+    ('1','Zerno','zerno'),
+    ('2','Eggs','eggs'),
+    ('3','Tsipliata','tsipliata'),
+    ('4','Pomet',' pomet'),
+    ('5','Chickens','chickens'),
+    ('6','Cocks','cocks'),
+    ('7','Fighting_Cocks','fighting cocks'),
+    ('8','Stone',' stone'),
+    ('9','Hammer_Cocks',' cocks with hammers'),
+    ('10','Throwing_Cocks',' cocks with throwers (rogatki)'),
+    ('11','Steel','steel'),
+    ('12','Sworded_Cocks',' cocks with swords (in armor)'),
+    ('13','Axed_Cocks',' cocks with axes (in armor)'),
+    ('14','Wood',' wood'),
+    ('15','Archers',' archer cocks'),
+    ('16','Pikes','cocks with pikes'),
+    ('17','Gunpowder','gunpowder'),
+    ('18','Guns',' cocks with guns'),
+    ('19','Bazookas',' cocks with bazooka'),
+    ('20','Mana',' mana'),
+    ('21','Wizards',' cocks-wizards'),
+    ('22','Seers',' seer cocks (providtsy)');

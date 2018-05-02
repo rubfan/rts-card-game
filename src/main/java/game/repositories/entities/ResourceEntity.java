@@ -1,16 +1,21 @@
 package game.repositories.entities;
 
-public class ResourcesEntity {
+public class ResourceEntity {
     private Integer id;
+<<<<<<< HEAD:src/main/java/game/repositories/entities/ResourcesEntity.java
 <<<<<<< HEAD
     private Integer number;
 =======
 //    private Integer number;
 >>>>>>> f51361c04eafcd0a0918362d237cfad9254d7047
+=======
+>>>>>>> 07b3999f3ebe14f462141f2d600db736f993e516:src/main/java/game/repositories/entities/ResourceEntity.java
     private String name;
     private String description;
 
+    public ResourceEntity() {}
 
+<<<<<<< HEAD:src/main/java/game/repositories/entities/ResourcesEntity.java
     public ResourcesEntity() {
     }
 
@@ -23,6 +28,10 @@ public class ResourcesEntity {
         this.id = id;
 //        this.number = number;
 >>>>>>> f51361c04eafcd0a0918362d237cfad9254d7047
+=======
+    public ResourceEntity(Integer id, String name, String description) {
+        this.id = id;
+>>>>>>> 07b3999f3ebe14f462141f2d600db736f993e516:src/main/java/game/repositories/entities/ResourceEntity.java
         this.name = name;
         this.description = description;
     }
@@ -35,6 +44,7 @@ public class ResourcesEntity {
         this.id = id;
     }
 
+<<<<<<< HEAD:src/main/java/game/repositories/entities/ResourcesEntity.java
 <<<<<<< HEAD
     public Integer getNumber() {
         return number;
@@ -53,6 +63,8 @@ public class ResourcesEntity {
 //    }
 >>>>>>> f51361c04eafcd0a0918362d237cfad9254d7047
 
+=======
+>>>>>>> 07b3999f3ebe14f462141f2d600db736f993e516:src/main/java/game/repositories/entities/ResourceEntity.java
     public String getName() {
         return name;
     }
@@ -71,13 +83,16 @@ public class ResourcesEntity {
 
     @Override
     public String toString() {
-        return "ResourcesEntity{" +
+        return "ResourceEntity{" +
                 "id=" + id +
+<<<<<<< HEAD:src/main/java/game/repositories/entities/ResourcesEntity.java
 <<<<<<< HEAD
                 ", number=" + number +
 =======
 //                ", number=" + number +
 >>>>>>> f51361c04eafcd0a0918362d237cfad9254d7047
+=======
+>>>>>>> 07b3999f3ebe14f462141f2d600db736f993e516:src/main/java/game/repositories/entities/ResourceEntity.java
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';

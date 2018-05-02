@@ -2,7 +2,9 @@ package game.services.impl;
 
 import game.controllers.dto.UserDto;
 import game.repositories.dao.UserDao;
+import game.repositories.dao.impl.UserDaoImpl;
 import game.repositories.entities.UserEntity;
+import game.services.AccountService;
 import game.services.UserService;
 import game.utils.RandomString;
 
@@ -37,4 +39,17 @@ public class UserServiceImpl implements UserService {
         newUser.setToken(new RandomString().nextString());
         return userDao.createNewUser(newUser);
     }
+
+    @Override
+    public UserDto getUserByToken(String token) {
+        UserEntity userEntity = userDao.getUserByToken(token);
+        return new UserDto(
+                userEntity.getId(),
+                userEntity.getName(),
+                userEntity.getPassword(),
+                userEntity.getToken()
+        );
+    }
+
+
 }
