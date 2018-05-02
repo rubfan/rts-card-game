@@ -2,24 +2,24 @@ package game.repositories.entities;
 
 public class BuildingEntity {
 
-    private int id;
+    private Integer id;
     private String name;
     private String description;
 
     public BuildingEntity() {
     }
 
-    public BuildingEntity(int id, String name, String description) {
+    public BuildingEntity(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -58,7 +58,7 @@ public class UserControllerImpl implements UserController {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, user.toString());
         Cookie preCookie = new Cookie("token", token, "/", "", 1);
         NewCookie newCookie = new NewCookie(preCookie, "Created new user and logged in", -1, false);
-        accountService.createAccount(userService.getUserIdByToken(token));
+        accountService.createAccount(userService.getUserByToken(token));
         return Response.status(201).entity("User").cookie(newCookie).build();
     }
 }

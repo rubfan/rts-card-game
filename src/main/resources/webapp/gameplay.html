@@ -12,6 +12,7 @@
                 <li><a class="active" href="gameplay.html">Gameplay</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
                 <li><a href="login.html">Login</a></li>
+                <li><a href="#" style="padding-left: 60px; padding-right: 60px; color: #4b7caf" id="accountInfo"></a></li>
             </ul>
         </div>
 
@@ -73,6 +74,7 @@
                 {name: "Dima", message: "hello!1010101"}
             ]));
             createKings(100, 55);
+            restRequest('GET', REST_API_URL + '/account/info', createAccountInfo);
         </script>
     </body>
 <html>

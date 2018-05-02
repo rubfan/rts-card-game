@@ -4,16 +4,25 @@ package game.repositories.entities;
  * @author ruslangramatic on 4/20/18.
  */
 public class UserEntity {
-    private int id;
+    private Integer id;
     private String name;
     private String password;
     private String token;
 
-    public int getId() {
+    public UserEntity(Integer id, String name, String password, String token) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.token = token;
+    }
+
+    public UserEntity() {}
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

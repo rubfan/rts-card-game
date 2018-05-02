@@ -2,11 +2,11 @@ package game.repositories.entities;
 
 public class BuildingProductEntity {
 
-    private int buildingId;
-    private int resourceId;
-    private float numberPerSec;
+    private Integer buildingId;
+    private Integer resourceId;
+    private Float numberPerSec;
 
-    public BuildingProductEntity(int buildingId, int resourceId, float numberPerSec) {
+    public BuildingProductEntity(Integer buildingId, Integer resourceId, Float numberPerSec) {
         this.buildingId = buildingId;
         this.resourceId = resourceId;
         this.numberPerSec = numberPerSec;
@@ -15,27 +15,27 @@ public class BuildingProductEntity {
     public BuildingProductEntity() {
     }
 
-    public int getBuildingId() {
+    public Integer getBuildingId() {
         return buildingId;
     }
 
-    public void setBuildingId(int buildingId) {
+    public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
     }
 
-    public int getResourceId() {
+    public Integer getResourceId() {
         return resourceId;
     }
 
-    public void setResourceId(int resourceId) {
+    public void setResourceId(Integer resourceId) {
         this.resourceId = resourceId;
     }
 
-    public float getNumberPerSec() {
+    public Float getNumberPerSec() {
         return numberPerSec;
     }
 
-    public void setNumberPerSec(float numberPerSec) {
+    public void setNumberPerSec(Float numberPerSec) {
         this.numberPerSec = numberPerSec;
     }
 

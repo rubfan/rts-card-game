@@ -109,3 +109,11 @@ function createKings(myPercent , enemyPercent) {
         '<img src="' + enemyImage + '" width="140px" height="140px">'
         + '<div class="pedestal-right" style="height: '+ (20 + enemyPercent * 3) +'px"></div>';
 }
+
+function createAccountInfo(dataObject) {
+    dataObject = JSON.parse(dataObject);
+    var content = dataObject['user'] != undefined ? "User: " + dataObject['user']['name'] : "";
+    content += " / " + (dataObject['room'] != undefined ? "Current Room: "
+        + dataObject['room']['name'] + " (" + dataObject['room']['description'] + ")" : "");
+    document.getElementById("accountInfo").innerHTML = content;
+}

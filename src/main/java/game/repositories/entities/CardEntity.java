@@ -1,11 +1,11 @@
 package game.repositories.entities;
 
 public class CardEntity {
-    private int id;
+    private Integer id;
     private String name;
     private String description;
 
-    public CardEntity(int id, String name, String description) {
+    public CardEntity(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -14,7 +14,7 @@ public class CardEntity {
     private CardEntity(){
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class CardEntity {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

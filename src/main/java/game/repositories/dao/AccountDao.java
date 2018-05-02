@@ -1,7 +1,7 @@
 package game.repositories.dao;
 
 import game.repositories.entities.AccountEntity;
-import game.repositories.entities.RoomEntity;
+import game.repositories.entities.UserEntity;
 
 public interface AccountDao {
 
@@ -9,5 +9,6 @@ public interface AccountDao {
     void setRoomForAccount(Integer userId, Integer roomId);
     void deleteRoomFromAccount(Integer userId);
     Integer getAccountIdByUserId(Integer userId);
+    AccountEntity getAccountByUser(UserEntity user);
 
 }

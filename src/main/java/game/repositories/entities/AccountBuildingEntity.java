@@ -2,12 +2,12 @@ package game.repositories.entities;
 
 public class AccountBuildingEntity {
 
-    private int accountId;
-    private int buildingId;
-    private float number;
+    private Integer accountId;
+    private Integer buildingId;
+    private Float number;
 
 
-    public AccountBuildingEntity(int accountId, int buildingId, float number) {
+    public AccountBuildingEntity(Integer accountId, Integer buildingId, Float number) {
         this.accountId = accountId;
         this.buildingId = buildingId;
         this.number = number;
@@ -16,19 +16,19 @@ public class AccountBuildingEntity {
     public AccountBuildingEntity() {
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
-    public int getBuildingId() {
+    public Integer getBuildingId() {
         return buildingId;
     }
 
-    public void setBuildingId(int buildingId) {
+    public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
     }
 

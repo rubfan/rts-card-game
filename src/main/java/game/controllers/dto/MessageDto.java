@@ -3,15 +3,15 @@ package game.controllers.dto;
 import java.util.Date;
 
 public class MessageDto {
-    private int id;
+    private Integer id;
     private String text;
-    private int from_account_id;
-    private int to_account_id;
+    private Integer from_account_id;
+    private Integer to_account_id;
     private Date time;
 
     public MessageDto() { }
 
-    public MessageDto(int id, String text, int from_account_id, int to_account_id, Date time) {
+    public MessageDto(Integer id, String text, Integer from_account_id, Integer to_account_id, Date time) {
         this.id = id;
         this.text = text;
         this.from_account_id = from_account_id;
@@ -19,11 +19,11 @@ public class MessageDto {
         this.time = time;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,19 +35,19 @@ public class MessageDto {
         this.text = text;
     }
 
-    public int getFrom_account_id() {
+    public Integer getFrom_account_id() {
         return from_account_id;
     }
 
-    public void setFrom_account_id(int from_account_id) {
+    public void setFrom_account_id(Integer from_account_id) {
         this.from_account_id = from_account_id;
     }
 
-    public int getTo_account_id() {
+    public Integer getTo_account_id() {
         return to_account_id;
     }
 
-    public void setTo_account_id(int to_account_id) {
+    public void setTo_account_id(Integer to_account_id) {
         this.to_account_id = to_account_id;
     }
 

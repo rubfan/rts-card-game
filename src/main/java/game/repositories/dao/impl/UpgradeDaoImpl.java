@@ -21,7 +21,7 @@ public class UpgradeDaoImpl implements UpgradeDao {
         new QueryHelper(){
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from upgrade");
+                ResultSet rs = statement.executeQuery("select * from Upgrade");
                 while(rs.next()) {
                     UpgradeEntity upgrade = new UpgradeEntity(
                             rs.getInt("id"),

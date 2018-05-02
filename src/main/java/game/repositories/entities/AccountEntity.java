@@ -2,50 +2,48 @@ package game.repositories.entities;
 
 public class AccountEntity {
 
-    private int id;
-    private int user_id;
-    private int room_id;
+    private Integer id;
+    private UserEntity user;
+    private RoomEntity room;
 
-    public AccountEntity() {
-    }
+    public AccountEntity() {}
 
-    public AccountEntity(int id, int user_id, int room_id) {
+    public AccountEntity(Integer id, UserEntity user, RoomEntity room) {
         this.id = id;
-        this.user_id = user_id;
-        this.room_id = room_id;
+        this.user = user;
+        this.room = room;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public int getRoom_id() {
-        return room_id;
+    public RoomEntity getRoom() {
+        return room;
     }
 
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
+    public void setRoom(RoomEntity room) {
+        this.room = room;
     }
-
 
     @Override
     public String toString() {
         return "AccountDto{" +
                 "id=" + id +
-                ", user_id=" + user_id +
-                ", room_id=" + room_id +
+                ", user=" + user +
+                ", room=" + room +
                 '}';
     }
 }
