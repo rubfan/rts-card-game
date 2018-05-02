@@ -35,7 +35,8 @@ function createRoomsTable(dataObject) {
                         "</td>";
         content +=  "</tr>"
     }
-    document.getElementById("roomsTable").innerHTML = "<table class='room-table'>" + content + "</table>";
+    document.getElementById("roomsTable").innerHTML = "<h1 class='rooms-header'>Game Rooms</h1>"
+        + "<table class='room-table'>" + content + "</table>";
 }
 
 function joinRoom(roomId) {

@@ -1,3 +1,9 @@
+.rooms-header{
+    margin-top: -55px;
+    text-align: center;
+    text-shadow: 2px 0 0 #bfbfbf, -2px 0 0 #BFBFBF, 0 2px 0 #BFBFBF, 0 -2px 0 #BFBFBF, 1px 1px #BFBFBF, -1px -1px 0 #BFBFBF, 1px -1px 0 #BFBFBF, -1px 1px 0 #BFBFBF;
+}
+
 .container-rooms {
     background: -webkit-radial-gradient(center,ellipse cover, #3b0006 50%, #15222a 100%);
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7) inset;
