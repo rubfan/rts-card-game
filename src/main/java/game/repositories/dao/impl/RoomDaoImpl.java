@@ -31,8 +31,6 @@ public class RoomDaoImpl implements RoomDao {
                         rs.getInt("account_2_id"),
                         rs.getTime("start_game_time")
                     );
-                    //to rewrite 60 minut
-                    //if(rs.getStartGameTime-Date.currentTime >60){leaveRoom}
                     rooms.add(room);
 
                 }
