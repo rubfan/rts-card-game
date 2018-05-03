@@ -5,17 +5,17 @@ import java.util.List;
 public class UpgradeProductEntity {
     private Integer id;
     private UpgradeEntity upgradeEntity;
-    private List<ResourceEntity> resourceEntityList;
+    private List<ResourceQuantityEntity> resourceEntityList;
     private List<BuildingEntity> buildingEntities;
 
-    public UpgradeProductEntity(Integer id, UpgradeEntity upgradeEntity, List<ResourceEntity> resourceEntityList, List<BuildingEntity> buildingEntities) {
+    public UpgradeProductEntity(Integer id, UpgradeEntity upgradeEntity, List<ResourceQuantityEntity> resourceEntityList, List<BuildingEntity> buildingEntities) {
         this.id = id;
         this.upgradeEntity = upgradeEntity;
         this.resourceEntityList = resourceEntityList;
         this.buildingEntities = buildingEntities;
     }
 
-    UpgradeProductEntity(){}
+    public UpgradeProductEntity(){}
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class UpgradeProductEntity {
         this.upgradeEntity = upgradeEntity;
     }
 
-    public List<ResourceEntity> getResourceEntityList() {
+    public List<ResourceQuantityEntity> getResourceEntityList() {
         return resourceEntityList;
     }
 
-    public void setResourceEntityList(List<ResourceEntity> resourceEntityList) {
+    public void setResourceEntityList(List<ResourceQuantityEntity> resourceEntityList) {
         this.resourceEntityList = resourceEntityList;
     }
 
