@@ -12,16 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-<<<<<<< HEAD
-@Path("/resources")
-=======
 @Path("/resource")
-<<<<<<< HEAD:src/main/java/game/controllers/impl/ResourcesControllerImpl.java
->>>>>>> f51361c04eafcd0a0918362d237cfad9254d7047
-public class ResourcesControllerImpl implements ResourcesController{
-=======
 public class ResourceControllerImpl implements ResourceController {
->>>>>>> 07b3999f3ebe14f462141f2d600db736f993e516:src/main/java/game/controllers/impl/ResourceControllerImpl.java
 
 
     @Inject
