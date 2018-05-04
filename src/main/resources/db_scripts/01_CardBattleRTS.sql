@@ -185,9 +185,9 @@ ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk0` FOREIGN KEY
 
 ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk1` FOREIGN KEY (`resource_id`) REFERENCES `Resource`(`id`);
 
-ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk1` FOREIGN KEY (`upgrade_id`) REFERENCES `Upgrade`(`id`);
+#ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk1` FOREIGN KEY (`upgrade_id`) REFERENCES `Upgrade`(`id`);
 
 ALTER TABLE `Account_Achievement` ADD CONSTRAINT `Account_Achievement_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 

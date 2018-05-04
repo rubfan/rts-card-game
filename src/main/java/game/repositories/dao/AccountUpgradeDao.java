@@ -1,7 +1,9 @@
 package game.repositories.dao;
 
+import game.repositories.entities.AccountUpgradeEntity;
+
 import java.util.List;
 
 public interface AccountUpgradeDao {
-//    List<> getListOfAccountUpgrades();
+    List<AccountUpgradeEntity> getListOfAccountUpgrades(int accountId);
 }
