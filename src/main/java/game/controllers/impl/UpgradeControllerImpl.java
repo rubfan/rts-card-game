@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Path("/upgrade")
+@Path("/update")
 public class UpgradeControllerImpl implements UpgradeController {
 
     @Inject
