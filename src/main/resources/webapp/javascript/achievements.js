@@ -18,5 +18,6 @@ function createAchievementsTable(dataObject) {
         }
         content += "</tr>";
     }
-    document.getElementById("achievementsTable").innerHTML = "<table class='info-table'>" + content + "</table>";
+    document.getElementById("achievementsTable").innerHTML = "<h1 class='achievements-header'>Achievements</h1>"
+        + "<table class='achievements-table'>" + content + "</table>";
 }

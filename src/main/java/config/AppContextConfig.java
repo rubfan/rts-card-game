@@ -119,6 +119,9 @@ public class AppContextConfig {
                     bindAsContract(MessageServiceImpl.class).to(MessageService.class);
                     bindAsContract(MessageControllerImpl.class).to(MessageController.class);
 
+                    bindAsContract(UpgradeProductDaoImpl.class).to(UpgradeProductDao.class);
+                    bindAsContract(UpgradeProductServiceImpl.class).to(UpgradeProductService.class);
+                    bindAsContract(UpgradeProductControllerImpl.class).to(UpgradeProductController.class);
                 }
             });
         }};

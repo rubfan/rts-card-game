@@ -34,7 +34,7 @@ public class RoomDaoImpl implements RoomDao {
                         "left join User u2 on u2.id = a2.user_id"
                 );
                 while(rs.next()) {
-                    
+
                     RoomEntity room = new RoomEntity();
                     room.setId(rs.getInt("id"));
                     room.setName(rs.getString("name"));

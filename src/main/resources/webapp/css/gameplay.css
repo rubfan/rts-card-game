@@ -4,10 +4,6 @@
     padding-right: 200px;
 }
 
-.gameplay-background {
-    background-color: #222;
-}
-
 /*====================RESOURCE CONTAINERS==================*/
 .left-resource-container {
     position: absolute;
@@ -37,10 +33,10 @@
 .cards-container {
     background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
+    border-width: 4px;
+    border-style: inset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
     background-color: #ffffff;
     position: absolute;
     right: 190px;
@@ -76,11 +72,10 @@ div.cards button:hover {
 .container-left {
     background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
-    background-color: #ffffff;
+    border-width: 4px;
+    border-style: inset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -107,20 +102,18 @@ div.items button {
 }
 
 div.items button:hover {
-    border-width: 3px;
     border-color: #ffd000;
-    background-color: #3e4b57;;
+    background-color: #3e4b57;
 }
 
 /*====================RIGHT CONTAINER==================*/
 .container-right {
     background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
-    background-color: #ffffff;
+    border-width: 4px;
+    border-style: inset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -147,18 +140,18 @@ div.enemy-items button {
 }
 
 div.enemy-items button:hover {
-    border-width: 3px;
     border-color: #ffd000;
-    background-color: #529fff;
+    background-color: #3e4b57;
 }
 
 
 /*======================CHAT CONTAINER=====================*/
 .chat-component {
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #3e4b57;
+    background-color: rgba(130, 150, 170, 0.4);
+    border-width: 4px;
+    border-style: outset;
+    border-radius: 8px;
+    border-color: #556774 #668092 #668092 #556774;
     position: absolute;
     bottom: 200px;
     right: 500px;
@@ -168,10 +161,10 @@ div.enemy-items button:hover {
 
 .chat-container {
     background: -webkit-radial-gradient(center,ellipse cover, #ffda8b 50%, #ab8458 100%);
-    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px 3px inset;
+    border-width: 3px;
+    border-style: inset;
+    border-radius: 8px;
     border-color: #dd9000;
     top: 0;
     bottom: 25px;
@@ -195,48 +188,104 @@ div.chat-items {
 }
 
 .chat-table td, .chat-table th {
-    border: 1px solid #dd9000;
+    border: 1px solid #9a6300;
     padding: 5px;
 }
 
 
 /*================KINGS===================*/
+.power-percent {
+    color: #ffd000;
+    font-size: 15px;
+    position:absolute;
+    bottom: 0;
+    width: 80px;
+    text-align: center;
+}
+
 .left-king {
     position: absolute;
-    bottom: 200px;
-    left: 370px;
-    margin: 10px;
+    bottom: 230px;
+    left: 410px;
 }
 
 .right-king {
     position: absolute;
-    bottom: 200px;
-    right: 370px;
-    margin: 10px;
+    bottom: 230px;
+    right: 490px;
 }
 
-.pedestal-right {
-    border-width: 1px;
-    border-style: solid;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-color: #000000;
-
-    background: linear-gradient(to right, rgb(152, 180, 189) 0%, rgb(63, 84, 96) 50%, rgb(21, 34, 42) 100%);
-    margin-top: -10px;
-    margin-left: 30px;
-    margin-right: 30px;
+.left-chicken-img {
+    position: absolute;
+    left: -35px;
+    height: auto;
+    width: auto;
+    max-width: 140px;
+    max-height: 140px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
-.pedestal-left {
+.right-chicken-img {
+    position: absolute;
+    left: -25px;
+    height: auto;
+    width: auto;
+    max-width: 140px;
+    max-height: 140px;
+}
+
+/*==============CYLINDER=============*/
+.cylinder .top {
     border-width: 2px;
-    border-style: solid;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-color: #000000;
+    border-style: outset;
+    border-color: #5d7688 #708e9d #708e9d #5d7688;
+    width: 74px;
+    height: 30px;
+    -moz-border-radius: 60px / 25px;
+    -webkit-border-radius: 60px / 25px;
+    border-radius: 60px / 25px;
+    position:absolute;
+    background: -webkit-radial-gradient(center,ellipse cover, #556e7a 40%, #668092 60%);
+}
 
+.cylinder .middle {
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 0;
+    border-top-width: 0;
+    border-style: outset;
+    border-color: #5d7688 #708e9d #708e9d #5d7688;
+    bottom: 0;
+    width:74px;
     background: linear-gradient(to right, rgb(152, 180, 189) 0%, rgb(63, 84, 96) 50%, rgb(21, 34, 42) 100%);
-    margin-top: -10px;
-    margin-left: 30px;
-    margin-right: 30px;
+    position:absolute;
+}
+
+.cylinder .bottom {
+    border-width: 2px;
+    border-style: outset;
+    border-color: #5d7688 #708e9d #708e9d #5d7688;
+    bottom:-15px;
+    width: 74px;
+    height: 30px;
+    -moz-border-radius: 60px / 25px;
+    -webkit-border-radius: 60px / 25px;
+    border-radius: 60px / 25px;
+    position:absolute;
+    box-shadow:0px 0px 30px rgba(0,0,0,0.95);
+    background: linear-gradient(to right, rgb(152, 180, 189) 0%, rgb(63, 84, 96) 50%, rgb(21, 34, 42) 100%);
+}
+
+/*=============CLOCK============*/
+.count-down-time {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
+    text-align: center;
+    color: #ffd000;
+    font-size: 50px;
+    text-shadow:1px 1px 10px #ffd000, 1px 1px 30px #ee0011;
 }
