@@ -1,14 +1,13 @@
 package game.controllers.dto;
 
-public class ResourсeDto {
+public class ResourceDto {
     private Integer id;
     private String name;
     private String description;
 
+    public ResourceDto() {}
 
-    public ResourсeDto() {}
-
-    public ResourсeDto(Integer id, String name, String description) {
+    public ResourceDto(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,7 +39,7 @@ public class ResourсeDto {
 
     @Override
     public String toString() {
-        return "ResourсeDto{" +
+        return "ResourceDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

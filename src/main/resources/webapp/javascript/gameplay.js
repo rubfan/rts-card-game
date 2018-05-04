@@ -100,14 +100,21 @@ function createKings(myPercent , enemyPercent) {
         enemyImage = KING_WON;
     }
 
-    document.getElementById("left_king").innerHTML =
-        '<img src="'+ myImage +'" width="140px" height="140px"'
-        + 'style="-webkit-transform: scaleX(-1); transform: scaleX(-1);">'
-        + '<div class="pedestal-left" style="height: '+ (20 + myPercent * 3) +'px"></div>';
+    document.getElementById("left_king").innerHTML = getCylinder(myPercent)
+        + '<img src="'+ myImage +'" class="left-chicken-img" style="bottom:' + (myPercent * 3 - 8) + 'px">';
 
-    document.getElementById("right_king").innerHTML =
-        '<img src="' + enemyImage + '" width="140px" height="140px">'
-        + '<div class="pedestal-right" style="height: '+ (20 + enemyPercent * 3) +'px"></div>';
+    document.getElementById("right_king").innerHTML = getCylinder(enemyPercent)
+        + '<img src="' + enemyImage + '" class="right-chicken-img" style="bottom:' + (enemyPercent * 3 - 8) + 'px">';
+}
+
+function getCylinder(percent) {
+    if (percent > 100) percent = 100;
+    if (percent < 0) percent = 0;
+    var cylinderSize = percent * 3;
+    return  '<div class="bottom"></div>' +
+            '<div class="middle" style="height:' + cylinderSize + 'px"></div>' +
+            '<div class="top" style="top:' + (-cylinderSize - 15) + 'px;"></div>' +
+            '<b class="power-percent" style="line-height:' + cylinderSize + 'px;">'+ percent + '%</b>';
 }
 
 function createAccountInfo(dataObject) {
@@ -117,3 +124,19 @@ function createAccountInfo(dataObject) {
         + dataObject['room']['name'] + " (" + dataObject['room']['description'] + ")" : "");
     document.getElementById("accountInfo").innerHTML = content;
 }
+
+var hours = 1;
+var countDownDate = (new Date().getTime()) + (hours * 60 * 60 * 1000);
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("count_down_time").innerHTML = minutes + ":" + seconds;
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("count_down_time").innerHTML = "EXPIRED";
+    }
+}, 1000);
+

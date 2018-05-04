@@ -5,8 +5,8 @@
         <script src="javascript/main.js"></script>
         <script src="javascript/achievements.js"></script>
     </head>
-    <body class="achievements-background">
-        <div class="game-site-header" style="width: 100%">
+    <body>
+        <div class="game-site-header">
             <ul class="ul-info">
                 <li><a href="rooms.html">Rooms</a></li>
                 <li><a href="gameplay.html">Gameplay</a></li>
@@ -15,7 +15,7 @@
             </ul>
         </div>
 
-        <div id="achievementsTable" style="padding: 80px"></div>
+        <div id="achievementsTable" class="container-achievements"></div>
 
         <script>
             restRequest('GET', REST_API_URL + '/achievements/list', createAchievementsTable);

@@ -2,6 +2,8 @@ package game.repositories.dao.impl;
 
 import game.repositories.dao.UpgradeProductDao;
 import game.repositories.dao.helpers.QueryHelper;
+import game.repositories.entities.BuildingEntity;
+import game.repositories.entities.ResourceQuantityEntity;
 import game.repositories.entities.UpgradeEntity;
 import game.repositories.entities.UpgradeProductEntity;
 
@@ -9,48 +11,72 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class UpgradeProductDaoImpl implements UpgradeProductDao {
 
     @Override
-    public List<UpgradeProductEntity> getListOfUpgradeResources() {
-        final List<UpgradeProductEntity> upgradeProducts = new LinkedList<>();
+    public Collection<UpgradeProductEntity> getListOfUpgradeProducts() {
+        final Map<Integer, UpgradeProductEntity> upgradeProducts = new HashMap<>();
 
-        new QueryHelper() {
+        return new QueryHelper<Collection<UpgradeProductEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select up.id from Upgrade_Product "+
-                                                          "left join Upgrade u on up.id = u.id "
+                ResultSet rs = statement.executeQuery(
+                    "SELECT up.id, up.upgrade_id, up.building_id, up.resource_id, " +
+                    "u.name 'upgrade_name', u.description 'upgrade_description', " +
+                    "b.name 'building_name', b.description 'building_description', " +
+                    "r.name 'resource_name', r.description 'resource_description', " +
+                    "up.percent " +
+                    "FROM Upgrade_Product up " +
+                    "LEFT JOIN Upgrade u ON u.id = up.upgrade_id " +
+                    "LEFT JOIN Building b ON b.id = up.building_id " +
+                    "LEFT JOIN Resource r ON r.id = up.resource_id "
                 );
                 while (rs.next()) {
                     UpgradeProductEntity upgradeProduct = new UpgradeProductEntity();
+                    upgradeProduct.setUpgradeEntity(getUpgradeEntity(rs));
+                    if(!upgradeProducts.containsKey(upgradeProduct.getUpgradeEntity().getId())){
                         upgradeProduct.setId(rs.getInt("id"));
-                        upgradeProduct.setUpgradeEntity(prepareUpgradeEntity(rs.getInt("id")));
-//                        upgradeProduct.setResourceEntityList(setList<ResourceQuantityEntity>);
-//                        upgradeProduct.setBuildingEntities(setList<BuildingEntity>);
-                }
+                        upgradeProduct.setBuildingEntityList(new LinkedList<>());
+                        upgradeProduct.setResourceEntityList(new LinkedList<>());
+                        upgradeProducts.put(upgradeProduct.getUpgradeEntity().getId(), upgradeProduct);
+                    } else {
+                        upgradeProducts.get(upgradeProduct.getUpgradeEntity().getId());
+                    }
+                    upgradeProduct.getBuildingEntityList().add(getBuildingEntity(rs));
+                    upgradeProduct.getResourceEntityList().add(getResourceQuantityEntity(rs));
 
+                }
+                if(upgradeProducts.size() > 0) {
+                    setResult(upgradeProducts.values());
+                }
             }
         }.run();
-        return upgradeProducts;
     }
 
-    private UpgradeEntity prepareUpgradeEntity(Integer id){
-            final UpgradeEntity[] upgrade = new UpgradeEntity[1];
-            new QueryHelper(){
-                protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                    statement.executeUpdate("use card_battle_rts");
-                    ResultSet rs = statement.executeQuery("select * from Upgrade where id = " + id);
-                    upgrade[0] = new UpgradeEntity(
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getString("description")
-                    );
-                }
-            }.run();
-            return upgrade[0];
-        }
+    private UpgradeEntity getUpgradeEntity(ResultSet rs) throws SQLException {
+        return new UpgradeEntity() {{
+            setId(rs.getInt("upgrade_id"));
+            setName(rs.getString("upgrade_name"));
+            setDescription(rs.getString("upgrade_description"));
+        }};
+    }
 
+    private BuildingEntity getBuildingEntity(ResultSet rs) throws SQLException {
+        return new BuildingEntity() {{
+            setId(rs.getInt("building_id"));
+            setName(rs.getString("building_name"));
+            setDescription(rs.getString("building_description"));
+        }};
+    }
+
+    private ResourceQuantityEntity getResourceQuantityEntity(ResultSet rs) throws SQLException {
+        return new ResourceQuantityEntity() {{
+            setId(rs.getInt("resource_id"));
+            setName(rs.getString("resource_name"));
+            setDescription(rs.getString("resource_description"));
+            setQuantity(rs.getFloat("percent"));
+        }};
+    }
 }

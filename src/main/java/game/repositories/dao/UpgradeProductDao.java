@@ -2,8 +2,8 @@ package game.repositories.dao;
 
 import game.repositories.entities.UpgradeProductEntity;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface UpgradeProductDao {
-    List<UpgradeProductEntity> getListOfUpgradeResources();
+    Collection<UpgradeProductEntity> getListOfUpgradeProducts();
 }

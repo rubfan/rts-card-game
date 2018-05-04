@@ -6,13 +6,13 @@ public class UpgradeProductEntity {
     private Integer id;
     private UpgradeEntity upgradeEntity;
     private List<ResourceQuantityEntity> resourceEntityList;
-    private List<BuildingEntity> buildingEntities;
+    private List<BuildingEntity> buildingEntityList;
 
-    public UpgradeProductEntity(Integer id, UpgradeEntity upgradeEntity, List<ResourceQuantityEntity> resourceEntityList, List<BuildingEntity> buildingEntities) {
+    public UpgradeProductEntity(Integer id, UpgradeEntity upgradeEntity, List<ResourceQuantityEntity> resourceEntityList, List<BuildingEntity> buildingEntityList) {
         this.id = id;
         this.upgradeEntity = upgradeEntity;
         this.resourceEntityList = resourceEntityList;
-        this.buildingEntities = buildingEntities;
+        this.buildingEntityList = buildingEntityList;
     }
 
     public UpgradeProductEntity(){}
@@ -41,12 +41,12 @@ public class UpgradeProductEntity {
         this.resourceEntityList = resourceEntityList;
     }
 
-    public List<BuildingEntity> getBuildingEntities() {
-        return buildingEntities;
+    public List<BuildingEntity> getBuildingEntityList() {
+        return buildingEntityList;
     }
 
-    public void setBuildingEntities(List<BuildingEntity> buildingEntities) {
-        this.buildingEntities = buildingEntities;
+    public void setBuildingEntityList(List<BuildingEntity> buildingEntityList) {
+        this.buildingEntityList = buildingEntityList;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UpgradeProductEntity {
                 "id=" + id +
                 ", upgradeEntity=" + upgradeEntity +
                 ", resourceEntityList=" + resourceEntityList +
-                ", buildingEntities=" + buildingEntities +
+                ", buildingEntityList=" + buildingEntityList +
                 '}';
     }
 }

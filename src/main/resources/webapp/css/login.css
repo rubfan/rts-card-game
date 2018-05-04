@@ -14,3 +14,19 @@
     opacity: 1;
     background: -webkit-radial-gradient(center,ellipse cover, #fff 20%, #888 100%);
 }
+
+.login-canvas {
+    width : 100%;
+    height : 100%;
+    position: absolute;
+    margin-top: -15px;
+    margin-bottom: 15px
+}
+
+.login-form {
+    vertical-align:middle;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
