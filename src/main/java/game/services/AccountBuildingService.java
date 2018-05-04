@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface AccountBuildingService {
     List<AccountBuildingDto> getListOfAccountBuildings(int accountId);
+    void clearAccountBuildingsList(int accountId);
+    void addBuildingToAccount(int accountId, int buildingId);
+
 }
