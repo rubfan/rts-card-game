@@ -42,7 +42,7 @@ public class UpgradeProductDaoImpl implements UpgradeProductDao {
                         upgradeProduct.setResourceEntityList(new LinkedList<>());
                         upgradeProducts.put(upgradeProduct.getUpgradeEntity().getId(), upgradeProduct);
                     } else {
-                        upgradeProducts.get(upgradeProduct.getUpgradeEntity().getId());
+                        upgradeProduct = upgradeProducts.get(upgradeProduct.getUpgradeEntity().getId());
                     }
                     upgradeProduct.getBuildingEntityList().add(getBuildingEntity(rs));
                     upgradeProduct.getResourceEntityList().add(getResourceQuantityEntity(rs));
