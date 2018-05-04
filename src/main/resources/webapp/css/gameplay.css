@@ -4,6 +4,31 @@
     padding-right: 200px;
 }
 
+/*===========BUTTONS===========*/
+.update-button {
+    height: 70px;
+    width: 150px;
+    text-align: left !important;
+    font-size: 8px;
+    padding: 0;
+    white-space: normal;
+}
+
+/*============TOOLTIP==============*/
+.tooltip-component {
+    font-size: 12px;
+    visibility: hidden;
+    position: absolute;
+    background: rgba(49, 60, 69, 0.9);
+    padding: 10px;
+    color: #eee;
+    box-shadow:0px 0px 20px rgba(0,0,0,0.95);
+    border-width: 3px;
+    border-style: outset;
+    border-radius: 8px;
+    border-color: #668092 #556774 #556774 #668092;
+}
+
 /*====================RESOURCE CONTAINERS==================*/
 .left-resource-container {
     position: absolute;
@@ -26,7 +51,24 @@
 }
 
 .resource-item {
-    padding: 5px;
+    cursor: hand;
+    border-width: 3px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.resource-item:hover {
+    margin: -3px;
+    padding: -7px;
+    border-width: 3px;
+    border-style: outset;
+    border-color: #ffd000 #947800 #947800 #ffd000;
+}
+
+.resource-item:active {
+    top: 6px;
+    color: rgb(159, 206, 255);
+    transition: all 50ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
 }
 
 /*====================BOTTOM CONTAINER==================*/
@@ -37,7 +79,6 @@
     border-style: inset;
     border-radius: 8px;
     border-color: #668092 #556774 #556774 #668092;
-    background-color: #ffffff;
     position: absolute;
     right: 190px;
     bottom: 0;

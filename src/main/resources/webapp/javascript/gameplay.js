@@ -2,31 +2,65 @@
  * Created by ruslangramatic on 4/24/18.
  */
 const IMG_URL = {
-    "0": "images/worker_resource.png",
-    "1": "images/axe_resource.png",
-    "2": "images/bazooka_resource.png",
-    "3": "images/droppings_resource.png",
-    "4": "images/egg_resource.png",
-    "5": "images/gunpowder_resource.png",
-    "6": "images/hammer_resource.png",
-    "7": "images/machine_gun_resource.png",
-    "8": "images/mana_resource.png",
-    "9": "images/metal_resource.png",
-    "10": "images/power_resource.png",
-    "11": "images/prophet_resource.png",
-    "12": "images/recruit_resource.png",
-    "13": "images/spear_resource.png",
-    "14": "images/stone_resource.png",
-    "15": "images/sword_resource.png",
-    "16": "images/warrior_resource.png",
-    "17": "images/wheat_resource.png",
-    "18": "images/wizard_resource.png",
-    "19": "images/wood_resource.png"
+    "0": "images/power_resource.png",
+    "1": "images/wheat_resource.png",
+    "2": "images/egg_resource.png",
+    "4": "images/droppings_resource.png",
+    "5": "images/worker_resource.png",
+    "6": "images/recruit_resource.png",
+    "7": "images/warrior_resource.png",
+    "8": "images/stone_resource.png",
+    "9": "images/hammer_resource.png",
+    "11": "images/metal_resource.png",
+    "12": "images/sword_resource.png",
+    "13": "images/axe_resource.png",
+    "14": "images/wood_resource.png",
+    "16": "images/spear_resource.png",
+    "17": "images/gunpowder_resource.png",
+    "18": "images/machine_gun_resource.png",
+    "19": "images/bazooka_resource.png",
+    "20": "images/mana_resource.png",
+    "21": "images/wizard_resource.png",
+    "22": "images/prophet_resource.png"
 };
 
-const KING_WON = "images/power_chicken_won.png";
-const KING_LOST = "images/power_chicken_lost.png";
-const KING_PLAING = "images/power_chicken_plaing.png";
+const IMG_KING_URL = {
+    won: "images/power_chicken_won.png",
+    lost: "images/power_chicken_lost.png",
+    plaing: "images/power_chicken_plaing.png"
+};
+
+function showTooltip(event) {
+    var style = document.getElementById("tooltip_component").style;
+    style.left = style.right = style.top = style.bottom = null;
+    if(event.clientX > window.innerWidth / 2) {
+        style.right = window.innerWidth - event.clientX + "px";
+    } else {
+        style.left = event.clientX + "px";
+    }
+    if(event.clientY > window.innerHeight / 2) {
+        style.bottom = window.innerHeight - event.clientY + "px";
+    } else {
+        style.top = event.clientY;
+    }
+    style.visibility = 'visible';
+}
+function hideTooltip() {
+    document.getElementById("tooltip_component").style.visibility = 'hidden';
+    document.getElementById("tooltip_component").innerHTML = '';
+}
+
+var upgradeFullList = [];
+function prepareUpgradeFullList(dataObject) {
+    upgradeFullList = JSON.parse(dataObject);
+    console.log(upgradeFullList);
+}
+
+var resourceFullList = [];
+function prepareResourceFullList(dataObject) {
+    resourceFullList = JSON.parse(dataObject);
+    console.log(resourceFullList);
+}
 
 function createCardList() {
     var content = "";
@@ -37,36 +71,93 @@ function createCardList() {
     document.getElementById("cards").innerHTML = content;
 }
 
-function createBuildingsUpdatesList() {
+function createBuildingList() {
     var content = "";
     for (var x = 0; x < 50; x++) {
         content += '<button style="height: 130px; width: 150px" class="glow-effect" '
-            +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Updates: ' + x + '</button>';
+            +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Upgrades: ' + x + '</button>';
     }
     document.getElementById("items").innerHTML = content;
 }
 
-function createEnemyBuildingsUpdatesList() {
+function createUpgradeList() {
+    var content = "";
+    for (var num in upgradeFullList) {
+        content += '<button class="glow-effect update-button tooltip-left" '+
+                        'onmouseover="prepareUpgradeTooltip(' + num + '); showTooltip(event)"' +
+                        'onmouseout="hideTooltip()">' +
+                        upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ') + '<br>' +
+                    '</button>';
+    }
+    document.getElementById("items").innerHTML = content;
+}
+
+function prepareUpgradeTooltip(num) {
+    var content = '';
+    content += 'Upgrade: ' + upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ');
+    content += ' (' + upgradeFullList[num]['upgradeDto']['description'] + ')<br><br>';
+    if(upgradeFullList[num]['resourceQuantityDtoList'] != undefined) {
+        content += '<br>This Upgrade is improving production of following resources:' + '<br>';
+        for (var numRes in upgradeFullList[num]['resourceQuantityDtoList']) {
+            content += '* ' + upgradeFullList[num]['resourceQuantityDtoList'][numRes]['name'];
+            content += ' (' + upgradeFullList[num]['resourceQuantityDtoList'][numRes]['description'] + ')';
+            content += ' to ' +upgradeFullList[num]['resourceQuantityDtoList'][numRes]['quantity'] + '% <br>';
+        }
+    }
+    if(upgradeFullList[num]['buildingDtoList'] != undefined) {
+        content += '<br>For following buildings:' + '<br>';
+        for (var numBld in upgradeFullList[num]['buildingDtoList']) {
+            content += '* ' + upgradeFullList[num]['buildingDtoList'][numBld]['name'];
+            content += ' (' + upgradeFullList[num]['buildingDtoList'][numBld]['description'] + ')<br>';
+        }
+    }
+    document.getElementById("tooltip_component").innerHTML = content;
+}
+
+function createEnemyBuildingList() {
     var content = "";
     for (var x = 0; x < 50; x++) {
         content += '<button style="height: 130px; width: 150px" class="glow-effect" '
-            +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Updates: ' + x + '</button>';
+            +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Upgrades: ' + x + '</button>';
+    }
+    document.getElementById("enemy_items").innerHTML = content;
+}
+
+function createEnemyUpgradeList() {
+    var content = "";
+    for (var num in upgradeFullList) {
+        content += '<button class="glow-effect update-button" '+
+                        'onmouseover="prepareUpgradeTooltip(' + num + '); showTooltip(event)"' +
+                        'onmouseout="hideTooltip()">' +
+                        upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ') + '<br>' +
+                    '</button>';
     }
     document.getElementById("enemy_items").innerHTML = content;
 }
 
 function createResourceList() {
     var content = "";
-    for (var x = 0; x < 20; x++) {
-        content += '<img class="resource-item" src="'+ IMG_URL[x] + '">';
+    for (var num in resourceFullList) {
+        content += '<img class="resource-item" src="' + IMG_URL[resourceFullList[num]['id'].toString()] + '"' +
+                        ' onmouseover="prepareResourceTooltip(' + num + '); showTooltip(event)"' +
+                        ' onmouseout="hideTooltip()">';
     }
     document.getElementById("left_resource_container").innerHTML = content;
 }
 
+function prepareResourceTooltip(num) {
+    var content = '';
+    content += 'Resource: ' + resourceFullList[num]['name'].split('_').join(' ');
+    content += ' (' + resourceFullList[num]['description'] + ')';
+    document.getElementById("tooltip_component").innerHTML = content;
+}
+
 function createEnemyResourceList() {
     var content = "";
-    for (var x = 0; x < 20; x++) {
-        content += '<img class="resource-item" src="'+ IMG_URL[x] + '">';
+    for (var num in resourceFullList) {
+        content += '<img class="resource-item" src="' + IMG_URL[resourceFullList[num]['id'].toString()] + '"' +
+            ' onmouseover="prepareResourceTooltip(' + num + '); showTooltip(event)"' +
+            ' onmouseout="hideTooltip()">';
     }
     document.getElementById("right_resource_container").innerHTML = content;
 }
@@ -84,20 +175,20 @@ function createChatMessageList(dataObject) {
 }
 
 function createKings(myPercent , enemyPercent) {
-    var myImage = KING_PLAING;
+    var myImage = IMG_KING_URL.plaing;
     var enemyImage = myImage;
     if (myPercent >= 100 && enemyPercent < 100) {
-        myImage = KING_WON;
-        enemyImage = KING_LOST;
+        myImage = IMG_KING_URL.won;
+        enemyImage = IMG_KING_URL.lost;
     } else if (myPercent < 100 && enemyPercent >= 100) {
-        myImage = KING_LOST;
-        enemyImage = KING_WON;
+        myImage = IMG_KING_URL.lost;
+        enemyImage = IMG_KING_URL.won;
     } else if (myPercent > 0 && enemyPercent <= 0) {
-        myImage = KING_WON;
-        enemyImage = KING_LOST;
+        myImage = IMG_KING_URL.won;
+        enemyImage = IMG_KING_URL.lost;
     } else if (myPercent <= 0 && enemyPercent > 0) {
-        myImage = KING_LOST;
-        enemyImage = KING_WON;
+        myImage = IMG_KING_URL.lost;
+        enemyImage = IMG_KING_URL.won;
     }
 
     document.getElementById("left_king").innerHTML = getCylinder(myPercent)
