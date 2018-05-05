@@ -31,7 +31,7 @@ const IMG_RESOURCES_URL = {
 };
 
 const IMG_BUILDINGS_URL = {
-    "1": "Granary", // Амбар
+    "1": "images/buildings/granary_building.png", // Амбар
     "2": "images/buildings/chicken_house_building.png", // Курятник
     "3": "images/buildings/incubator_building.png", // Инкубатор
     "4": "images/buildings/cleaning_center_building.png", // Клининг Центр
