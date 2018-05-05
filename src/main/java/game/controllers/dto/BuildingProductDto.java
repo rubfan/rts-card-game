@@ -1,49 +1,41 @@
 package game.controllers.dto;
 
+import java.util.List;
+
 public class BuildingProductDto {
-    private Integer buildingId;
-    private Integer resourceId;
-    private Float numberPerSec;
+
+    private BuildingDto buildingDto;
+    private List<ProductDto> productDtoList;
 
     public BuildingProductDto() {
     }
 
-    public BuildingProductDto(Integer buildingId, Integer resourceId, Float numberPerSec) {
-        this.buildingId = buildingId;
-        this.resourceId = resourceId;
-        this.numberPerSec = numberPerSec;
+    public BuildingProductDto(BuildingDto buildingDto, List<ProductDto> productDtoList) {
+        this.buildingDto = buildingDto;
+        this.productDtoList = productDtoList;
     }
 
-    public Integer getBuildingId() {
-        return buildingId;
+    public BuildingDto getBuildingDto() {
+        return buildingDto;
     }
 
-    public void setBuildingId(Integer buildingId) {
-        this.buildingId = buildingId;
+    public void setBuildingDto(BuildingDto buildingDto) {
+        this.buildingDto = buildingDto;
     }
 
-    public Integer getResourceId() {
-        return resourceId;
+    public List<ProductDto> getProductDtoList() {
+        return productDtoList;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
-    }
-
-    public Float getNumberPerSec() {
-        return numberPerSec;
-    }
-
-    public void setNumberPerSec(Float numberPerSec) {
-        this.numberPerSec = numberPerSec;
+    public void setProductDtoList(List<ProductDto> productDtoList) {
+        this.productDtoList = productDtoList;
     }
 
     @Override
     public String toString() {
         return "BuildingProductDto{" +
-                "buildingId=" + buildingId +
-                ", resourceId=" + resourceId +
-                ", numberPerSec=" + numberPerSec +
+                "buildingDto=" + buildingDto +
+                ", productDtoList=" + productDtoList +
                 '}';
     }
 }
