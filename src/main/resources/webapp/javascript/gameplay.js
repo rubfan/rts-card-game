@@ -1,28 +1,60 @@
 /**
  * Created by ruslangramatic on 4/24/18.
  */
-const IMG_URL = {
-    "0": "images/power_resource.png",
-    "1": "images/wheat_resource.png",
-    "2": "images/egg_resource.png",
-    "4": "images/droppings_resource.png",
-    "5": "images/worker_resource.png",
-    "6": "images/recruit_resource.png",
-    "7": "images/warrior_resource.png",
-    "8": "images/stone_resource.png",
-    "9": "images/hammer_resource.png",
-    "11": "images/metal_resource.png",
-    "12": "images/sword_resource.png",
-    "13": "images/axe_resource.png",
-    "14": "images/wood_resource.png",
-    "16": "images/spear_resource.png",
-    "17": "images/gunpowder_resource.png",
-    "18": "images/machine_gun_resource.png",
-    "19": "images/bazooka_resource.png",
-    "20": "images/mana_resource.png",
-    "21": "images/wizard_resource.png",
-    "22": "images/prophet_resource.png"
+var upgradeFullList = [];
+var resourceFullList = [];
+var accountInfo = {};
+var hours = 1;
+var countDownDate = (new Date().getTime()) + (hours * 60 * 60 * 1000);
+
+const IMG_RESOURCES_URL = {
+    "0": "images/resources/power_resource.png",
+    "1": "images/resources/wheat_resource.png",
+    "2": "images/resources/egg_resource.png",
+    "4": "images/resources/droppings_resource.png",
+    "5": "images/resources/worker_resource.png",
+    "6": "images/resources/recruit_resource.png",
+    "7": "images/resources/warrior_resource.png",
+    "8": "images/resources/stone_resource.png",
+    "9": "images/resources/hammer_resource.png",
+    "11": "images/resources/metal_resource.png",
+    "12": "images/resources/sword_resource.png",
+    "13": "images/resources/axe_resource.png",
+    "14": "images/resources/wood_resource.png",
+    "16": "images/resources/spear_resource.png",
+    "17": "images/resources/gunpowder_resource.png",
+    "18": "images/resources/machine_gun_resource.png",
+    "19": "images/resources/bazooka_resource.png",
+    "20": "images/resources/mana_resource.png",
+    "21": "images/resources/wizard_resource.png",
+    "22": "images/resources/prophet_resource.png"
 };
+
+const IMG_BUILDINGS_URL = {
+    "1": "Granary", // Амбар
+    "2": "images/buildings/chicken_house_building.png", // Курятник
+    "3": "images/buildings/incubator_building.png", // Инкубатор
+    "4": "images/buildings/cleaning_center_building.png", // Клининг Центр
+    "5": "images/buildings/chicken_yard_building.png", // Куринный Двор
+    "6": "images/buildings/cock_house_building.png", // Петушатня
+    "7": "images/buildings/cock_barrack_building.png", // Петушинные бараки
+    "8": "images/buildings/quarry_building.png", // Каменоломня
+    "9": "images/buildings/hammer_stonecutter_building.png", // Молото-Каменотес
+    "10": "images/buildings/throwing_school_building.png", // Школа Метания
+    "11": "images/buildings/blast_furnace_building.png", // Доменная печь
+    "12": "images/buildings/smithy_building.png", // Кузница
+    "13": "images/buildings/axe_school_building.png", // Школа Топора
+    "14": "images/buildings/wood_logger_building.png", // Лесорубка
+    "15": "images/buildings/carpentry_building.png", // Плотницкая
+    "16": "images/buildings/joinery-building.png", // Столярка
+    "17": "images/buildings/alchemical_lab_building.png", // Алхимическая лаба
+    "18": "images/buildings/armory_building.png", // Оружейная
+    "19": "images/buildings/ballistic_base_building.png", // Балистическая лаба
+    "20": "images/buildings/sanctuary_building.png", // Алтарь
+    "21": "images/buildings/magic_school_building.png", // Школа колдовства
+    "22": "images/buildings/ziggurat_building.bmp", // Зиккурат
+};
+
 
 const IMG_KING_URL = {
     won: "images/power_chicken_won.png",
@@ -50,16 +82,26 @@ function hideTooltip() {
     document.getElementById("tooltip_component").innerHTML = '';
 }
 
-var upgradeFullList = [];
 function prepareUpgradeFullList(dataObject) {
     upgradeFullList = JSON.parse(dataObject);
     console.log(upgradeFullList);
 }
 
-var resourceFullList = [];
 function prepareResourceFullList(dataObject) {
     resourceFullList = JSON.parse(dataObject);
     console.log(resourceFullList);
+}
+
+function prepareAccountInfo(dataObject) {
+    accountInfo = JSON.parse(dataObject);
+    console.log(accountInfo);
+}
+
+function createAccountInfo() {
+    var content = accountInfo['user'] != undefined ? "User: " + accountInfo['user']['name'] : "";
+    content += " / " + (accountInfo['room'] != undefined ? "Current Room: "
+            + accountInfo['room']['name'] + " (" + accountInfo['room']['description'] + ")" : "");
+    document.getElementById("accountInfo").innerHTML = content;
 }
 
 function createCardList() {
@@ -138,7 +180,7 @@ function createEnemyUpgradeList() {
 function createResourceList() {
     var content = "";
     for (var num in resourceFullList) {
-        content += '<img class="resource-item" src="' + IMG_URL[resourceFullList[num]['id'].toString()] + '"' +
+        content += '<img class="resource-item" src="' + IMG_RESOURCES_URL[resourceFullList[num]['id'].toString()] + '"' +
                         ' onmouseover="prepareResourceTooltip(' + num + '); showTooltip(event)"' +
                         ' onmouseout="hideTooltip()">';
     }
@@ -155,7 +197,7 @@ function prepareResourceTooltip(num) {
 function createEnemyResourceList() {
     var content = "";
     for (var num in resourceFullList) {
-        content += '<img class="resource-item" src="' + IMG_URL[resourceFullList[num]['id'].toString()] + '"' +
+        content += '<img class="resource-item" src="' + IMG_RESOURCES_URL[resourceFullList[num]['id'].toString()] + '"' +
             ' onmouseover="prepareResourceTooltip(' + num + '); showTooltip(event)"' +
             ' onmouseout="hideTooltip()">';
     }
@@ -208,17 +250,7 @@ function getCylinder(percent) {
             '<b class="power-percent" style="line-height:' + cylinderSize + 'px;">'+ percent + '%</b>';
 }
 
-function createAccountInfo(dataObject) {
-    dataObject = JSON.parse(dataObject);
-    var content = dataObject['user'] != undefined ? "User: " + dataObject['user']['name'] : "";
-    content += " / " + (dataObject['room'] != undefined ? "Current Room: "
-        + dataObject['room']['name'] + " (" + dataObject['room']['description'] + ")" : "");
-    document.getElementById("accountInfo").innerHTML = content;
-}
-
-var hours = 1;
-var countDownDate = (new Date().getTime()) + (hours * 60 * 60 * 1000);
-var x = setInterval(function() {
+setInterval(function() {
     var now = new Date().getTime();
     var distance = countDownDate - now;
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -230,4 +262,8 @@ var x = setInterval(function() {
         document.getElementById("count_down_time").innerHTML = "EXPIRED";
     }
 }, 1000);
+
+function logout() {
+    window.location.replace(RESOURCE_URL + '/login.html');
+}
 

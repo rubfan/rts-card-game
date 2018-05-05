@@ -19,7 +19,7 @@ public class AccountBuildingControllerImpl implements AccountBuildingController 
 
     @Override
     @GET
-    @Path("{account_id}/building/list")
+    @Path("/{account_id}/building/list")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<AccountBuildingDto> getAccountBuildingsList(@PathParam("account_id") Integer accountId) {
         List<AccountBuildingDto> accountBuildingList = accountBuildingService.getListOfAccountBuildings(accountId);
@@ -29,7 +29,7 @@ public class AccountBuildingControllerImpl implements AccountBuildingController 
 
     @Override
     @DELETE
-    @Path("{account_id}/building/clear")
+    @Path("/{account_id}/building/all/clear")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void clearAccountBuildingsList(@PathParam("account_id") Integer accountId) {
@@ -38,7 +38,7 @@ public class AccountBuildingControllerImpl implements AccountBuildingController 
 
     @Override
     @PUT
-    @Path("{account_id}/building/add/{building_id}")
+    @Path("/{account_id}/building/{building_id}/add")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void addBuildingToAccount(@PathParam("account_id") Integer accountId, @PathParam("building_id") Integer buildingId) {

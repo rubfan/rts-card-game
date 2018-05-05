@@ -11,7 +11,11 @@
                 <li><a class="active" href="rooms.html">Rooms</a></li>
                 <li><a href="gameplay.html">Gameplay</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li style="float: right">
+                    <a href="#" onclick="restRequest('GET',
+                        REST_API_URL + '/user/logout', logout);">Logout
+                    </a>
+                </li>
             </ul>
         </div>
 

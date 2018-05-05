@@ -3,6 +3,7 @@ package game;
 import config.AppContextConfig;
 import config.DeployDbConfig;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

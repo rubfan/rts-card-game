@@ -21,3 +21,7 @@ function createAchievementsTable(dataObject) {
     document.getElementById("achievementsTable").innerHTML = "<h1 class='achievements-header'>Achievements</h1>"
         + "<table class='achievements-table'>" + content + "</table>";
 }
+
+function logout() {
+    window.location.replace(RESOURCE_URL + '/login.html');
+}
