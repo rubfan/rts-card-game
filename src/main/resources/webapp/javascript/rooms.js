@@ -45,3 +45,7 @@ function joinRoom(roomId) {
     });
 }
 
+function logout() {
+    window.location.replace(RESOURCE_URL + '/login.html');
+}
+

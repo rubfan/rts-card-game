@@ -5,14 +5,18 @@
         <script src="javascript/main.js"></script>
         <script src="javascript/gameplay.js"></script>
     </head>
-    <body class="gameplay-background">
-        <div class="game-site-header" style="width: 100%">
+    <body>
+        <div class="game-site-header">
             <ul class="ul-info">
                 <li><a href="rooms.html">Rooms</a></li>
                 <li><a class="active" href="gameplay.html">Gameplay</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="login.html">Login</a></li>
                 <li><a href="#" style="padding-left: 60px; padding-right: 60px; color: #ffff00" id="accountInfo"></a></li>
+                <li style="float: right">
+                    <a href="#" onclick="restRequest('GET',
+                        REST_API_URL + '/user/logout', logout);">Logout
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -33,13 +37,15 @@
 
             <div id="right_resource_container" class="right-resource-container"></div>
 
+            <div id="count_down_time" class="count-down-time"></div>
+
             <div class="chat-component">
                 <div id="chat_container" class="chat-container">
                     <div id="chat_items" class="chat-items"></div>
                 </div>
                 <div style="width: 100%; display: table">
-                    <input style="width: 64%" id="message" type="text" class="game-input"
-                           placeholder="input message to your opponent">
+                    <input style="width: 63%" id="message" type="text" class="game-input"
+                           placeholder="Enter message">
                     <button style="width: 20%" id="send_message" class="game-button" onclick="restRequest('POST',
                         REST_API_URL + '/message/send', createChatMessageList, {
                             account_id: 1000, //TODO: we need to put right code for getting test account here
@@ -49,16 +55,25 @@
                 </div>
             </div>
 
-            <div id="left_king" class="left-king"></div>
+            <div id="left_king" class="left-king cylinder"></div>
 
-            <div id="right_king" class="right-king"></div>
+            <div id="right_king" class="right-king cylinder"></div>
+
+            <div id="tooltip_component" class="tooltip-component"></div>
+
         </div>
 
         <script>
+            restRequest('GET', REST_API_URL + '/account/info', prepareAccountInfo);
+            restRequest("GET", REST_API_URL + "/upgrade/product/list", prepareUpgradeFullList);
+            restRequest("GET", REST_API_URL + "/resource/list", prepareResourceFullList);
+            createAccountInfo();
             createCardList();
-            createBuildingsUpdatesList();
-            createEnemyBuildingsUpdatesList();
+            createBuildingList();
+            createUpgradeList();
             createResourceList();
+            createEnemyBuildingList();
+            createEnemyUpgradeList();
             createEnemyResourceList();
             //restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
             createChatMessageList(JSON.stringify([
@@ -73,8 +88,7 @@
                 {name: "Dima", message: "hello!999"},
                 {name: "Dima", message: "hello!1010101"}
             ]));
-            createKings(100, 55);
-            restRequest('GET', REST_API_URL + '/account/info', createAccountInfo);
+            createKings(25, 100);
         </script>
     </body>
 <html>
