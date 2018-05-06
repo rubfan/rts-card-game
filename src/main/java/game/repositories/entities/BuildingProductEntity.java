@@ -1,50 +1,41 @@
 package game.repositories.entities;
 
+import java.util.List;
+
 public class BuildingProductEntity {
 
-    private Integer buildingId;
-    private Integer resourceId;
-    private Float numberPerSec;
-
-    public BuildingProductEntity(Integer buildingId, Integer resourceId, Float numberPerSec) {
-        this.buildingId = buildingId;
-        this.resourceId = resourceId;
-        this.numberPerSec = numberPerSec;
-    }
+    private BuildingEntity buildingEntity;
+    private List<ProductEntity> productEntityList;
 
     public BuildingProductEntity() {
     }
 
-    public Integer getBuildingId() {
-        return buildingId;
+    public BuildingProductEntity(BuildingEntity buildingEntity, List<ProductEntity> productEntityList) {
+        this.buildingEntity = buildingEntity;
+        this.productEntityList = productEntityList;
     }
 
-    public void setBuildingId(Integer buildingId) {
-        this.buildingId = buildingId;
+    public BuildingEntity getBuildingEntity() {
+        return buildingEntity;
     }
 
-    public Integer getResourceId() {
-        return resourceId;
+    public void setBuildingEntity(BuildingEntity buildingEntity) {
+        this.buildingEntity = buildingEntity;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+    public List<ProductEntity> getProductEntityList() {
+        return productEntityList;
     }
 
-    public Float getNumberPerSec() {
-        return numberPerSec;
-    }
-
-    public void setNumberPerSec(Float numberPerSec) {
-        this.numberPerSec = numberPerSec;
+    public void setProductEntityList(List<ProductEntity> productEntityList) {
+        this.productEntityList = productEntityList;
     }
 
     @Override
     public String toString() {
         return "BuildingProductEntity{" +
-                "buildingId=" + buildingId +
-                ", resourceId=" + resourceId +
-                ", numberPerSec=" + numberPerSec +
+                "buildingEntity=" + buildingEntity +
+                ", productEntityList=" + productEntityList +
                 '}';
     }
 }

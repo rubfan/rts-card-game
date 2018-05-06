@@ -2,7 +2,9 @@ package game.repositories.dao.impl;
 
 import game.repositories.dao.BuildingProductDao;
 import game.repositories.dao.helpers.QueryHelper;
+import game.repositories.entities.BuildingEntity;
 import game.repositories.entities.BuildingProductEntity;
+import game.repositories.entities.ProductEntity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,17 +21,50 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from Building_Product");
+                ResultSet rs = statement.executeQuery("select building_id, b.name, b.description " +
+                                                            "from Building_Product bp " +
+                                                            "inner join Building b " +
+                                                            "on bp.building_id = b.id");
                 while(rs.next()) {
                     BuildingProductEntity buildingProduct = new BuildingProductEntity(
-                            rs.getInt("building_id"),
-                            rs.getInt("resource_id"),
-                            rs.getFloat("number_per_sec")
+                            new BuildingEntity(
+                                    rs.getInt("building_id"),
+                                    rs.getString("name"),
+                                    rs.getString("description")
+                            ),
+                            prepareProductList(rs.getInt("building_id"))
+
                     );
                     buildingProducts.add(buildingProduct);
                 }
             }
         }.run();
         return buildingProducts;
+    }
+
+    private List<ProductEntity> prepareProductList(Integer buildingId) {
+
+        List<ProductEntity> productEntityList = new LinkedList<>();
+
+        new QueryHelper() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                ResultSet rs = statement.executeQuery("select r.id, r.name, r.description,bp.number_per_sec " +
+                                                            "from Building_Product bp " +
+                                                            "inner join Resource r " +
+                                                            "on bp.resource_id = r.id " +
+                                                            "where bp.building_id = "+ buildingId +";");
+                while(rs.next()) {
+                    ProductEntity productEntity = new ProductEntity(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("description"),
+                            rs.getInt("number_per_sec")
+                    );
+                    productEntityList.add(productEntity);
+                }
+            }
+        }.run();
+
+        return productEntityList;
     }
 }
