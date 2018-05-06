@@ -1,6 +1,7 @@
 /**
  * Created by ruslangramatic on 4/24/18.
  */
+var buildingFullList = [];
 var upgradeFullList = [];
 var resourceFullList = [];
 var accountInfo = {};
@@ -11,16 +12,19 @@ const IMG_RESOURCES_URL = {
     "0": "images/resources/power_resource.png",
     "1": "images/resources/wheat_resource.png",
     "2": "images/resources/egg_resource.png",
+    "3": "images/resources/chick_resource.png",
     "4": "images/resources/droppings_resource.png",
     "5": "images/resources/worker_resource.png",
     "6": "images/resources/recruit_resource.png",
     "7": "images/resources/warrior_resource.png",
     "8": "images/resources/stone_resource.png",
     "9": "images/resources/hammer_resource.png",
+    "10": "images/resources/throwing_cock_resource.png",
     "11": "images/resources/metal_resource.png",
     "12": "images/resources/sword_resource.png",
     "13": "images/resources/axe_resource.png",
     "14": "images/resources/wood_resource.png",
+    "15": "images/resources/archer_resource.png",
     "16": "images/resources/spear_resource.png",
     "17": "images/resources/gunpowder_resource.png",
     "18": "images/resources/machine_gun_resource.png",
@@ -52,7 +56,7 @@ const IMG_BUILDINGS_URL = {
     "19": "images/buildings/ballistic_base_building.png", // Балистическая лаба
     "20": "images/buildings/sanctuary_building.png", // Алтарь
     "21": "images/buildings/magic_school_building.png", // Школа колдовства
-    "22": "images/buildings/ziggurat_building.bmp", // Зиккурат
+    "22": "images/buildings/ziggurat_building.png", // Зиккурат
 };
 
 
@@ -80,6 +84,11 @@ function showTooltip(event) {
 function hideTooltip() {
     document.getElementById("tooltip_component").style.visibility = 'hidden';
     document.getElementById("tooltip_component").innerHTML = '';
+}
+
+function prepareBuildingFullList(dataObject) {
+    buildingFullList = JSON.parse(dataObject);
+    console.log(buildingFullList);
 }
 
 function prepareUpgradeFullList(dataObject) {
@@ -115,11 +124,49 @@ function createCardList() {
 
 function createBuildingList() {
     var content = "";
-    for (var x = 0; x < 50; x++) {
-        content += '<button style="height: 130px; width: 150px" class="glow-effect" '
-            +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Upgrades: ' + x + '</button>';
+    for (var num in buildingFullList) {
+        content += '<button class="glow-effect building-button tooltip-left" '+
+                        'onmouseover="prepareBuildingTooltip(' + num + '); showTooltip(event)"' +
+                        'onmouseout="hideTooltip()">' +
+                        '<img class="building-img" src="' + IMG_BUILDINGS_URL[buildingFullList[num]['buildingDto']['id']] + '">' +
+                        '<span class="building-text">' + buildingFullList[num]['buildingDto']['name'].split('_').join(' ') + '</span>' +
+                        '<span class="building-text-number">' + Math.floor(Math.random() * 99) + '</span>' +
+                    '</button>';
     }
-    document.getElementById("items").innerHTML = content;
+    document.getElementById("building_items").innerHTML = content;
+}
+
+function createEnemyBuildingList() {
+    var content = "";
+    for (var num in buildingFullList) {
+        content +=  '<button class="glow-effect building-button tooltip-left" '+
+                        'onmouseover="prepareBuildingTooltip(' + num + '); showTooltip(event)"' +
+                        'onmouseout="hideTooltip()">' +
+                        '<img class="building-img" src="' + IMG_BUILDINGS_URL[buildingFullList[num]['buildingDto']['id']] + '">' +
+                        '<span class="building-text">' + buildingFullList[num]['buildingDto']['name'].split('_').join(' ') + '</span>' +
+                        '<span class="building-text-number">' + Math.floor(Math.random() * 99) + '</span>' +
+                    '</button>';
+    }
+    document.getElementById("enemy_building_items").innerHTML = content;
+}
+
+function prepareBuildingTooltip(num) {
+    var content = '';
+    content += 'Building: ' + buildingFullList[num]['buildingDto']['name'].split('_').join(' ');
+    content += ' (' + buildingFullList[num]['buildingDto']['description'] + ')<br><br>';
+    if(buildingFullList[num]['productDtoList'] != undefined) {
+        content += '<br>This Building produces the following resources:' + '<br>';
+        for (var numRes in buildingFullList[num]['productDtoList']) {
+            var perSec = buildingFullList[num]['productDtoList'][numRes]['numPerSec'];
+            content += '<img class="small-icon" src="' +
+                IMG_RESOURCES_URL[buildingFullList[num]['productDtoList'][numRes]['id']] + '">';
+            content += ' ' + buildingFullList[num]['productDtoList'][numRes]['name'];
+            content += ' (' + buildingFullList[num]['productDtoList'][numRes]['description'] + ') ';
+            content += perSec > 0 ? '<b style="color: #7cff03">+' : '<b style="color: #ff8000">';
+            content += buildingFullList[num]['productDtoList'][numRes]['numPerSec'] + '</b> per minute <br>';
+        }
+    }
+    document.getElementById("tooltip_component").innerHTML = content;
 }
 
 function createUpgradeList() {
@@ -131,38 +178,7 @@ function createUpgradeList() {
                         upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ') + '<br>' +
                     '</button>';
     }
-    document.getElementById("items").innerHTML = content;
-}
-
-function prepareUpgradeTooltip(num) {
-    var content = '';
-    content += 'Upgrade: ' + upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ');
-    content += ' (' + upgradeFullList[num]['upgradeDto']['description'] + ')<br><br>';
-    if(upgradeFullList[num]['resourceQuantityDtoList'] != undefined) {
-        content += '<br>This Upgrade is improving production of following resources:' + '<br>';
-        for (var numRes in upgradeFullList[num]['resourceQuantityDtoList']) {
-            content += '* ' + upgradeFullList[num]['resourceQuantityDtoList'][numRes]['name'];
-            content += ' (' + upgradeFullList[num]['resourceQuantityDtoList'][numRes]['description'] + ')';
-            content += ' to ' +upgradeFullList[num]['resourceQuantityDtoList'][numRes]['quantity'] + '% <br>';
-        }
-    }
-    if(upgradeFullList[num]['buildingDtoList'] != undefined) {
-        content += '<br>For following buildings:' + '<br>';
-        for (var numBld in upgradeFullList[num]['buildingDtoList']) {
-            content += '* ' + upgradeFullList[num]['buildingDtoList'][numBld]['name'];
-            content += ' (' + upgradeFullList[num]['buildingDtoList'][numBld]['description'] + ')<br>';
-        }
-    }
-    document.getElementById("tooltip_component").innerHTML = content;
-}
-
-function createEnemyBuildingList() {
-    var content = "";
-    for (var x = 0; x < 50; x++) {
-        content += '<button style="height: 130px; width: 150px" class="glow-effect" '
-            +'onclick="restRequest("GET", REST_API_URL + "/resources/list", jsonToTable)">Buildings<br>Upgrades: ' + x + '</button>';
-    }
-    document.getElementById("enemy_items").innerHTML = content;
+    document.getElementById("upgrade_items").innerHTML = content;
 }
 
 function createEnemyUpgradeList() {
@@ -174,7 +190,33 @@ function createEnemyUpgradeList() {
                         upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ') + '<br>' +
                     '</button>';
     }
-    document.getElementById("enemy_items").innerHTML = content;
+    document.getElementById("enemy_upgrade_items").innerHTML = content;
+}
+
+function prepareUpgradeTooltip(num) {
+    var content = '';
+    content += 'Upgrade: ' + upgradeFullList[num]['upgradeDto']['name'].split('_').join(' ');
+    content += ' (' + upgradeFullList[num]['upgradeDto']['description'] + ')<br><br>';
+    if(upgradeFullList[num]['resourceQuantityDtoList'] != undefined) {
+        content += '<br>This Upgrade is improving production of following resources:' + '<br>';
+        for (var numRes in upgradeFullList[num]['resourceQuantityDtoList']) {
+            content += '<img class="small-icon" src="' +
+                IMG_RESOURCES_URL[upgradeFullList[num]['resourceQuantityDtoList'][numRes]['id']] + '">';
+            content += ' ' + upgradeFullList[num]['resourceQuantityDtoList'][numRes]['name'];
+            content += ' (' + upgradeFullList[num]['resourceQuantityDtoList'][numRes]['description'] + ')';
+            content += ' to <b style="color: #7cff03">' +upgradeFullList[num]['resourceQuantityDtoList'][numRes]['quantity'] + '%</b><br>';
+        }
+    }
+    if(upgradeFullList[num]['buildingDtoList'] != undefined) {
+        content += '<br>For following buildings:' + '<br>';
+        for (var numBld in upgradeFullList[num]['buildingDtoList']) {
+            content += '<img class="small-icon" src="' +
+                IMG_BUILDINGS_URL[upgradeFullList[num]['buildingDtoList'][numBld]['id']] + '">';
+            content += ' ' + upgradeFullList[num]['buildingDtoList'][numBld]['name'];
+            content += ' (' + upgradeFullList[num]['buildingDtoList'][numBld]['description'] + ')<br>';
+        }
+    }
+    document.getElementById("tooltip_component").innerHTML = content;
 }
 
 function createResourceList() {

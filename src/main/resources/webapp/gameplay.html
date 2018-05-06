@@ -26,11 +26,17 @@
             </div>
 
             <div id="container_left" class="container-left">
-                <div id="items" class="items"></div>
+                <div class="items-header">Buildings</div>
+                <div id="building_items" class="items"></div>
+                <div class="items-header" style="margin-top: -10px">Upgrades</div>
+                <div id="upgrade_items" class="items"></div>
             </div>
 
             <div id="container_right" class="container-right">
-                <div id="enemy_items" class="enemy-items"></div>
+                <div class="items-header">Buildings</div>
+                <div id="enemy_building_items" class="items"></div>
+                <div class="items-header" style="margin-top: -10px">Upgrades</div>
+                <div id="enemy_upgrade_items" class="items"></div>
             </div>
 
             <div id="left_resource_container" class="left-resource-container"></div>
@@ -65,6 +71,7 @@
 
         <script>
             restRequest('GET', REST_API_URL + '/account/info', prepareAccountInfo);
+            restRequest("GET", REST_API_URL + "/building/product/list", prepareBuildingFullList);
             restRequest("GET", REST_API_URL + "/upgrade/product/list", prepareUpgradeFullList);
             restRequest("GET", REST_API_URL + "/resource/list", prepareResourceFullList);
             createAccountInfo();
