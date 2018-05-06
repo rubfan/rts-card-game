@@ -250,7 +250,7 @@ function getCylinder(percent) {
             '<b class="power-percent" style="line-height:' + cylinderSize + 'px;">'+ percent + '%</b>';
 }
 
-setInterval(function() {
+var x = setInterval(function() {
     var now = new Date().getTime();
     var distance = countDownDate - now;
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

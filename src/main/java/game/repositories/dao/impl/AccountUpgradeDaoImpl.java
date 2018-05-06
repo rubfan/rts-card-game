@@ -18,7 +18,7 @@ public class AccountUpgradeDaoImpl implements AccountUpgradeDao {
 
         final List<AccountUpgradeEntity> accountUpgrades = new LinkedList<>();
 
-        new QueryHelper(){
+        return new QueryHelper<List<AccountUpgradeEntity>>(){
             @Override
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
@@ -31,8 +31,8 @@ public class AccountUpgradeDaoImpl implements AccountUpgradeDao {
                     );
                     accountUpgrades.add(accountBuilding);
                 }
+                setResult(accountUpgrades);
             }
         }.run();
-        return accountUpgrades;
     }
 }

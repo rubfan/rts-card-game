@@ -1,6 +1,6 @@
 package game.controllers.dto;
 
-public class ProductDto extends ResourсeDto {
+public class ProductDto extends ResourceDto {
     private Integer numPerSec;
 
     public ProductDto() {
