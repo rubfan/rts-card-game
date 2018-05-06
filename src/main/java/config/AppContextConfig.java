@@ -16,7 +16,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-//import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.eclipse.jetty.util.resource.Resource;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -40,9 +40,9 @@ public class AppContextConfig {
         servletsHandler.setContextPath("/");
         servletsHandler.addServlet(new ServletHolder(new ServletContainer(getResourceConfig())), "/rest/*");
 
-//        FilterHolder holder = new FilterHolder(new CrossOriginFilter());
-//        holder.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,HEAD,OPTIONS");
-//        servletsHandler.addFilter(holder, "/rest/*", EnumSet.of(DispatcherType.REQUEST));
+        FilterHolder holder = new FilterHolder(new CrossOriginFilter());
+        holder.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,HEAD,OPTIONS");
+        servletsHandler.addFilter(holder, "/rest/*", EnumSet.of(DispatcherType.REQUEST));
 
         ResourceHandler resourceHandler = getResourceHandler();
         resourceHandler.setWelcomeFiles(new String[]{"login.html"});
