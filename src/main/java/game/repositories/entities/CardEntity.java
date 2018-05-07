@@ -11,7 +11,7 @@ public class CardEntity {
         this.description = description;
     }
 
-    private CardEntity(){
+    protected CardEntity(){
     }
 
     public void setId(Integer id) {

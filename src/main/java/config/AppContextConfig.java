@@ -138,6 +138,10 @@ public class AppContextConfig {
                     bindAsContract(UpgradeProductDaoImpl.class).to(UpgradeProductDao.class);
                     bindAsContract(UpgradeProductServiceImpl.class).to(UpgradeProductService.class);
                     bindAsContract(UpgradeProductControllerImpl.class).to(UpgradeProductController.class);
+
+                    bindAsContract(CardProductDaoImpl.class).to(CardProductDao.class);
+                    bindAsContract(CardProductServiceImpl.class).to(CardProductService.class);
+                    bindAsContract(CardProductControllerImpl.class).to(CardProductController.class);
                 }
             });
         }};
