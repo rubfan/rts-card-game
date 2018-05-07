@@ -28,7 +28,7 @@ public class AccountBuildingControllerImpl implements AccountBuildingController 
     }
 
     @Override
-    @DELETE
+    @GET
     @Path("/{account_id}/building/all/clear")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -37,7 +37,7 @@ public class AccountBuildingControllerImpl implements AccountBuildingController 
     }
 
     @Override
-    @PUT
+    @GET
     @Path("/{account_id}/building/{building_id}/add")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
