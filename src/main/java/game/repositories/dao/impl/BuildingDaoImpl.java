@@ -15,9 +15,9 @@ public class BuildingDaoImpl implements BuildingDao {
 
     @Override
     public List<BuildingEntity> getListOfBuildings() {
-         final List<BuildingEntity> buildings = new LinkedList<BuildingEntity>();
+        final List<BuildingEntity> buildings = new LinkedList<BuildingEntity>();
 
-        new QueryHelper() {
+        return new QueryHelper<List<BuildingEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
                 ResultSet rs = statement.executeQuery("select * from Building");
@@ -29,9 +29,8 @@ public class BuildingDaoImpl implements BuildingDao {
                     );
                     buildings.add(building);
                 }
+                setResult(buildings);
             }
         }.run();
-
-        return buildings;
     }
 }
