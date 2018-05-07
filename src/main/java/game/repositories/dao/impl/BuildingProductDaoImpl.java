@@ -18,7 +18,7 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
     public List<BuildingProductEntity> getListOfBuildingResources() {
         final List<BuildingProductEntity> buildingProducts = new LinkedList<BuildingProductEntity>();
 
-        new QueryHelper() {
+        return new QueryHelper<List<BuildingProductEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
                 ResultSet rs = statement.executeQuery("select building_id, b.name, b.description " +
@@ -37,16 +37,16 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
                     );
                     buildingProducts.add(buildingProduct);
                 }
+                setResult(buildingProducts);
             }
         }.run();
-        return buildingProducts;
     }
 
     private List<ProductEntity> prepareProductList(Integer buildingId) {
 
         List<ProductEntity> productEntityList = new LinkedList<>();
 
-        new QueryHelper() {
+        return new QueryHelper<List<ProductEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 ResultSet rs = statement.executeQuery("select r.id, r.name, r.description,bp.number_per_sec " +
                                                             "from Building_Product bp " +
@@ -62,9 +62,8 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
                     );
                     productEntityList.add(productEntity);
                 }
+                setResult(productEntityList);
             }
         }.run();
-
-        return productEntityList;
     }
 }

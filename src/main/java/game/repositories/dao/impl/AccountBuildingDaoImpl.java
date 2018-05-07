@@ -45,7 +45,7 @@ public class AccountBuildingDaoImpl implements AccountBuildingDao {
     public List<AccountBuildingEntity> getListOfAccountBuildings(int accountId) {
 
         final List<AccountBuildingEntity> accountBuildings = new LinkedList<AccountBuildingEntity>();
-        new QueryHelper() {
+        return new QueryHelper<List<AccountBuildingEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
                 ResultSet rs = statement.executeQuery("select * from Account_Building WHERE account_id = " + accountId);
@@ -57,8 +57,8 @@ public class AccountBuildingDaoImpl implements AccountBuildingDao {
                     );
                     accountBuildings.add(accountBuilding);
                 }
+                setResult(accountBuildings);
             }
         }.run();
-        return accountBuildings;
     }
 }
