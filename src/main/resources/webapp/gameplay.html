@@ -4,8 +4,14 @@
         <link rel="stylesheet" type="text/css" href="css/gameplay.css">
         <script src="javascript/main.js"></script>
         <script src="javascript/gameplay.js"></script>
+        <script src="javascript/gameplay/account.js"></script>
+        <script src="javascript/gameplay/chat.js"></script>
+        <script src="javascript/gameplay/buildings.js"></script>
+        <script src="javascript/gameplay/upgrades.js"></script>
+        <script src="javascript/gameplay/resources.js"></script>
+        <script src="javascript/gameplay/cards.js"></script>
     </head>
-    <body>
+    <body onload="startGameCycle()">
         <div class="game-site-header">
             <ul class="ul-info">
                 <li><a href="rooms.html">Rooms</a></li>
@@ -54,7 +60,7 @@
                            placeholder="Enter message">
                     <button style="width: 20%" id="send_message" class="game-button" onclick="restRequest('POST',
                         REST_API_URL + '/message/send', createChatMessageList, {
-                            account_id: 1000, //TODO: we need to put right code for getting test account here
+                            account_id: getAccountId(),
                             message: document.getElementById('message').value
                         })">Send
                     </button>
@@ -68,34 +74,5 @@
             <div id="tooltip_component" class="tooltip-component"></div>
 
         </div>
-
-        <script>
-            restRequest('GET', REST_API_URL + '/account/info', prepareAccountInfo);
-            restRequest("GET", REST_API_URL + "/building/product/list", prepareBuildingFullList);
-            restRequest("GET", REST_API_URL + "/upgrade/product/list", prepareUpgradeFullList);
-            restRequest("GET", REST_API_URL + "/resource/list", prepareResourceFullList);
-            createAccountInfo();
-            createCardList();
-            createBuildingList();
-            createUpgradeList();
-            createResourceList();
-            createEnemyBuildingList();
-            createEnemyUpgradeList();
-            createEnemyResourceList();
-            //restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
-            createChatMessageList(JSON.stringify([
-                {name: "Vasea", message: "hello!111 messageTest messageTest messageTest"},
-                {name: "Dima", message: "hello!222"},
-                {name: "Vasea", message: "hello!333"},
-                {name: "Dima", message: "hello!444"},
-                {name: "Vasea", message: "hello!555 messageTest messageTest messageTest, messageTest"},
-                {name: "Dima", message: "hello!666"},
-                {name: "Vasea", message: "hello!777"},
-                {name: "Dima", message: "hello!888"},
-                {name: "Dima", message: "hello!999"},
-                {name: "Dima", message: "hello!1010101"}
-            ]));
-            createKings(25, 100);
-        </script>
     </body>
 <html>

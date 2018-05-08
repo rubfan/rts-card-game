@@ -7,6 +7,7 @@ import game.services.AccountBuildingService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,21 +28,23 @@ public class AccountBuildingControllerImpl implements AccountBuildingController 
         return accountBuildingList;
     }
 
+    //TODO: change to DELETE
     @Override
     @GET
     @Path("/{account_id}/building/all/clear")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void clearAccountBuildingsList(@PathParam("account_id") Integer accountId) {
+    public Response clearAccountBuildingsList(@PathParam("account_id") Integer accountId) {
         accountBuildingService.clearAccountBuildingsList(accountId);
+        return Response.ok().build();
     }
 
+    //TODO: change to PUT
     @Override
     @GET
     @Path("/{account_id}/building/{building_id}/add")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void addBuildingToAccount(@PathParam("account_id") Integer accountId, @PathParam("building_id") Integer buildingId) {
+    public Response addBuildingToAccount(@PathParam("account_id") Integer accountId, @PathParam("building_id") Integer buildingId) {
         accountBuildingService.addBuildingToAccount(accountId,buildingId);
+        return Response.status(201).entity("Building").build();
     }
 }
