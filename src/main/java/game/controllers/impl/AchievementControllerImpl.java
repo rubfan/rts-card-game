@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-    @Path("/achievement")
+    @Path("/achievements")
     public class AchievementControllerImpl implements AchievementController {
 
 
