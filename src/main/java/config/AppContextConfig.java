@@ -142,6 +142,10 @@ public class AppContextConfig {
                     bindAsContract(CardProductDaoImpl.class).to(CardProductDao.class);
                     bindAsContract(CardProductServiceImpl.class).to(CardProductService.class);
                     bindAsContract(CardProductControllerImpl.class).to(CardProductController.class);
+
+                    bindAsContract(AchievementDaoImpl.class).to(AchievementDao.class);
+                    bindAsContract(AchievementServiceImpl.class).to(AchievementService.class);
+                    bindAsContract(AchievementControllerImpl.class).to(AchievementControllerImpl.class);
                 }
             });
         }};
