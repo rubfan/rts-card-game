@@ -22,24 +22,27 @@ public class CardProductDaoImpl implements CardProductDao {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("use card_battle_rts");
                 ResultSet rs = statement.executeQuery(
-                        "SELECT cp.id, cp.card_id, cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, cp.p1_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number," +
+                        "SELECT cp.id, cp.card_id, cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, cp.p1_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, cp.necessary_building_id, cp.necessary_upgrade_id," +
                                 "c.name 'card_name', c.description 'card_description', " +
+                                "u.account_id 'account_id', u.upgrade_id 'upgrade_id', u.number 'number', " +
                                 "u1.account_id 'account_id', u1.upgrade_id 'upgrade_id', u1.number 'number', " +
                                 "u2.account_id 'account_id', u2.upgrade_id 'upgrade_id', u2.number 'number', " +
+                                "b.account_id 'account_id', b.building_id 'building_id', b.number 'number', " +
                                 "b1.account_id 'account_id', b1.building_id 'building_id', b1.number 'number', " +
                                 "b2.account_id 'account_id', b2.building_id 'building_id', b2.number 'number', " +
                                 "r1.account_id 'account_id', r1.resource_id 'resource_id', r1.number 'number', " +
                                 "r2.account_id 'account_id', r2.resource_id 'resource_id', r2.number 'number', " +
-                                "cp.necessary_building_id, cp.necessary_upgrade_id, cp.necessary_building_number, cp.necessary_upgrade_number " +
+                                "cp.necessary_building_number, cp.necessary_upgrade_number " +
                                 "FROM Card_Product cp " +
                                 "LEFT JOIN Card c ON c.id = cp.card_id " +
+                                "LEFT JOIN Account_Upgrade u ON u.upgrade_id = cp.necessary_upgrade_id " +
+                                "LEFT JOIN Account_Building b ON b.building_id = cp.necessary_building_id " +
                                 "LEFT JOIN Account_Upgrade u1 ON u1.account_id = cp.p1_upgrade_id " +
                                 "LEFT JOIN Account_Upgrade u2 ON u2.account_id = cp.p2_upgrade_id " +
                                 "LEFT JOIN Account_Building b1 ON b1.account_id = cp.p1_building_id " +
                                 "LEFT JOIN Account_Building b2 ON b2.account_id = cp.p2_building_id " +
                                 "LEFT JOIN Account_Resource r1 ON r1.account_id = cp.p1_resource_id " +
                                 "LEFT JOIN Account_Resource r2 ON r2.account_id = cp.p2_resource_id "
-
                 );
                 while (rs.next()) {
                     CardProductEntity cardProduct = new CardProductEntity();
