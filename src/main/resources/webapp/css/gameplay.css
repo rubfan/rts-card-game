@@ -5,6 +5,15 @@
 }
 
 /*===========BUTTONS===========*/
+.card-button {
+    height: 150px;
+    width: 130px;
+    text-align: left !important;
+    font-size: 8px;
+    padding: 0;
+    white-space: normal;
+}
+
 .update-button {
     height: 70px;
     width: 150px;

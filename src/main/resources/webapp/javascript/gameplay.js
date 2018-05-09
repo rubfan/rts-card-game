@@ -40,6 +40,7 @@ function startGameCycle() {
     restRequest("GET", REST_API_URL + "/upgrade/product/list", prepareUpgradeFullList);
     restRequest("GET", REST_API_URL + "/resource/list", prepareResourceFullList);
     restRequest("GET", REST_API_URL + "/card/product/list", prepareCardFullList);
+    createCardList();
 
     //====CYCLE OF DYNAMIC DATA(always changing during gameplay)====
     setInterval(function() {
@@ -49,7 +50,7 @@ function startGameCycle() {
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/building/list", createEnemyBuildingList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/upgrade/list", createEnemyUpgradeList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resource/list", createEnemyResourceList);
-        restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/card/list", createCardList);
+        //restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/card/list", createCardList);
         restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
 
         resourceQuantityList[POWER]['quantity'] = Math.floor(Math.random()*99);
