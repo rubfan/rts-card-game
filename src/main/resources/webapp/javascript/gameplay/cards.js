@@ -18,10 +18,10 @@ function createCardList(/*dataObject*/) {
             ' onmouseout="hideTooltip()"' +
             ' onclick="applyCard(' + id + ')">' +
             //'<img class="card-img" src="' + IMG_CARDS_URL[cardFullList[id]['cardDto']['id']] + '">' +
-            '<span>' + cardFullList[id]['buildingDto']['name'].split('_').join(' ') + '</span>' +
+            '<span>' + cardFullList[id]['cardDto']['name'].split('_').join(' ') + '</span>' +
             '</button>';
     }
-    document.getElementById("building_items").innerHTML = content;
+    document.getElementById("cards").innerHTML = content;
 }
 
 function applyCard(cardId) {

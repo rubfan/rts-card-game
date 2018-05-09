@@ -4,29 +4,37 @@ import java.util.List;
 
 public class CardProductDto {
     private Integer id;
-    private CardDto card;
-    private List<AccountBuildingDto> p1buildingList;
-    private List<AccountBuildingDto> p2buildingList;
-    private List<AccountResourceDto> p1accountResourceList;
-    private List<AccountResourceDto> p2accountResourceList;
-    private List<AccountUpgradeDto> p1accountUpgradeList;
-    private List<AccountUpgradeDto> p2accountUpgradeList;
-    private List<AccountBuildingDto> necessaryBuildingList;
-    private List<AccountUpgradeDto> necessaryAccountUpgradeList;
+    private CardDto cardDto;
+    private List<BuildingQuantityDto> p1BuildingQuantityDtoList;
+    private List<BuildingQuantityDto> p2BuildingQuantityDtoList;
+    private List<ResourceQuantityDto> p1ResourceQuantityDtoList;
+    private List<ResourceQuantityDto> p2ResourceQuantityDtoList;
+    private List<UpgradeQuantityDto> p1UpgradeQuantityDtoList;
+    private List<UpgradeQuantityDto> p2UpgradeQuantityDtoList;
+    private List<BuildingQuantityDto> necessaryBuildingQuantityDtoList;
+    private List<UpgradeQuantityDto> necessaryUpgradeQuantityDtoList;
 
     public CardProductDto() {}
 
-    public CardProductDto(Integer id, CardDto card, List<AccountBuildingDto> p1buildingList, List<AccountBuildingDto> p2buildingList, List<AccountResourceDto> p1accountResourceList, List<AccountResourceDto> p2accountResourceList, List<AccountUpgradeDto> p1accountUpgradeList, List<AccountUpgradeDto> p2accountUpgradeList, List<AccountBuildingDto> necessaryBuildingList, List<AccountUpgradeDto> necessaryAccountUpgradeList) {
+
+    public CardProductDto(Integer id, CardDto cardDto, List<BuildingQuantityDto> p1BuildingQuantityDtoList,
+                          List<BuildingQuantityDto> p2BuildingQuantityDtoList,
+                          List<ResourceQuantityDto> p1ResourceQuantityDtoList,
+                          List<ResourceQuantityDto> p2ResourceQuantityDtoList,
+                          List<UpgradeQuantityDto> p1UpgradeQuantityDtoList,
+                          List<UpgradeQuantityDto> p2UpgradeQuantityDtoList,
+                          List<BuildingQuantityDto> necessaryBuildingQuantityDtoList,
+                          List<UpgradeQuantityDto> necessaryUpgradeQuantityDtoList) {
         this.id = id;
-        this.card = card;
-        this.p1buildingList = p1buildingList;
-        this.p2buildingList = p2buildingList;
-        this.p1accountResourceList = p1accountResourceList;
-        this.p2accountResourceList = p2accountResourceList;
-        this.p1accountUpgradeList = p1accountUpgradeList;
-        this.p2accountUpgradeList = p2accountUpgradeList;
-        this.necessaryBuildingList = necessaryBuildingList;
-        this.necessaryAccountUpgradeList = necessaryAccountUpgradeList;
+        this.cardDto = cardDto;
+        this.p1BuildingQuantityDtoList = p1BuildingQuantityDtoList;
+        this.p2BuildingQuantityDtoList = p2BuildingQuantityDtoList;
+        this.p1ResourceQuantityDtoList = p1ResourceQuantityDtoList;
+        this.p2ResourceQuantityDtoList = p2ResourceQuantityDtoList;
+        this.p1UpgradeQuantityDtoList = p1UpgradeQuantityDtoList;
+        this.p2UpgradeQuantityDtoList = p2UpgradeQuantityDtoList;
+        this.necessaryBuildingQuantityDtoList = necessaryBuildingQuantityDtoList;
+        this.necessaryUpgradeQuantityDtoList = necessaryUpgradeQuantityDtoList;
     }
 
     public Integer getId() {
@@ -37,91 +45,91 @@ public class CardProductDto {
         this.id = id;
     }
 
-    public CardDto getCard() {
-        return card;
+    public CardDto getCardDto() {
+        return cardDto;
     }
 
-    public void setCard(CardDto card) {
-        this.card = card;
+    public void setCardDto(CardDto cardDto) {
+        this.cardDto = cardDto;
     }
 
-    public List<AccountBuildingDto> getP1buildingList() {
-        return p1buildingList;
+    public List<BuildingQuantityDto> getP1BuildingQuantityDtoList() {
+        return p1BuildingQuantityDtoList;
     }
 
-    public void setP1buildingList(List<AccountBuildingDto> p1buildingList) {
-        this.p1buildingList = p1buildingList;
+    public void setP1BuildingQuantityDtoList(List<BuildingQuantityDto> p1BuildingQuantityDtoList) {
+        this.p1BuildingQuantityDtoList = p1BuildingQuantityDtoList;
     }
 
-    public List<AccountBuildingDto> getP2buildingList() {
-        return p2buildingList;
+    public List<BuildingQuantityDto> getP2BuildingQuantityDtoList() {
+        return p2BuildingQuantityDtoList;
     }
 
-    public void setP2buildingList(List<AccountBuildingDto> p2buildingList) {
-        this.p2buildingList = p2buildingList;
+    public void setP2BuildingQuantityDtoList(List<BuildingQuantityDto> p2BuildingQuantityDtoList) {
+        this.p2BuildingQuantityDtoList = p2BuildingQuantityDtoList;
     }
 
-    public List<AccountResourceDto> getP1accountResourceList() {
-        return p1accountResourceList;
+    public List<ResourceQuantityDto> getP1ResourceQuantityDtoList() {
+        return p1ResourceQuantityDtoList;
     }
 
-    public void setP1accountResourceList(List<AccountResourceDto> p1accountResourceList) {
-        this.p1accountResourceList = p1accountResourceList;
+    public void setP1ResourceQuantityDtoList(List<ResourceQuantityDto> p1ResourceQuantityDtoList) {
+        this.p1ResourceQuantityDtoList = p1ResourceQuantityDtoList;
     }
 
-    public List<AccountResourceDto> getP2accountResourceList() {
-        return p2accountResourceList;
+    public List<ResourceQuantityDto> getP2ResourceQuantityDtoList() {
+        return p2ResourceQuantityDtoList;
     }
 
-    public void setP2accountResourceList(List<AccountResourceDto> p2accountResourceList) {
-        this.p2accountResourceList = p2accountResourceList;
+    public void setP2ResourceQuantityDtoList(List<ResourceQuantityDto> p2ResourceQuantityDtoList) {
+        this.p2ResourceQuantityDtoList = p2ResourceQuantityDtoList;
     }
 
-    public List<AccountUpgradeDto> getP1accountUpgradeList() {
-        return p1accountUpgradeList;
+    public List<UpgradeQuantityDto> getP1UpgradeQuantityDtoList() {
+        return p1UpgradeQuantityDtoList;
     }
 
-    public void setP1accountUpgradeList(List<AccountUpgradeDto> p1accountUpgradeList) {
-        this.p1accountUpgradeList = p1accountUpgradeList;
+    public void setP1UpgradeQuantityDtoList(List<UpgradeQuantityDto> p1UpgradeQuantityDtoList) {
+        this.p1UpgradeQuantityDtoList = p1UpgradeQuantityDtoList;
     }
 
-    public List<AccountUpgradeDto> getP2accountUpgradeList() {
-        return p2accountUpgradeList;
+    public List<UpgradeQuantityDto> getP2UpgradeQuantityDtoList() {
+        return p2UpgradeQuantityDtoList;
     }
 
-    public void setP2accountUpgradeList(List<AccountUpgradeDto> p2accountUpgradeList) {
-        this.p2accountUpgradeList = p2accountUpgradeList;
+    public void setP2UpgradeQuantityDtoList(List<UpgradeQuantityDto> p2UpgradeQuantityDtoList) {
+        this.p2UpgradeQuantityDtoList = p2UpgradeQuantityDtoList;
     }
 
-    public List<AccountBuildingDto> getNecessaryBuildingList() {
-        return necessaryBuildingList;
+    public List<BuildingQuantityDto> getNecessaryBuildingQuantityDtoList() {
+        return necessaryBuildingQuantityDtoList;
     }
 
-    public void setNecessaryBuildingList(List<AccountBuildingDto> necessaryBuildingList) {
-        this.necessaryBuildingList = necessaryBuildingList;
+    public void setNecessaryBuildingQuantityDtoList(List<BuildingQuantityDto> necessaryBuildingQuantityDtoList) {
+        this.necessaryBuildingQuantityDtoList = necessaryBuildingQuantityDtoList;
     }
 
-    public List<AccountUpgradeDto> getNecessaryAccountUpgradeList() {
-        return necessaryAccountUpgradeList;
+    public List<UpgradeQuantityDto> getNecessaryUpgradeQuantityDtoList() {
+        return necessaryUpgradeQuantityDtoList;
     }
 
-    public void setNecessaryAccountUpgradeList(List<AccountUpgradeDto> necessaryAccountUpgradeList) {
-        this.necessaryAccountUpgradeList = necessaryAccountUpgradeList;
+    public void setNecessaryUpgradeQuantityDtoList(List<UpgradeQuantityDto> necessaryUpgradeQuantityDtoList) {
+        this.necessaryUpgradeQuantityDtoList = necessaryUpgradeQuantityDtoList;
     }
 
     @Override
     public String toString() {
         return "CardProductDto{" +
                 "id=" + id +
-                ", card=" + card +
-                ", p1buildingList=" + p1buildingList +
-                ", p2buildingList=" + p2buildingList +
-                ", p1accountResourceList=" + p1accountResourceList +
-                ", p2accountResourceList=" + p2accountResourceList +
-                ", p1accountUpgradeList=" + p1accountUpgradeList +
-                ", p2accountUpgradeList=" + p2accountUpgradeList +
-                ", necessaryBuildingList=" + necessaryBuildingList +
-                ", necessaryAccountUpgradeList=" + necessaryAccountUpgradeList +
+                ", cardDto=" + cardDto +
+                ", p1BuildingQuantityDtoList=" + p1BuildingQuantityDtoList +
+                ", p2BuildingQuantityDtoList=" + p2BuildingQuantityDtoList +
+                ", p1ResourceQuantityDtoList=" + p1ResourceQuantityDtoList +
+                ", p2ResourceQuantityDtoList=" + p2ResourceQuantityDtoList +
+                ", p1UpgradeQuantityDtoList=" + p1UpgradeQuantityDtoList +
+                ", p2UpgradeQuantityDtoList=" + p2UpgradeQuantityDtoList +
+                ", necessaryBuildingQuantityDtoList=" + necessaryBuildingQuantityDtoList +
+                ", necessaryUpgradeQuantityDtoList=" + necessaryUpgradeQuantityDtoList +
                 '}';
     }
 }

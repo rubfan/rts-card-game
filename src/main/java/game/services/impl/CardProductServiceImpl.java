@@ -2,9 +2,9 @@ package game.services.impl;
 
 import game.controllers.dto.*;
 import game.repositories.dao.CardProductDao;
-import game.repositories.entities.AccountBuildingEntity;
-import game.repositories.entities.AccountResourceEntity;
-import game.repositories.entities.AccountUpgradeEntity;
+import game.repositories.entities.BuildingQuantityEntity;
+import game.repositories.entities.ResourceQuantityEntity;
+import game.repositories.entities.UpgradeQuantityEntity;
 import game.services.CardProductService;
 
 import javax.inject.Inject;
@@ -27,88 +27,91 @@ public class CardProductServiceImpl implements CardProductService {
                 cardDto.setId(cardProductEntity.getCardEntity().getId());
                 cardDto.setName(cardProductEntity.getCardEntity().getName());
                 cardDto.setDescription(cardProductEntity.getCardEntity().getDescription());
-                setCard(cardDto);
+                setCardDto(cardDto);
 
-                List<AccountBuildingDto> account1BuildingDtoList = new LinkedList<>();
-                cardProductEntity.getP1buildingList().forEach(accountBuildingEntity -> {
-                    setAccountBuildingDto(account1BuildingDtoList, accountBuildingEntity);
+                List<BuildingQuantityDto> p1BuildingQuantityDtoList = new LinkedList<>();
+                cardProductEntity.getP1BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
+                    setBuildingQuantityDto(p1BuildingQuantityDtoList, buildingQuantityEntity);
                 });
-                setP1buildingList(account1BuildingDtoList);
+                setP1BuildingQuantityDtoList(p1BuildingQuantityDtoList);
 
-                List<AccountBuildingDto> account2BuildingDtoList = new LinkedList<>();
-                cardProductEntity.getP2buildingList().forEach(accountBuildingEntity -> {
-                    setAccountBuildingDto(account2BuildingDtoList, accountBuildingEntity);
+                List<BuildingQuantityDto> p2BuildingQuantityDtoList = new LinkedList<>();
+                cardProductEntity.getP2BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
+                    setBuildingQuantityDto(p2BuildingQuantityDtoList, buildingQuantityEntity);
                 });
-                setP2buildingList(account2BuildingDtoList);
+                setP2BuildingQuantityDtoList(p2BuildingQuantityDtoList);
 
 
 
-                List<AccountResourceDto> account1ResourceDtoList = new LinkedList<>();
-                cardProductEntity.getP1accountResourceList().forEach(accountResourceEntity -> {
-                    setAccountResourceDto(account1ResourceDtoList, accountResourceEntity);
+                List<ResourceQuantityDto> p1resourceQuantityDtoList = new LinkedList<>();
+                cardProductEntity.getP1ResourceQuantityEntityList().forEach(resourceQuantityEntity -> {
+                    setResourceQuantityDto(p1resourceQuantityDtoList, resourceQuantityEntity);
                 });
-                setP1accountResourceList(account1ResourceDtoList);
+                setP1ResourceQuantityDtoList(p1resourceQuantityDtoList);
 
-                List<AccountResourceDto> account2ResourceDtoList = new LinkedList<>();
-                cardProductEntity.getP2accountResourceList().forEach(accountResourceEntity -> {
-                    setAccountResourceDto(account2ResourceDtoList, accountResourceEntity);
+                List<ResourceQuantityDto> p2resourceQuantityDtoList = new LinkedList<>();
+                cardProductEntity.getP2ResourceQuantityEntityList().forEach(resourceQuantityEntity -> {
+                    setResourceQuantityDto(p2resourceQuantityDtoList, resourceQuantityEntity);
                 });
-                setP2accountResourceList(account2ResourceDtoList);
+                setP2ResourceQuantityDtoList(p2resourceQuantityDtoList);
 
 
 
-                List<AccountUpgradeDto> account1UpgradeDtoList = new LinkedList<>();
-                cardProductEntity.getP1accountUpgradeList().forEach(accountUpgradeEntity -> {
-                    setAccountUpgradeDto(account1UpgradeDtoList, accountUpgradeEntity);
+                List<UpgradeQuantityDto> p1UpgradeQuantityDtoList = new LinkedList<>();
+                cardProductEntity.getP1UpgradeQuantityEntityList().forEach(upgradeQuantityEntity ->  {
+                    setUpgradeQuantityDto(p1UpgradeQuantityDtoList, upgradeQuantityEntity);
                 });
-                setP1accountUpgradeList(account1UpgradeDtoList);
+                setP1UpgradeQuantityDtoList(p1UpgradeQuantityDtoList);
 
-                List<AccountUpgradeDto> account2UpgradeDtoList = new LinkedList<>();
-                cardProductEntity.getP2accountUpgradeList().forEach(accountUpgradeEntity -> {
-                    setAccountUpgradeDto(account2UpgradeDtoList, accountUpgradeEntity);
+                List<UpgradeQuantityDto> p2UpgradeQuantityDtoList = new LinkedList<>();
+                cardProductEntity.getP2UpgradeQuantityEntityList().forEach(upgradeQuantityEntity ->  {
+                    setUpgradeQuantityDto(p2UpgradeQuantityDtoList, upgradeQuantityEntity);
                 });
-                setP2accountUpgradeList(account2UpgradeDtoList);
+                setP2UpgradeQuantityDtoList(p2UpgradeQuantityDtoList);
 
 
-                List<AccountBuildingDto> necessaryBuildingList = new LinkedList<>();
-                cardProductEntity.getNecessaryBuildingList().forEach(accountBuildingEntity -> {
-                    setAccountBuildingDto(necessaryBuildingList, accountBuildingEntity);
+                List<BuildingQuantityDto> necessaryBuildingList = new LinkedList<>();
+                cardProductEntity.getNecessaryBuildingQuantityEntityList().forEach(necessaryBuildingEntity -> {
+                    setBuildingQuantityDto(necessaryBuildingList, necessaryBuildingEntity);
                 });
-                setNecessaryBuildingList(necessaryBuildingList);
+                setNecessaryBuildingQuantityDtoList(necessaryBuildingList);
 
 
-                List<AccountUpgradeDto> necessaryAccountUpgradeLis = new LinkedList<>();
-                cardProductEntity.getNecessaryAccountUpgradeList().forEach(accountUpgradeEntity -> {
-                    setAccountUpgradeDto(necessaryAccountUpgradeLis, accountUpgradeEntity);
+                List<UpgradeQuantityDto> necessaryUpgradeList = new LinkedList<>();
+                cardProductEntity.getNecessaryUpgradeQuantityEntityList().forEach(necessaryUpgradeEntity -> {
+                    setUpgradeQuantityDto(necessaryUpgradeList, necessaryUpgradeEntity);
                 });
-                setNecessaryAccountUpgradeList(necessaryAccountUpgradeLis);
+                setNecessaryUpgradeQuantityDtoList(necessaryUpgradeList);
             }});
         });
         return cardProducts;
     }
 
-    private void setAccountUpgradeDto(List<AccountUpgradeDto> accountUpgradeDtoList, AccountUpgradeEntity accountUpgradeEntity) {
-        AccountUpgradeDto accountUpgradeDto = new AccountUpgradeDto();
-        accountUpgradeDto.setAccountId(accountUpgradeEntity.getAccountId());
-        accountUpgradeDto.setUpgradeId(accountUpgradeEntity.getUpgradeId());
-        accountUpgradeDto.setQuantity(accountUpgradeEntity.getQuantity());
-        accountUpgradeDtoList.add(accountUpgradeDto);
+    private void setResourceQuantityDto(List<ResourceQuantityDto> resourceQuantityDtoList, ResourceQuantityEntity resourceQuantityEntity) {
+        ResourceQuantityDto resourceQuantityDto = new ResourceQuantityDto();
+        resourceQuantityDto.setId(resourceQuantityEntity.getId());
+        resourceQuantityDto.setName(resourceQuantityEntity.getName());
+        resourceQuantityDto.setDescription(resourceQuantityEntity.getDescription());
+        resourceQuantityDto.setQuantity(resourceQuantityEntity.getQuantity());
+        resourceQuantityDtoList.add(resourceQuantityDto);
     }
 
-    private void setAccountResourceDto(List<AccountResourceDto> accountResourceDtoList, AccountResourceEntity accountResourceEntity) {
-        AccountResourceDto accountResourceDto = new AccountResourceDto();
-        accountResourceDto.setAccountId(accountResourceEntity.getAccountId());
-        accountResourceDto.setResourceId(accountResourceEntity.getResourceId());
-        accountResourceDto.setQuantity(accountResourceEntity.getQuantity());
-        accountResourceDtoList.add(accountResourceDto);
+    private void setUpgradeQuantityDto(List<UpgradeQuantityDto> upgradeQuantityDtoList, UpgradeQuantityEntity upgradeQuantityEntity) {
+        UpgradeQuantityDto upgradeQuantityDto = new UpgradeQuantityDto();
+        upgradeQuantityDto.setId(upgradeQuantityEntity.getId());
+        upgradeQuantityDto.setName(upgradeQuantityEntity.getName());
+        upgradeQuantityDto.setDescription(upgradeQuantityEntity.getDescription());
+        upgradeQuantityDto.setQuantity(upgradeQuantityEntity.getQuantity());
+        upgradeQuantityDtoList.add(upgradeQuantityDto);
     }
 
-    private void setAccountBuildingDto(List<AccountBuildingDto> accountBuildingDtoList, AccountBuildingEntity accountBuildingEntity) {
-        AccountBuildingDto accountBuildingDto = new AccountBuildingDto();
-        accountBuildingDto.setAccountId(accountBuildingEntity.getAccountId());
-        accountBuildingDto.setBuildingId(accountBuildingEntity.getBuildingId());
-        accountBuildingDto.setNumber(accountBuildingEntity.getNumber());
-        accountBuildingDtoList.add(accountBuildingDto);
+    private void setBuildingQuantityDto(List<BuildingQuantityDto> buildingQuantityDtoList, BuildingQuantityEntity buildingQuantityEntity) {
+        BuildingQuantityDto buildingQuantityDto = new BuildingQuantityDto();
+        buildingQuantityDto.setId(buildingQuantityEntity.getId());
+        buildingQuantityDto.setName(buildingQuantityEntity.getName());
+        buildingQuantityDto.setDescription(buildingQuantityEntity.getDescription());
+        buildingQuantityDto.setQuantity(buildingQuantityEntity.getQuantity());
+        buildingQuantityDtoList.add(buildingQuantityDto);
     }
 
 
