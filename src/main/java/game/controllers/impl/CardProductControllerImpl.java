@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Path("/account")
+@Path("/card")
 public class CardProductControllerImpl implements CardProductController {
     @Inject
     public CardProductService cardProductService;
 
     @GET
-    @Path("/card/list")
+    @Path("product/list")
     public List<CardProductDto> getListOfCardProducts() {
         List<CardProductDto> cardProductDtoList = cardProductService.getListOfCardProducts();
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, cardProductDtoList.toString());

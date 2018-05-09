@@ -1,4 +1,12 @@
+var cardFullList = {};
 
+function prepareCardFullList(dataObject) {
+    var jsonCardFullList = JSON.parse(dataObject);
+    cardFullList = {};
+    for (var num in jsonCardFullList) {
+        cardFullList[jsonCardFullList[num]['card']['id']] = jsonCardFullList[num];
+    }
+}
 
 function createCardList() {
     var content = "";
