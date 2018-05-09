@@ -15,14 +15,12 @@ public class AccountUpgradeDaoImpl implements AccountUpgradeDao {
 
     @Override
     public List<AccountUpgradeEntity> getListOfAccountUpgrades(int accountId) {
-
-        final List<AccountUpgradeEntity> accountUpgrades = new LinkedList<>();
-
         return new QueryHelper<List<AccountUpgradeEntity>>(){
             @Override
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("SELECT * FROM Account_Upgrade WHERE account_id = " + accountId);
+                List<AccountUpgradeEntity> accountUpgrades = new LinkedList<>();
+                ResultSet rs = statement.executeQuery(
+                        "SELECT * FROM Account_Upgrade WHERE account_id = " + accountId);
                 while(rs.next()) {
                     AccountUpgradeEntity accountBuilding = new AccountUpgradeEntity(
                             rs.getInt("account_id"),
@@ -31,7 +29,7 @@ public class AccountUpgradeDaoImpl implements AccountUpgradeDao {
                     );
                     accountUpgrades.add(accountBuilding);
                 }
-                setResult(accountUpgrades);
+                returnResult(accountUpgrades);
             }
         }.run();
     }

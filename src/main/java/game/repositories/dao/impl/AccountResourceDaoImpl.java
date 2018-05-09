@@ -15,13 +15,12 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
 
     @Override
     public List<AccountResourceEntity> getListOfAccountResources(Integer accountId) {
-        final List<AccountResourceEntity> accountResources = new LinkedList<>();
-
-        new QueryHelper(){
+        return new QueryHelper<List<AccountResourceEntity>>(){
             @Override
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("SELECT * FROM Account_Resource WHERE account_id = " + accountId);
+                List<AccountResourceEntity> accountResources = new LinkedList<>();
+                ResultSet rs = statement.executeQuery(
+                        "SELECT * FROM Account_Resource WHERE account_id = " + accountId);
                 while(rs.next()) {
                     AccountResourceEntity accountResource = new AccountResourceEntity(
                             rs.getInt("account_id"),
@@ -30,9 +29,9 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                     );
                     accountResources.add(accountResource);
                 }
+                returnResult(accountResources);
             }
         }.run();
-        return accountResources;
     }
 
 }

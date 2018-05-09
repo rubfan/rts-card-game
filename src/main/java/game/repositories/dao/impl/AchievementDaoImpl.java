@@ -13,11 +13,9 @@ import java.util.List;
 
 public class AchievementDaoImpl implements AchievementDao {
     public List<AchievementEntity> getListOfAchievements() {
-        final List<AchievementEntity> achievements = new LinkedList<AchievementEntity>();
-
-        new QueryHelper() {
+        return new QueryHelper<List<AchievementEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
+                List<AchievementEntity> achievements = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select * from Achievement");
                 while(rs.next()) {
                     AchievementEntity achievement = new AchievementEntity(
@@ -27,9 +25,8 @@ public class AchievementDaoImpl implements AchievementDao {
                     );
                     achievements.add(achievement);
                 }
+                returnResult(achievements);
             }
         }.run();
-
-        return achievements;
     }
 }

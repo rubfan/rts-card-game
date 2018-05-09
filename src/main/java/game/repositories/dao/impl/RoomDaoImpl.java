@@ -17,10 +17,9 @@ import java.util.List;
 public class RoomDaoImpl implements RoomDao {
 
     public List<RoomEntity> getListOfRooms() {
-        final List<RoomEntity> rooms = new LinkedList<>();
-
-        new QueryHelper() {
+        return new QueryHelper<List<RoomEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                List<RoomEntity> rooms = new LinkedList<>();
                 ResultSet rs = statement.executeQuery(
                         "select r.id, r.name, r.description, r.account_1_id, r.account_2_id, r.start_game_time, "+
                         "a1.user_id 'user_1_id', " +
@@ -47,10 +46,9 @@ public class RoomDaoImpl implements RoomDao {
                     }
                     rooms.add(room);
                 }
+                returnResult(rooms);
             }
         }.run();
-
-        return rooms;
     }
 
     private AccountEntity prepareAccount(ResultSet rs, Integer userNumber, Integer id) throws SQLException {
@@ -112,7 +110,7 @@ public class RoomDaoImpl implements RoomDao {
                 pstmt.setInt(1, roomId);
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    setResult(rs.getInt("time"));
+                    returnResult(rs.getInt("time"));
                 }
             }
         }.run();
@@ -120,23 +118,23 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public Integer getFreeAccountNumberForQuery(Integer roomId) {
-        final Integer[] playersInRoom = new Integer[1];
-                new QueryHelper() {
-                    protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                        ResultSet rs = statement.executeQuery("SELECT (COUNT(a.account_1_id)+COUNT(a.account_2_id)) qty from Room a where id="+ roomId + " and (account_1_id IS NOT NULL or account_2_id IS NOT NULL);");
-                        while(rs.next()) {
-                            playersInRoom[0] = rs.getInt("qty");
-                        }
+        return new QueryHelper<Integer>() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                ResultSet rs = statement.executeQuery(
+                        "SELECT (COUNT(a.account_1_id)+COUNT(a.account_2_id)) qty from Room a " +
+                                "where id="+ roomId + " and (account_1_id IS NOT NULL or account_2_id IS NOT NULL);");
+                if(rs.next()) {
+                    Integer playersInRoom = rs.getInt("qty");
+                    if(playersInRoom == 0) {
+                        returnResult(1);
+                    } else if(playersInRoom == 1) {
+                        returnResult(2);
                     }
-                }.run();
-
-                if(playersInRoom[0]==0){
-                    return 1;
+                } else {
+                    returnResult(0);
                 }
-                else if(playersInRoom[0]==1){
-                    return 2;
-                }
-                else return 0;
             }
+        }.run();
+    }
 
 }

@@ -14,11 +14,9 @@ import java.util.List;
 public class CardDaoImpl implements CardDao {
 
     public List<CardEntity> getListOfCards() {
-        final List<CardEntity> cards = new LinkedList<CardEntity>();
-
-        new QueryHelper() {
+        return new QueryHelper<List<CardEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
+                List<CardEntity> cards = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select * from Card");
                 while(rs.next()) {
                     CardEntity card = new CardEntity(
@@ -28,9 +26,8 @@ public class CardDaoImpl implements CardDao {
                     );
                     cards.add(card);
                 }
+                returnResult(cards);
             }
         }.run();
-
-        return cards;
     }
 }

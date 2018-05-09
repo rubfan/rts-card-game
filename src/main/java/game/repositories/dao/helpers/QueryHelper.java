@@ -30,7 +30,7 @@ public abstract class QueryHelper<T> {
         return result;
     }
 
-    public void setResult(T result){
+    public void returnResult(T result){
         this.result = result;
     }
 

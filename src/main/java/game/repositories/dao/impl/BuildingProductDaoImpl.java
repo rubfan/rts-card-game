@@ -16,11 +16,9 @@ import java.util.List;
 public class BuildingProductDaoImpl implements BuildingProductDao {
     @Override
     public List<BuildingProductEntity> getListOfBuildingResources() {
-        final List<BuildingProductEntity> buildingProducts = new LinkedList<BuildingProductEntity>();
-
         return new QueryHelper<List<BuildingProductEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
+                List<BuildingProductEntity> buildingProducts = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select building_id, b.name, b.description " +
                                                             "from Building_Product bp " +
                                                             "inner join Building b " +
@@ -37,17 +35,15 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
                     );
                     buildingProducts.add(buildingProduct);
                 }
-                setResult(buildingProducts);
+                returnResult(buildingProducts);
             }
         }.run();
     }
 
     private List<ProductEntity> prepareProductList(Integer buildingId) {
-
-        List<ProductEntity> productEntityList = new LinkedList<>();
-
         return new QueryHelper<List<ProductEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                List<ProductEntity> productEntityList = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select r.id, r.name, r.description,bp.number_per_sec " +
                                                             "from Building_Product bp " +
                                                             "inner join Resource r " +
@@ -62,7 +58,7 @@ public class BuildingProductDaoImpl implements BuildingProductDao {
                     );
                     productEntityList.add(productEntity);
                 }
-                setResult(productEntityList);
+                returnResult(productEntityList);
             }
         }.run();
     }
