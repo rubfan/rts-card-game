@@ -5,28 +5,36 @@ import java.util.List;
 public class CardProductEntity {
     private Integer id;
     private CardEntity cardEntity;
-    private List<AccountBuildingEntity> p1buildingList;
-    private List<AccountBuildingEntity> p2buildingList;
-    private List<AccountResourceEntity> p1accountResourceList;
-    private List<AccountResourceEntity> p2accountResourceList;
-    private List<AccountUpgradeEntity> p1accountUpgradeList;
-    private List<AccountUpgradeEntity> p2accountUpgradeList;
-    private List<AccountBuildingEntity> necessaryBuildingList;
-    private List<AccountUpgradeEntity> necessaryAccountUpgradeList;
+    private List<BuildingQuantityEntity> p1BuildingQuantityEntityList;
+    private List<BuildingQuantityEntity> p2BuildingQuantityEntityList;
+    private List<ResourceQuantityEntity> p1ResourceQuantityEntityList;
+    private List<ResourceQuantityEntity> p2ResourceQuantityEntityList;
+    private List<UpgradeQuantityEntity> p1UpgradeQuantityEntityList;
+    private List<UpgradeQuantityEntity> p2UpgradeQuantityEntityList;
+    private List<BuildingQuantityEntity> necessaryBuildingQuantityEntityList;
+    private List<UpgradeQuantityEntity> necessaryUpgradeQuantityEntityList;
 
-    public CardProductEntity() {}
+    public CardProductEntity() {
+    }
 
-    public CardProductEntity(Integer id, CardEntity cardEntity, List<AccountBuildingEntity> p1buildingList, List<AccountBuildingEntity> p2buildingList, List<AccountResourceEntity> p1accountResourceList, List<AccountResourceEntity> p2accountResourceList, List<AccountUpgradeEntity> p1accountUpgradeList, List<AccountUpgradeEntity> p2accountUpgradeList, List<AccountBuildingEntity> necessaryBuildingList, List<AccountUpgradeEntity> necessaryAccountUpgradeList) {
+    public CardProductEntity(Integer id, CardEntity cardEntity, List<BuildingQuantityEntity> p1BuildingQuantityEntityList,
+                             List<BuildingQuantityEntity> p2BuildingQuantityEntityList,
+                             List<ResourceQuantityEntity> p1ResourceQuantityEntityList,
+                             List<ResourceQuantityEntity> p2ResourceQuantityEntityList,
+                             List<UpgradeQuantityEntity> p1UpgradeQuantityEntityList,
+                             List<UpgradeQuantityEntity> p2UpgradeQuantityEntityList,
+                             List<BuildingQuantityEntity> necessaryBuildingQuantityEntityList,
+                             List<UpgradeQuantityEntity> necessaryUpgradeQuantityEntityList) {
         this.id = id;
         this.cardEntity = cardEntity;
-        this.p1buildingList = p1buildingList;
-        this.p2buildingList = p2buildingList;
-        this.p1accountResourceList = p1accountResourceList;
-        this.p2accountResourceList = p2accountResourceList;
-        this.p1accountUpgradeList = p1accountUpgradeList;
-        this.p2accountUpgradeList = p2accountUpgradeList;
-        this.necessaryBuildingList = necessaryBuildingList;
-        this.necessaryAccountUpgradeList = necessaryAccountUpgradeList;
+        this.p1BuildingQuantityEntityList = p1BuildingQuantityEntityList;
+        this.p2BuildingQuantityEntityList = p2BuildingQuantityEntityList;
+        this.p1ResourceQuantityEntityList = p1ResourceQuantityEntityList;
+        this.p2ResourceQuantityEntityList = p2ResourceQuantityEntityList;
+        this.p1UpgradeQuantityEntityList = p1UpgradeQuantityEntityList;
+        this.p2UpgradeQuantityEntityList = p2UpgradeQuantityEntityList;
+        this.necessaryBuildingQuantityEntityList = necessaryBuildingQuantityEntityList;
+        this.necessaryUpgradeQuantityEntityList = necessaryUpgradeQuantityEntityList;
     }
 
     public Integer getId() {
@@ -45,68 +53,68 @@ public class CardProductEntity {
         this.cardEntity = cardEntity;
     }
 
-    public List<AccountBuildingEntity> getP1buildingList() {
-        return p1buildingList;
+    public List<BuildingQuantityEntity> getP1BuildingQuantityEntityList() {
+        return p1BuildingQuantityEntityList;
     }
 
-    public void setP1buildingList(List<AccountBuildingEntity> p1buildingList) {
-        this.p1buildingList = p1buildingList;
+    public void setP1BuildingQuantityEntityList(List<BuildingQuantityEntity> p1BuildingQuantityEntityList) {
+        this.p1BuildingQuantityEntityList = p1BuildingQuantityEntityList;
     }
 
-    public List<AccountBuildingEntity> getP2buildingList() {
-        return p2buildingList;
+    public List<BuildingQuantityEntity> getP2BuildingQuantityEntityList() {
+        return p2BuildingQuantityEntityList;
     }
 
-    public void setP2buildingList(List<AccountBuildingEntity> p2buildingList) {
-        this.p2buildingList = p2buildingList;
+    public void setP2BuildingQuantityEntityList(List<BuildingQuantityEntity> p2BuildingQuantityEntityList) {
+        this.p2BuildingQuantityEntityList = p2BuildingQuantityEntityList;
     }
 
-    public List<AccountResourceEntity> getP1accountResourceList() {
-        return p1accountResourceList;
+    public List<ResourceQuantityEntity> getP1ResourceQuantityEntityList() {
+        return p1ResourceQuantityEntityList;
     }
 
-    public void setP1accountResourceList(List<AccountResourceEntity> p1accountResourceList) {
-        this.p1accountResourceList = p1accountResourceList;
+    public void setP1ResourceQuantityEntityList(List<ResourceQuantityEntity> p1ResourceQuantityEntityList) {
+        this.p1ResourceQuantityEntityList = p1ResourceQuantityEntityList;
     }
 
-    public List<AccountResourceEntity> getP2accountResourceList() {
-        return p2accountResourceList;
+    public List<ResourceQuantityEntity> getP2ResourceQuantityEntityList() {
+        return p2ResourceQuantityEntityList;
     }
 
-    public void setP2accountResourceList(List<AccountResourceEntity> p2accountResourceList) {
-        this.p2accountResourceList = p2accountResourceList;
+    public void setP2ResourceQuantityEntityList(List<ResourceQuantityEntity> p2ResourceQuantityEntityList) {
+        this.p2ResourceQuantityEntityList = p2ResourceQuantityEntityList;
     }
 
-    public List<AccountUpgradeEntity> getP1accountUpgradeList() {
-        return p1accountUpgradeList;
+    public List<UpgradeQuantityEntity> getP1UpgradeQuantityEntityList() {
+        return p1UpgradeQuantityEntityList;
     }
 
-    public void setP1accountUpgradeList(List<AccountUpgradeEntity> p1accountUpgradeList) {
-        this.p1accountUpgradeList = p1accountUpgradeList;
+    public void setP1UpgradeQuantityEntityList(List<UpgradeQuantityEntity> p1UpgradeQuantityEntityList) {
+        this.p1UpgradeQuantityEntityList = p1UpgradeQuantityEntityList;
     }
 
-    public List<AccountUpgradeEntity> getP2accountUpgradeList() {
-        return p2accountUpgradeList;
+    public List<UpgradeQuantityEntity> getP2UpgradeQuantityEntityList() {
+        return p2UpgradeQuantityEntityList;
     }
 
-    public void setP2accountUpgradeList(List<AccountUpgradeEntity> p2accountUpgradeList) {
-        this.p2accountUpgradeList = p2accountUpgradeList;
+    public void setP2UpgradeQuantityEntityList(List<UpgradeQuantityEntity> p2UpgradeQuantityEntityList) {
+        this.p2UpgradeQuantityEntityList = p2UpgradeQuantityEntityList;
     }
 
-    public List<AccountBuildingEntity> getNecessaryBuildingList() {
-        return necessaryBuildingList;
+    public List<BuildingQuantityEntity> getNecessaryBuildingQuantityEntityList() {
+        return necessaryBuildingQuantityEntityList;
     }
 
-    public void setNecessaryBuildingList(List<AccountBuildingEntity> necessaryBuildingList) {
-        this.necessaryBuildingList = necessaryBuildingList;
+    public void setNecessaryBuildingQuantityEntityList(List<BuildingQuantityEntity> necessaryBuildingQuantityEntityList) {
+        this.necessaryBuildingQuantityEntityList = necessaryBuildingQuantityEntityList;
     }
 
-    public List<AccountUpgradeEntity> getNecessaryAccountUpgradeList() {
-        return necessaryAccountUpgradeList;
+    public List<UpgradeQuantityEntity> getNecessaryUpgradeQuantityEntityList() {
+        return necessaryUpgradeQuantityEntityList;
     }
 
-    public void setNecessaryAccountUpgradeList(List<AccountUpgradeEntity> necessaryAccountUpgradeList) {
-        this.necessaryAccountUpgradeList = necessaryAccountUpgradeList;
+    public void setNecessaryUpgradeQuantityEntityList(List<UpgradeQuantityEntity> necessaryUpgradeQuantityEntityList) {
+        this.necessaryUpgradeQuantityEntityList = necessaryUpgradeQuantityEntityList;
     }
 
     @Override
@@ -114,14 +122,14 @@ public class CardProductEntity {
         return "CardProductEntity{" +
                 "id=" + id +
                 ", cardEntity=" + cardEntity +
-                ", p1buildingList=" + p1buildingList +
-                ", p2buildingList=" + p2buildingList +
-                ", p1accountResourceList=" + p1accountResourceList +
-                ", p2accountResourceList=" + p2accountResourceList +
-                ", p1accountUpgradeList=" + p1accountUpgradeList +
-                ", p2accountUpgradeList=" + p2accountUpgradeList +
-                ", necessaryBuildingList=" + necessaryBuildingList +
-                ", necessaryAccountUpgradeList=" + necessaryAccountUpgradeList +
+                ", p1BuildingQuantityEntityList=" + p1BuildingQuantityEntityList +
+                ", p2BuildingQuantityEntityList=" + p2BuildingQuantityEntityList +
+                ", p1ResourceQuantityEntityList=" + p1ResourceQuantityEntityList +
+                ", p2ResourceQuantityEntityList=" + p2ResourceQuantityEntityList +
+                ", p1UpgradeQuantityEntityList=" + p1UpgradeQuantityEntityList +
+                ", p2UpgradeQuantityEntityList=" + p2UpgradeQuantityEntityList +
+                ", necessaryBuildingQuantityEntityList=" + necessaryBuildingQuantityEntityList +
+                ", necessaryUpgradeQuantityEntityList=" + necessaryUpgradeQuantityEntityList +
                 '}';
     }
 }

@@ -58,9 +58,9 @@ CREATE TABLE `Account_Achievement` (
 CREATE TABLE `Message` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`text` varchar(128) NOT NULL,
-	`from_account_id` INT,
-	`to_account_id` INT,
-	`time` DATETIME,
+	`from_account_id` INT NOT NULL,
+	`to_account_id` INT NOT NULL,
+	`time` DATETIME NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -123,7 +123,7 @@ CREATE TABLE `Card_Product` (
 	`p2_upgrade_number` FLOAT,
 	`necessary_building_id` INT,
 	`necessary_upgrade_id` INT,
-	`necessary_building_number` INT,
+	`necessary_building_number` FLOAT,
 	`necessary_upgrade_number` FLOAT,
 	PRIMARY KEY (`id`)
 );
@@ -193,9 +193,9 @@ ALTER TABLE `Account_Achievement` ADD CONSTRAINT `Account_Achievement_fk0` FOREI
 
 ALTER TABLE `Account_Achievement` ADD CONSTRAINT `Account_Achievement_fk1` FOREIGN KEY (`achievement_id`) REFERENCES `Achievement`(`id`);
 
-ALTER TABLE `Message` ADD CONSTRAINT `Message_fk0` FOREIGN KEY (`from_account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Message` ADD CONSTRAINT `Message_fk0` FOREIGN KEY (`from_account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Message` ADD CONSTRAINT `Message_fk1` FOREIGN KEY (`to_account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Message` ADD CONSTRAINT `Message_fk1` FOREIGN KEY (`to_account_id`) REFERENCES `Account`(`id`);
 
 ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk0` FOREIGN KEY (`card_id`) REFERENCES `Card`(`id`);
 
@@ -213,7 +213,7 @@ ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk6` FOREIGN KEY (`p2_up
 
 ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk7` FOREIGN KEY (`necessary_building_id`) REFERENCES `Building`(`id`);
 
-ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk8` FOREIGN KEY (`necessary_upgrade_id`) REFERENCES `Building`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk8` FOREIGN KEY (`necessary_upgrade_id`) REFERENCES `Upgrade`(`id`);
 
 ALTER TABLE `Trigger_Notification` ADD CONSTRAINT `Trigger_Notification_fk0` FOREIGN KEY (`notification_id`) REFERENCES `Notification`(`id`);
 

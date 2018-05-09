@@ -25,26 +25,26 @@ public class CardProductDaoImpl implements CardProductDao {
                     cardProduct.setCardEntity(getCardEntity(rs));
                     if(!cardProducts.containsKey(cardProduct.getCardEntity().getId())){
                         cardProduct.setId(rs.getInt("id"));
-                        cardProduct.setP1buildingList(new LinkedList<>());
-                        cardProduct.setP2buildingList(new LinkedList<>());
-                        cardProduct.setP1accountResourceList(new LinkedList<>());
-                        cardProduct.setP2accountResourceList(new LinkedList<>());
-                        cardProduct.setP1accountUpgradeList(new LinkedList<>());
-                        cardProduct.setP2accountUpgradeList(new LinkedList<>());
-                        cardProduct.setNecessaryBuildingList(new LinkedList<>());
-                        cardProduct.setNecessaryAccountUpgradeList(new LinkedList<>());
+                        cardProduct.setP1BuildingQuantityEntityList(new LinkedList<>());
+                        cardProduct.setP2BuildingQuantityEntityList(new LinkedList<>());
+                        cardProduct.setP1ResourceQuantityEntityList(new LinkedList<>());
+                        cardProduct.setP2ResourceQuantityEntityList(new LinkedList<>());
+                        cardProduct.setP1UpgradeQuantityEntityList(new LinkedList<>());
+                        cardProduct.setP2UpgradeQuantityEntityList(new LinkedList<>());
+                        cardProduct.setNecessaryBuildingQuantityEntityList(new LinkedList<>());
+                        cardProduct.setNecessaryUpgradeQuantityEntityList(new LinkedList<>());
                         cardProducts.put(cardProduct.getCardEntity().getId(), cardProduct);
                     } else {
                         cardProduct = cardProducts.get(cardProduct.getCardEntity().getId());
                     }
-                        cardProduct.getP1buildingList().add(getAccountBuildingEntity(rs));
-                        cardProduct.getP2buildingList().add(getAccountBuildingEntity(rs));
-                        cardProduct.getP1accountResourceList().add(getAccountResourceEntity(rs));
-                        cardProduct.getP2accountResourceList().add(getAccountResourceEntity(rs));
-                        cardProduct.getP1accountUpgradeList().add(getAccountUpgradeEntity(rs));
-                        cardProduct.getP2accountUpgradeList().add(getAccountUpgradeEntity(rs));
-                        cardProduct.getNecessaryBuildingList().add(getAccountBuildingEntity(rs));
-                        cardProduct.getNecessaryAccountUpgradeList().add(getAccountUpgradeEntity(rs));
+                        cardProduct.getP1BuildingQuantityEntityList().add(getP1BuildingQuantityEntity(rs));
+                        cardProduct.getP2BuildingQuantityEntityList().add(getP2BuildingQuantityEntity(rs));
+                        cardProduct.getP1ResourceQuantityEntityList().add(getP1ResourceQuantityEntity(rs));
+                        cardProduct.getP2ResourceQuantityEntityList().add(getP2ResourceQuantityEntity(rs));
+                        cardProduct.getP1UpgradeQuantityEntityList().add(getP1UpgradeQuantityEntity(rs));
+                        cardProduct.getP2UpgradeQuantityEntityList().add(getP2UpgradeQuantityEntity(rs));
+                        cardProduct.getNecessaryBuildingQuantityEntityList().add(getNecessaryBuildingQuantityEntity(rs));
+                        cardProduct.getNecessaryUpgradeQuantityEntityList().add(getNecessaryUpgradeQuantityEntity(rs));
                 }
                 if(cardProducts.size() > 0) {
                     returnResult(cardProducts.values());
@@ -59,27 +59,27 @@ public class CardProductDaoImpl implements CardProductDao {
             q.append("cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, ");
             q.append("cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, ");
             q.append("cp.p1_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, ");
-            q.append("cp.necessary_building_id, ");
-            q.append("cp.necessary_upgrade_id,");
-            q.append("u.account_id 'account_id', u.upgrade_id 'upgrade_id', u.number 'number', ");
-            q.append("u1.account_id 'account_id', u1.upgrade_id 'upgrade_id', u1.number 'number', ");
-            q.append("u2.account_id 'account_id', u2.upgrade_id 'upgrade_id', u2.number 'number', ");
-            q.append("b.account_id 'account_id', b.building_id 'building_id', b.number 'number', ");
-            q.append("b1.account_id 'account_id', b1.building_id 'building_id', b1.number 'number', ");
-            q.append("b2.account_id 'account_id', b2.building_id 'building_id', b2.number 'number', ");
-            q.append("r1.account_id 'account_id', r1.resource_id 'resource_id', r1.number 'number', ");
-            q.append("r2.account_id 'account_id', r2.resource_id 'resource_id', r2.number 'number', ");
-            q.append("cp.necessary_building_number, cp.necessary_upgrade_number ");
+            q.append("cp.necessary_upgrade_id, cp.necessary_building_id, ");
+            q.append("cp.necessary_building_number, cp.necessary_upgrade_number, ");
+            q.append("b.name 'necessary_building_name', b.description 'necessary_building_description', ");
+            q.append("u.name 'necessary_upgrade_name', u.description 'necessary_upgrade_description', ");
+            q.append("b1.name 'p1_building_name', b1.description 'p1_building_description', ");
+            q.append("b2.name 'p2_building_name', b2.description 'p2_building_description', ");
+            q.append("r1.name 'p1_resource_name', r1.description 'p1_resource_description', ");
+            q.append("r2.name 'p2_resource_name', r2.description 'p2_resource_description', ");
+            q.append("u1.name 'p1_upgrade_name', u1.description 'p1_upgrade_description', ");
+            q.append("u2.name 'p2_upgrade_name', u2.description 'p2_upgrade_description' ");
         q.append("FROM Card_Product cp ");
         q.append("LEFT JOIN Card c ON c.id = cp.card_id ");
-        q.append("LEFT JOIN Account_Upgrade u ON u.upgrade_id = cp.necessary_upgrade_id ");
-        q.append("LEFT JOIN Account_Building b ON b.building_id = cp.necessary_building_id ");
-        q.append("LEFT JOIN Account_Upgrade u1 ON u1.account_id = cp.p1_upgrade_id ");
-        q.append("LEFT JOIN Account_Upgrade u2 ON u2.account_id = cp.p2_upgrade_id ");
-        q.append("LEFT JOIN Account_Building b1 ON b1.account_id = cp.p1_building_id ");
-        q.append("LEFT JOIN Account_Building b2 ON b2.account_id = cp.p2_building_id ");
-        q.append("LEFT JOIN Account_Resource r1 ON r1.account_id = cp.p1_resource_id ");
-        q.append("LEFT JOIN Account_Resource r2 ON r2.account_id = cp.p2_resource_id ");
+        q.append("LEFT JOIN Building b ON b.id = cp.necessary_building_id ");
+        q.append("LEFT JOIN Upgrade u ON u.id = cp.necessary_upgrade_id ");
+        q.append("LEFT JOIN Building b1 ON b1.id = cp.p1_building_id ");
+        q.append("LEFT JOIN Building b2 ON b2.id = cp.p2_building_id ");
+        q.append("LEFT JOIN Resource r1 ON r1.id = cp.p1_resource_id ");
+        q.append("LEFT JOIN Resource r2 ON r2.id = cp.p2_resource_id ");
+        q.append("LEFT JOIN Upgrade u1 ON u1.id = cp.p1_upgrade_id ");
+        q.append("LEFT JOIN Upgrade u2 ON u2.id = cp.p2_upgrade_id ");
+
         return q.toString();
     }
 
@@ -91,28 +91,77 @@ public class CardProductDaoImpl implements CardProductDao {
         }};
     }
 
-    private AccountBuildingEntity getAccountBuildingEntity(ResultSet rs) throws SQLException {
-        return new AccountBuildingEntity() {{
-            setAccountId(rs.getInt("account_id"));
-            setBuildingId(rs.getInt("building_id"));
-            setNumber(rs.getFloat("number"));
+    private BuildingQuantityEntity getP1BuildingQuantityEntity(ResultSet rs) throws SQLException {
+        return new BuildingQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("p1_building_name"));
+            setDescription(rs.getString("p1_building_description"));
+            setQuantity(rs.getFloat("p1_building_number"));
         }};
     }
 
-    private AccountResourceEntity getAccountResourceEntity(ResultSet rs) throws SQLException {
-        return new AccountResourceEntity() {{
-            setAccountId(rs.getInt("account_id"));
-            setResourceId(rs.getInt("resource_id"));
-            setQuantity(rs.getInt("number"));
+    private BuildingQuantityEntity getP2BuildingQuantityEntity(ResultSet rs) throws SQLException {
+        return new BuildingQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("p2_building_name"));
+            setDescription(rs.getString("p2_building_description"));
+            setQuantity(rs.getFloat("p2_building_number"));
         }};
     }
 
-    private AccountUpgradeEntity getAccountUpgradeEntity(ResultSet rs) throws SQLException {
-        return new AccountUpgradeEntity() {{
-            setAccountId(rs.getInt("account_id"));
-            setUpgradeId(rs.getInt("upgrade_id"));
-            setQuantity(rs.getInt("number"));
+    private ResourceQuantityEntity getP1ResourceQuantityEntity(ResultSet rs) throws SQLException {
+        return new ResourceQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("p1_resource_name"));
+            setDescription(rs.getString("p1_resource_description"));
+            setQuantity(rs.getFloat("p1_resource_number"));
         }};
     }
+
+    private ResourceQuantityEntity getP2ResourceQuantityEntity(ResultSet rs) throws SQLException {
+        return new ResourceQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("p2_resource_name"));
+            setDescription(rs.getString("p2_resource_description"));
+            setQuantity(rs.getFloat("p2_resource_number"));
+        }};
+    }
+
+    private UpgradeQuantityEntity getP1UpgradeQuantityEntity(ResultSet rs) throws SQLException {
+        return new UpgradeQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("p1_upgrade_name"));
+            setDescription(rs.getString("p1_upgrade_description"));
+            setQuantity(rs.getFloat("p1_upgrade_number"));
+        }};
+    }
+
+    private UpgradeQuantityEntity getP2UpgradeQuantityEntity(ResultSet rs) throws SQLException {
+        return new UpgradeQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("p2_upgrade_name"));
+            setDescription(rs.getString("p2_upgrade_description"));
+            setQuantity(rs.getFloat("p2_upgrade_number"));
+        }};
+    }
+
+    private BuildingQuantityEntity getNecessaryBuildingQuantityEntity(ResultSet rs) throws SQLException {
+        return new BuildingQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("necessary_building_name"));
+            setDescription(rs.getString("necessary_building_description"));
+            setQuantity(rs.getFloat("necessary_building_number"));
+        }};
+    }
+
+    private UpgradeQuantityEntity getNecessaryUpgradeQuantityEntity(ResultSet rs) throws SQLException {
+        return new UpgradeQuantityEntity() {{
+            setId(rs.getInt("id"));
+            setName(rs.getString("necessary_upgrade_name"));
+            setDescription(rs.getString("necessary_upgrade_description"));
+            setQuantity(rs.getFloat("necessary_upgrade_number"));
+        }};
+    }
+
 }
 
