@@ -15,7 +15,7 @@ import java.sql.Statement;
  */
 public class UserDaoImpl implements UserDao {
     @Override
-    public String loginUser(UserEntity user) {
+    public String getTokenByUserId(UserEntity user) {
         return new QueryHelper<String>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
@@ -73,6 +73,7 @@ public class UserDaoImpl implements UserDao {
             }
         }.run();
     }
+
 
 
 }
