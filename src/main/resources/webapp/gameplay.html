@@ -4,15 +4,25 @@
         <link rel="stylesheet" type="text/css" href="css/gameplay.css">
         <script src="javascript/main.js"></script>
         <script src="javascript/gameplay.js"></script>
+        <script src="javascript/gameplay/account.js"></script>
+        <script src="javascript/gameplay/chat.js"></script>
+        <script src="javascript/gameplay/buildings.js"></script>
+        <script src="javascript/gameplay/upgrades.js"></script>
+        <script src="javascript/gameplay/resources.js"></script>
+        <script src="javascript/gameplay/cards.js"></script>
     </head>
-    <body>
+    <body onload="startGameCycle()">
         <div class="game-site-header">
             <ul class="ul-info">
                 <li><a href="rooms.html">Rooms</a></li>
                 <li><a class="active" href="gameplay.html">Gameplay</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="login.html">Login</a></li>
                 <li><a href="#" style="padding-left: 60px; padding-right: 60px; color: #ffff00" id="accountInfo"></a></li>
+                <li style="float: right">
+                    <a href="#" onclick="restRequest('GET',
+                        REST_API_URL + '/user/logout', logout);">Logout
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -22,11 +32,17 @@
             </div>
 
             <div id="container_left" class="container-left">
-                <div id="items" class="items"></div>
+                <div class="items-header">Buildings</div>
+                <div id="building_items" class="items"></div>
+                <div class="items-header" style="margin-top: -10px">Upgrades</div>
+                <div id="upgrade_items" class="items"></div>
             </div>
 
             <div id="container_right" class="container-right">
-                <div id="enemy_items" class="enemy-items"></div>
+                <div class="items-header">Buildings</div>
+                <div id="enemy_building_items" class="items"></div>
+                <div class="items-header" style="margin-top: -10px">Upgrades</div>
+                <div id="enemy_upgrade_items" class="items"></div>
             </div>
 
             <div id="left_resource_container" class="left-resource-container"></div>
@@ -44,7 +60,7 @@
                            placeholder="Enter message">
                     <button style="width: 20%" id="send_message" class="game-button" onclick="restRequest('POST',
                         REST_API_URL + '/message/send', createChatMessageList, {
-                            account_id: 1000, //TODO: we need to put right code for getting test account here
+                            account_id: getAccountId(),
                             message: document.getElementById('message').value
                         })">Send
                     </button>
@@ -55,29 +71,8 @@
 
             <div id="right_king" class="right-king cylinder"></div>
 
-        </div>
+            <div id="tooltip_component" class="tooltip-component"></div>
 
-        <script>
-            createCardList();
-            createBuildingsUpdatesList();
-            createEnemyBuildingsUpdatesList();
-            createResourceList();
-            createEnemyResourceList();
-            //restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
-            createChatMessageList(JSON.stringify([
-                {name: "Vasea", message: "hello!111 messageTest messageTest messageTest"},
-                {name: "Dima", message: "hello!222"},
-                {name: "Vasea", message: "hello!333"},
-                {name: "Dima", message: "hello!444"},
-                {name: "Vasea", message: "hello!555 messageTest messageTest messageTest, messageTest"},
-                {name: "Dima", message: "hello!666"},
-                {name: "Vasea", message: "hello!777"},
-                {name: "Dima", message: "hello!888"},
-                {name: "Dima", message: "hello!999"},
-                {name: "Dima", message: "hello!1010101"}
-            ]));
-            createKings(25, 100);
-            restRequest('GET', REST_API_URL + '/account/info', createAccountInfo);
-        </script>
+        </div>
     </body>
 <html>

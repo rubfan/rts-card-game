@@ -57,7 +57,7 @@ public class AccountDaoImpl implements AccountDao {
                 ResultSet rs = pstmt.executeQuery();
 
                 if(rs.next()) {
-                    setResult(rs.getInt("id"));
+                    returnResult(rs.getInt("id"));
                 }
             }
         }.run();
@@ -87,7 +87,7 @@ public class AccountDaoImpl implements AccountDao {
                         accountEntity.setRoom(roomEntity);
                     }
                     accountEntity.setUser(user);
-                    setResult(accountEntity);
+                    returnResult(accountEntity);
                 }
             }
         }.run();

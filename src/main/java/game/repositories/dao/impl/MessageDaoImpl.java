@@ -14,11 +14,9 @@ import java.util.List;
 public class MessageDaoImpl implements MessageDao {
 
     public List<MessageEntity> getListOfMessages() {
-        final List<MessageEntity> messages = new LinkedList<MessageEntity>();
-
-        new QueryHelper() {
+        return new QueryHelper<List<MessageEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
+                List<MessageEntity> messages = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select * from Message");
                 while(rs.next()) {
                     MessageEntity message = new MessageEntity(
@@ -30,9 +28,8 @@ public class MessageDaoImpl implements MessageDao {
                     );
                     messages.add(message);
                 }
+                returnResult(messages);
             }
         }.run();
-
-        return messages;
     }
 }

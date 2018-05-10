@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
                 pstmt.setString(2, user.getPassword());
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    setResult(rs.getString("token"));
+                    returnResult(rs.getString("token"));
                 }
             }
         }.run();
@@ -63,7 +63,7 @@ public class UserDaoImpl implements UserDao {
                 pstmt.setString(1, token);
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    setResult(new UserEntity(
+                    returnResult(new UserEntity(
                             rs.getInt("id"),
                             rs.getString("name"),
                             null,

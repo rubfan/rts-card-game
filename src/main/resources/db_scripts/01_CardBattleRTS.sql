@@ -58,9 +58,9 @@ CREATE TABLE `Account_Achievement` (
 CREATE TABLE `Message` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`text` varchar(128) NOT NULL,
-	`from_account_id` INT,
-	`to_account_id` INT,
-	`time` DATETIME,
+	`from_account_id` INT NOT NULL,
+	`to_account_id` INT NOT NULL,
+	`time` DATETIME NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -106,7 +106,7 @@ CREATE TABLE `Card` (
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `Card_Action` (
+CREATE TABLE `Card_Product` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`card_id` INT NOT NULL,
 	`p1_building_id` INT,
@@ -123,7 +123,7 @@ CREATE TABLE `Card_Action` (
 	`p2_upgrade_number` FLOAT,
 	`necessary_building_id` INT,
 	`necessary_upgrade_id` INT,
-	`necessary_building_number` INT,
+	`necessary_building_number` FLOAT,
 	`necessary_upgrade_number` FLOAT,
 	PRIMARY KEY (`id`)
 );
@@ -181,39 +181,39 @@ ALTER TABLE `Room` ADD CONSTRAINT `Room_fk1` FOREIGN KEY (`account_2_id`) REFERE
 
 #ALTER TABLE `Account_Building` ADD CONSTRAINT `Account_Building_fk1` FOREIGN KEY (`building_id`) REFERENCES `Building`(`id`);
 
-ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk1` FOREIGN KEY (`resource_id`) REFERENCES `Resource`(`id`);
+#ALTER TABLE `Account_Resource` ADD CONSTRAINT `Account_Resource_fk1` FOREIGN KEY (`resource_id`) REFERENCES `Resource`(`id`);
 
-ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk1` FOREIGN KEY (`upgrade_id`) REFERENCES `Upgrade`(`id`);
+#ALTER TABLE `Account_Upgrade` ADD CONSTRAINT `Account_Upgrade_fk1` FOREIGN KEY (`upgrade_id`) REFERENCES `Upgrade`(`id`);
 
 ALTER TABLE `Account_Achievement` ADD CONSTRAINT `Account_Achievement_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
 
 ALTER TABLE `Account_Achievement` ADD CONSTRAINT `Account_Achievement_fk1` FOREIGN KEY (`achievement_id`) REFERENCES `Achievement`(`id`);
 
-ALTER TABLE `Message` ADD CONSTRAINT `Message_fk0` FOREIGN KEY (`from_account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Message` ADD CONSTRAINT `Message_fk0` FOREIGN KEY (`from_account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Message` ADD CONSTRAINT `Message_fk1` FOREIGN KEY (`to_account_id`) REFERENCES `Account`(`id`);
+#ALTER TABLE `Message` ADD CONSTRAINT `Message_fk1` FOREIGN KEY (`to_account_id`) REFERENCES `Account`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk0` FOREIGN KEY (`card_id`) REFERENCES `Card`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk0` FOREIGN KEY (`card_id`) REFERENCES `Card`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk1` FOREIGN KEY (`p1_building_id`) REFERENCES `Building`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk1` FOREIGN KEY (`p1_building_id`) REFERENCES `Building`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk2` FOREIGN KEY (`p2_building_id`) REFERENCES `Building`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk2` FOREIGN KEY (`p2_building_id`) REFERENCES `Building`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk3` FOREIGN KEY (`p1_resource_id`) REFERENCES `Resource`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk3` FOREIGN KEY (`p1_resource_id`) REFERENCES `Resource`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk4` FOREIGN KEY (`p2_resource_id`) REFERENCES `Resource`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk4` FOREIGN KEY (`p2_resource_id`) REFERENCES `Resource`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk5` FOREIGN KEY (`p1_upgrade_id`) REFERENCES `Upgrade`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk5` FOREIGN KEY (`p1_upgrade_id`) REFERENCES `Upgrade`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk6` FOREIGN KEY (`p2_upgrade_id`) REFERENCES `Upgrade`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk6` FOREIGN KEY (`p2_upgrade_id`) REFERENCES `Upgrade`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk7` FOREIGN KEY (`necessary_building_id`) REFERENCES `Building`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk7` FOREIGN KEY (`necessary_building_id`) REFERENCES `Building`(`id`);
 
-ALTER TABLE `Card_Action` ADD CONSTRAINT `Card_Action_fk8` FOREIGN KEY (`necessary_upgrade_id`) REFERENCES `Building`(`id`);
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk8` FOREIGN KEY (`necessary_upgrade_id`) REFERENCES `Upgrade`(`id`);
 
 ALTER TABLE `Trigger_Notification` ADD CONSTRAINT `Trigger_Notification_fk0` FOREIGN KEY (`notification_id`) REFERENCES `Notification`(`id`);
 
