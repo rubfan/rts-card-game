@@ -1,6 +1,7 @@
 package game.services.impl;
 
 import game.controllers.dto.MessageDto;
+import game.controllers.dto.RoomDto;
 import game.repositories.dao.MessageDao;
 import game.services.MessageService;
 
@@ -19,11 +20,20 @@ public class MessageServiceImpl implements MessageService {
             messages.add(new MessageDto(){{
                 setId(messageEntity.getId());
                 setText(messageEntity.getText());
-                setFrom_account_id(messageEntity.getFrom_account_id());
-                setTo_account_id(messageEntity.getTo_account_id());
+                if(messageEntity.getFrom_account_id() != null) {
+                    setFrom_account_id(messageEntity.getFrom_account_id());
+                }
+                if(messageEntity.getTo_account_id() != null) {
+                    setTo_account_id(messageEntity.getTo_account_id());
+                }
                 setTime(messageEntity.getTime());
             }});
         });
         return messages;
+    }
+
+    @Override
+    public void sendMessage(MessageDto message, RoomDto room) {
+
     }
 }

@@ -4,10 +4,8 @@ import game.repositories.dao.MessageDao;
 import game.repositories.dao.helpers.QueryHelper;
 import game.repositories.entities.MessageEntity;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class MessageDaoImpl implements MessageDao {
                     MessageEntity message = new MessageEntity(
                         rs.getInt("id"),
                         rs.getString("text"),
-                        rs.getInt("from_account_id"),
+                        rs.getInt( "from_account_id"),
                         rs.getInt("to_account_id"),
                         rs.getDate("time")
                     );
@@ -35,4 +33,22 @@ public class MessageDaoImpl implements MessageDao {
 
         return messages;
     }
+
+    @Override
+    public void sendMessage(String text, Integer from_account_id, Integer to_account_id) {
+        new QueryHelper() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                PreparedStatement pstmt = connection.prepareStatement(
+                        "INSERT INTO Message (text, from_account_id, to_account_id, time) VALUES (?,?,?,?);");
+                pstmt.setString(1, text);
+                pstmt.setInt(2, from_account_id);
+                pstmt.setInt(3, to_account_id);
+                pstmt.setString(4, new Date().toString());
+                int status = pstmt.executeUpdate();
+            }
+        }.run();
+    }
+
+    @Override
+    public void getMessage() { }
 }
