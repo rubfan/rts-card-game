@@ -110,7 +110,7 @@ public class AccountDaoImpl implements AccountDao {
                     userEntity.setId(rs.getInt("user_id"));
                     userEntity.setName(rs.getString("name"));
                     accountEntity.setUser(userEntity);
-                    setResult(accountEntity);
+                    returnResult(accountEntity);
                 }
             }
         }.run();
