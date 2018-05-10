@@ -150,6 +150,10 @@ public class AppContextConfig {
                     bindAsContract(NotificationDaoImpl.class).to(NotificationDao.class);
                     bindAsContract(NotificationServiceImpl.class).to(NotificationService.class);
                     bindAsContract(NotificationControllerImpl.class).to(NotificationController.class);
+
+                    bindAsContract(AccountNotificationDaoImpl.class).to(AccountNotificationDao.class);
+                    bindAsContract(AccountNotificationServiceImpl.class).to(AccountNotificationService.class);
+                    bindAsContract(AccountNotificationControllerImpl.class).to(AccountNotificationController.class);
                 }
             });
         }};
