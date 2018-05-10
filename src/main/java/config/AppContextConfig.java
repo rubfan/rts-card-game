@@ -145,7 +145,11 @@ public class AppContextConfig {
 
                     bindAsContract(AchievementDaoImpl.class).to(AchievementDao.class);
                     bindAsContract(AchievementServiceImpl.class).to(AchievementService.class);
-                    bindAsContract(AchievementControllerImpl.class).to(AchievementControllerImpl.class);
+                    bindAsContract(AchievementControllerImpl.class).to(AchievementController.class);
+
+                    bindAsContract(NotificationDaoImpl.class).to(NotificationDao.class);
+                    bindAsContract(NotificationServiceImpl.class).to(NotificationService.class);
+                    bindAsContract(NotificationControllerImpl.class).to(NotificationController.class);
                 }
             });
         }};
