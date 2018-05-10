@@ -16,11 +16,9 @@ public class UpgradeDaoImpl implements UpgradeDao {
 
 
     public List<UpgradeEntity> getListOfUpgrades() {
-        final List<UpgradeEntity> upgrades = new LinkedList<>();
-
-        new QueryHelper(){
+        return new QueryHelper<List<UpgradeEntity>>(){
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
+                List<UpgradeEntity> upgrades = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select * from Upgrade");
                 while(rs.next()) {
                     UpgradeEntity upgrade = new UpgradeEntity(
@@ -30,10 +28,9 @@ public class UpgradeDaoImpl implements UpgradeDao {
                     );
                     upgrades.add(upgrade);
                 }
+                returnResult(upgrades);
             }
         }.run();
-
-        return upgrades;
     }
 
 }

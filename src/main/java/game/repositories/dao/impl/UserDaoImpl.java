@@ -15,7 +15,7 @@ import java.sql.Statement;
  */
 public class UserDaoImpl implements UserDao {
     @Override
-    public String loginUser(UserEntity user) {
+    public String getTokenByUserId(UserEntity user) {
         return new QueryHelper<String>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
                 pstmt.setString(2, user.getPassword());
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    setResult(rs.getString("token"));
+                    returnResult(rs.getString("token"));
                 }
             }
         }.run();
@@ -63,7 +63,7 @@ public class UserDaoImpl implements UserDao {
                 pstmt.setString(1, token);
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    setResult(new UserEntity(
+                    returnResult(new UserEntity(
                             rs.getInt("id"),
                             rs.getString("name"),
                             null,
@@ -73,6 +73,7 @@ public class UserDaoImpl implements UserDao {
             }
         }.run();
     }
+
 
 
 }

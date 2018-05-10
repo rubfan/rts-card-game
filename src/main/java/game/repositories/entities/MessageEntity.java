@@ -6,17 +6,17 @@ import java.util.*;
 public class MessageEntity {
     private Integer id;
     private String text;
-    private Integer from_account_id;
-    private Integer to_account_id;
+    private Integer fromAccountId;
+    private Integer toAccountId;
     private Date time;
 
     public MessageEntity() { }
 
-    public MessageEntity(Integer id, String text, Integer from_account_id, Integer to_account_id, Date time) {
+    public MessageEntity(Integer id, String text, Integer fromAccountId, Integer toAccountId, Date time) {
         this.id = id;
         this.text = text;
-        this.from_account_id = from_account_id;
-        this.to_account_id = to_account_id;
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
         this.time = time;
     }
 
@@ -36,20 +36,20 @@ public class MessageEntity {
         this.text = text;
     }
 
-    public Integer getFrom_account_id() {
-        return from_account_id;
+    public Integer getFromAccountId() {
+        return fromAccountId;
     }
 
-    public void setFrom_account_id(Integer from_account_id) {
-        this.from_account_id = from_account_id;
+    public void setFromAccountId(Integer fromAccountId) {
+        this.fromAccountId = fromAccountId;
     }
 
-    public Integer getTo_account_id() {
-        return to_account_id;
+    public Integer getToAccountId() {
+        return toAccountId;
     }
 
-    public void setTo_account_id(Integer to_account_id) {
-        this.to_account_id = to_account_id;
+    public void setToAccountId(Integer toAccountId) {
+        this.toAccountId = toAccountId;
     }
 
     public Date getTime() {
@@ -65,8 +65,8 @@ public class MessageEntity {
         return "MessageDto{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", from_account_id=" + from_account_id +
-                ", to_account_id=" + to_account_id +
+                ", fromAccountId=" + fromAccountId +
+                ", toAccountId=" + toAccountId +
                 ", time=" + time +
                 '}';
     }

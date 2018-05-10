@@ -19,7 +19,7 @@ public class BuildingProductControllerImpl implements BuildingProductController 
 
     @Override
     @GET
-    @Path("product_list")
+    @Path("product/list")
     public List<BuildingProductDto> getBuildingResourcesList() {
         List<BuildingProductDto> buildingProductList = buildingProductService.getListOfBuildingResources();
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, buildingProductList.toString());

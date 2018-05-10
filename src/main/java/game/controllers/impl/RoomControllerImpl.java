@@ -34,7 +34,7 @@ public class RoomControllerImpl implements RoomController {
     }
 
     @GET
-    @Path("{roomId}/join")
+    @Path("{roomId}/enter")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response joinRoom(@PathParam("roomId") String roomId, @CookieParam("token") String token) {
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);

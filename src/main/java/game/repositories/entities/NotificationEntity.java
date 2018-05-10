@@ -1,17 +1,18 @@
-package game.controllers.dto;
+package game.repositories.entities;
 
-public class ResourсeDto {
+public class NotificationEntity {
+
     private Integer id;
     private String name;
     private String description;
 
-
-    public ResourсeDto() {}
-
-    public ResourсeDto(Integer id, String name, String description) {
+    public NotificationEntity(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public NotificationEntity() {
     }
 
     public Integer getId() {
@@ -40,7 +41,7 @@ public class ResourсeDto {
 
     @Override
     public String toString() {
-        return "ResourсeDto{" +
+        return "NotificationEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

@@ -13,13 +13,38 @@ import java.util.List;
 
 public class AccountBuildingDaoImpl implements AccountBuildingDao {
     @Override
-    public List<AccountBuildingEntity> getListOfAccountBuildings(int accountId) {
-
-        final List<AccountBuildingEntity> accountBuildings = new LinkedList<AccountBuildingEntity>();
+    public void clearAccountBuildingsList(int accountId) {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
-                ResultSet rs = statement.executeQuery("select * from Account_Building WHERE account_id = " + accountId);
+                statement.executeUpdate("DELETE FROM Account_Building WHERE account_id = " + accountId);
+            }
+        }.run();
+    }
+
+    @Override
+    public void addBuildingToAccount(int accountId, int buildingId) {
+        new QueryHelper() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                if (statement.executeQuery("SELECT * FROM Account_Building WHERE account_id = " +
+                        accountId + " AND building_id = " + buildingId).next()) {
+                    statement.executeUpdate("UPDATE Account_Building SET number = number + 1 " +
+                            "WHERE account_id = " + accountId + " AND building_id = " + buildingId);
+                } else {
+                    statement.executeUpdate("INSERT INTO Account_Building " +
+                            "(account_id, building_id, number)" +
+                            "VALUES (" + accountId + "," + buildingId + "," + 1 + ")");
+                }
+            }
+        }.run();
+    }
+
+    @Override
+    public List<AccountBuildingEntity> getListOfAccountBuildings(int accountId) {
+        return new QueryHelper<List<AccountBuildingEntity>>() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                List<AccountBuildingEntity> accountBuildings = new LinkedList<>();
+                ResultSet rs = statement.executeQuery(
+                        "select * from Account_Building WHERE account_id = " + accountId);
                 while(rs.next()) {
                     AccountBuildingEntity accountBuilding = new AccountBuildingEntity(
                             rs.getInt("account_id"),
@@ -28,9 +53,8 @@ public class AccountBuildingDaoImpl implements AccountBuildingDao {
                     );
                     accountBuildings.add(accountBuilding);
                 }
+                returnResult(accountBuildings);
             }
         }.run();
-        return accountBuildings;
-
     }
 }

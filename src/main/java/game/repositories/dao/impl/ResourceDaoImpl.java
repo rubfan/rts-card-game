@@ -14,25 +14,21 @@ import java.util.List;
 public class ResourceDaoImpl implements ResourceDao {
 
     public List<ResourceEntity> getListOfResources() {
-        final List<ResourceEntity> resources = new LinkedList<ResourceEntity>();
-
-        new QueryHelper() {
+        return new QueryHelper<List<ResourceEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("use card_battle_rts");
+                List<ResourceEntity> resources = new LinkedList<>();
                 ResultSet rs = statement.executeQuery("select * from Resource");
                 while(rs.next()) {
                     ResourceEntity resource = new ResourceEntity(
                             rs.getInt("id"),
-//                            rs.getInt("number"),
                             rs.getString("name"),
                             rs.getString("description")
                     );
                     resources.add(resource);
                 }
+                returnResult(resources);
             }
         }.run();
-
-        return resources;
     }
 
 }

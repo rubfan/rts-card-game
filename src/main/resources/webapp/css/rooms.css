@@ -21,11 +21,6 @@
     padding: 80px
 }
 
-.rooms-background {
-    background-image: url('/images/noisy-background.png');
-    background-color: #1c202a;
-}
-
 /*==================ROOM TABLE=============*/
 .room-table {
     border-collapse: collapse;
@@ -56,14 +51,4 @@
     padding-bottom: 12px;
     background-color: #7d0012;
     color: white;
-}
-
-.room-button {
-    border-width: 3px;
-    border-style: outset;
-    border-radius: 8px;
-    border-color: #475966 #53687a #53687a #475966;
-    background: #313e4b;
-    color: rgba(255, 255, 255, 0.9);
-    -webkit-box-shadow: 0 1px 0 0 rgba(138, 138, 138, 0.21) inset, 0 -1px 1px 0 rgba(137, 137, 137, 0.21) inset, 0 7px 0 0 rgba(98, 98, 98, 0.2), 0 8px 3px 0 rgba(0, 0, 0, 0.35) !important;
 }
