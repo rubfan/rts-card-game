@@ -33,6 +33,7 @@ public class RoomDaoImpl implements RoomDao {
                         "left join User u2 on u2.id = a2.user_id"
                 );
                 while(rs.next()) {
+
                     RoomEntity room = new RoomEntity();
                     room.setId(rs.getInt("id"));
                     room.setName(rs.getString("name"));
@@ -94,7 +95,7 @@ public class RoomDaoImpl implements RoomDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "UPDATE Room SET start_game_time=NOW() WHERE id=?;");
+                        "UPDATE Room SET start_game_time=NOW() WHERE id=? AND account_2_id IS NOT NULL;");
                 pstmt.setInt(1, roomId);
                 int status = pstmt.executeUpdate();
             }

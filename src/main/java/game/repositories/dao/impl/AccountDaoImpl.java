@@ -68,7 +68,7 @@ public class AccountDaoImpl implements AccountDao {
         return new QueryHelper<AccountEntity>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "SELECT a.id , a.room_id, r.name, r.description, r.start_game_time FROM Account a " +
+                        "SELECT a.id , a.room_id, r.name, r.description, r.start_game_time, r.account_1_id, r.account_2_id FROM Account a " +
                                 "LEFT JOIN Room r ON r.id = a.room_id " +
                                 "WHERE user_id = ?");
                 pstmt.setInt(1, user.getId());
@@ -82,6 +82,8 @@ public class AccountDaoImpl implements AccountDao {
                         roomEntity.setName(rs.getString("name"));
                         roomEntity.setDescription(rs.getString("description"));
                         roomEntity.setStart_game_time(rs.getDate("start_game_time"));
+                        roomEntity.setAccount1(getUserIdByAccountId(rs.getInt("account_1_id")));
+                        roomEntity.setAccount2(getUserIdByAccountId(rs.getInt("account_2_id")));
                         accountEntity.setRoom(roomEntity);
                     }
                     accountEntity.setUser(user);
@@ -90,5 +92,30 @@ public class AccountDaoImpl implements AccountDao {
             }
         }.run();
     }
+
+    @Override
+    public AccountEntity getUserIdByAccountId(final Integer accountId) {
+        return new QueryHelper<AccountEntity>() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                PreparedStatement pstmt = connection.prepareStatement(
+                        "SELECT a.user_id, u.name FROM Account a " +
+                                "LEFT JOIN User u on a.user_id=u.id " +
+                                "where a.id=?;");
+                pstmt.setInt(1, accountId);
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()) {
+                    AccountEntity accountEntity = new AccountEntity();
+                    accountEntity.setId(accountId);
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setId(rs.getInt("user_id"));
+                    userEntity.setName(rs.getString("name"));
+                    accountEntity.setUser(userEntity);
+                    returnResult(accountEntity);
+                }
+            }
+        }.run();
+    }
+
+
 
 }
