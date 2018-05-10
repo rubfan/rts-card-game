@@ -82,8 +82,14 @@ public class AccountDaoImpl implements AccountDao {
                         roomEntity.setName(rs.getString("name"));
                         roomEntity.setDescription(rs.getString("description"));
                         roomEntity.setStart_game_time(rs.getDate("start_game_time"));
-                        roomEntity.setAccount1(getUserIdByAccountId(rs.getInt("account_1_id")));
-                        roomEntity.setAccount2(getUserIdByAccountId(rs.getInt("account_2_id")));
+
+                        if(rs.getInt("account_1_id")!=0) {
+                            roomEntity.setAccount1(getUserIdByAccountId(rs.getInt("account_1_id")));
+                        }
+
+                        if(rs.getInt("account_2_id")!=0){
+                            roomEntity.setAccount2(getUserIdByAccountId(rs.getInt("account_2_id")));
+                        }
                         accountEntity.setRoom(roomEntity);
                     }
                     accountEntity.setUser(user);
