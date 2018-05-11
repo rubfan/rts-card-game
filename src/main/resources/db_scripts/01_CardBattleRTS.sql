@@ -169,6 +169,13 @@ CREATE TABLE `Trigger_Achievement` (
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `Account_Notification` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`account_id` INT NOT NULL,
+	`notification_id` INT NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
 ALTER TABLE `Account` ADD CONSTRAINT `Account_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`);
 
 ALTER TABLE `Account` ADD CONSTRAINT `Account_fk1` FOREIGN KEY (`room_id`) REFERENCES `Room`(`id`);
@@ -240,3 +247,7 @@ ALTER TABLE `Trigger_Achievement` ADD CONSTRAINT `Trigger_Achievement_fk1` FOREI
 ALTER TABLE `Trigger_Achievement` ADD CONSTRAINT `Trigger_Achievement_fk2` FOREIGN KEY (`resource_id`) REFERENCES `Resource`(`id`);
 
 ALTER TABLE `Trigger_Achievement` ADD CONSTRAINT `Trigger_Achievement_fk3` FOREIGN KEY (`upgrade_id`) REFERENCES `Upgrade`(`id`);
+
+#ALTER TABLE `Account_Notification` ADD CONSTRAINT `Account_Notification_fk0` FOREIGN KEY (`account_id`) REFERENCES `Account`(`id`);
+
+#ALTER TABLE `Account_Notification` ADD CONSTRAINT `Account_Notification_fk1` FOREIGN KEY (`notification_id`) REFERENCES `Notification`(`id`);
