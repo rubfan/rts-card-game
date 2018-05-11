@@ -47,27 +47,31 @@ public class AccountServiceImpl implements AccountService {
             roomDto.setDescription(accountEntity.getRoom().getDescription());
             roomDto.setSetStart_game_time(accountEntity.getRoom().getStart_game_time());
 
-            //create object Account1
-            AccountDto accountDto1 = new AccountDto();
-            accountDto1.setId(accountEntity.getRoom().getAccount1().getId());
-            //create object User1 for Account1
-            UserDto userDto1 = new UserDto();
-            userDto1.setId(accountEntity.getRoom().getAccount1().getUser().getId());
-            userDto1.setName(accountEntity.getRoom().getAccount1().getUser().getName());
-            accountDto1.setUser(userDto1);
-            roomDto.setAccount1(accountDto1);
+            if(accountEntity.getRoom().getAccount1()!=null) {
+                //create object Account1
+                AccountDto accountDto1 = new AccountDto();
+                accountDto1.setId(accountEntity.getRoom().getAccount1().getId());
+                //create object User1 for Account1
+                UserDto userDto1 = new UserDto();
+                userDto1.setId(accountEntity.getRoom().getAccount1().getUser().getId());
+                userDto1.setName(accountEntity.getRoom().getAccount1().getUser().getName());
+                accountDto1.setUser(userDto1);
+                roomDto.setAccount1(accountDto1);
+                roomDto.setAccount1(accountDto1);
+            }
 
-            //create object Account2
-            AccountDto accountDto2 = new AccountDto();
-            accountDto2.setId(accountEntity.getRoom().getAccount2().getId());
-            //create object User2 for Account2
-            UserDto userDto2 = new UserDto();
-            userDto2.setId(accountEntity.getRoom().getAccount2().getUser().getId());
-            userDto2.setName(accountEntity.getRoom().getAccount2().getUser().getName());
-            accountDto2.setUser(userDto2);
 
-            roomDto.setAccount1(accountDto1);
-            roomDto.setAccount2(accountDto2);
+            if(accountEntity.getRoom().getAccount2()!=null) {
+                //create object Account2
+                AccountDto accountDto2 = new AccountDto();
+                accountDto2.setId(accountEntity.getRoom().getAccount2().getId());
+                //create object User2 for Account2
+                UserDto userDto2 = new UserDto();
+                userDto2.setId(accountEntity.getRoom().getAccount2().getUser().getId());
+                userDto2.setName(accountEntity.getRoom().getAccount2().getUser().getName());
+                accountDto2.setUser(userDto2);
+                roomDto.setAccount2(accountDto2);
+            }
             accountDto.setRoom(roomDto);
         }
         return accountDto;
