@@ -1,22 +1,53 @@
 var accountInfo = {};
+var userName = '';
+var enemyName = '';
+var accountId = '';
+var enemyAccountId = '';
 
 function prepareAccountInfo(dataObject) {
     accountInfo = JSON.parse(dataObject);
-    console.log(accountInfo);
-    createAccountInfo();
+    userName = null;
+    enemyName = null;
+    accountId = null;
+    enemyAccountId = null;
+    if(accountInfo['id'] != undefined) {
+        accountId = accountInfo['id'];
+        if(accountInfo['room'] != undefined) {
+            if(accountInfo['room']['account2'] != undefined && accountInfo['room']['account2'] != undefined ) {
+                if(accountInfo['room']['account1']['id'] == accountId) {
+                    enemyAccountId = accountInfo['room']['account2']['id'];
+                    userName = accountInfo['room']['account1']['user']['name'];
+                    enemyName = accountInfo['room']['account2']['user']['name'];
+                } else if(accountInfo['room']['account2']['id'] == accountId) {
+                    enemyAccountId = accountInfo['room']['account1']['id'];
+                    userName = accountInfo['room']['account2']['user']['name'];
+                    enemyName = accountInfo['room']['account1']['user']['name'];
+                }
+                createAccountInfo();
+            }
+        }
+    }
 }
 
 function createAccountInfo() {
-    var content = accountInfo['user'] != undefined ? "User: " + accountInfo['user']['name'] : "";
-    content += " / " + (accountInfo['room'] != undefined ? "Current Room: "
+    var content = (accountInfo['room'] != undefined ? "Current Room: "
             + accountInfo['room']['name'] + " (" + accountInfo['room']['description'] + ")" : "");
+    content += ' <b style="color: #7cff03">' + getUserName() + '</b> VS <b style="color: red">' + getEnemyUserName() + '</b>';
     document.getElementById("accountInfo").innerHTML = content;
 }
 
 function getAccountId() {
-    return accountInfo['id'];
+    return accountId;
 }
 
 function getEnemyAccountId() {
-    return accountInfo['id'];//TODO: we need to receive enemy account id from BE
+    return enemyAccountId;
+}
+
+function getUserName() {
+    return userName;
+}
+
+function getEnemyUserName() {
+    return enemyName;
 }

@@ -22,4 +22,6 @@ VALUES
     ('19','Bazookas',' cocks with bazooka'),
     ('20','Magic',' magic'),
     ('21','Wizards',' cocks-wizards'),
-    ('22','Seers',' seer cocks (providtsy)');
+    ('22','Prophet',' cock-prophet'),
+    ('23','XP',' Experience'),
+    ('24','Power',' king power');

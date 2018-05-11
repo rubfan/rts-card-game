@@ -1,6 +1,8 @@
 package game.controllers.impl;
 
 import game.controllers.AccountCardController;
+import jdk.nashorn.internal.parser.JSONParser;
+import jdk.nashorn.internal.runtime.JSONListAdapter;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,19 +20,20 @@ public class AccountCardControllerImpl implements AccountCardController {
     @GET
     @Path("/{account_id}/card/list")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<Integer> getAccountCards(@PathParam("account_id") Integer accountId) {
+    public Response getAccountCards(@PathParam("account_id") Integer accountId) {
         List<Integer> accountCards = new LinkedList<>();
-        accountCards.add(0,1);
-        accountCards.add(1,2);
-        accountCards.add(2,3);
-        return accountCards;
+        accountCards.add(1);
+        accountCards.add(2);
+        accountCards.add(3);
+        return Response.ok(accountCards.toString()).build();
     }
+
     //TODO: change hardCode to real elemets
     @Override
     @GET
-    @Path("/{account_id}/card/{card_id}/use")
+    @Path("/{account_id}/card/{card_id}/apply")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response.ResponseBuilder cardApply(@PathParam("account_id") Integer accountId, @PathParam("card_id") Integer cardId) {
-        return Response.ok().status(200);
+    public Response cardApply(@PathParam("account_id") Integer accountId, @PathParam("card_id") Integer cardId) {
+        return Response.ok().status(200).build();
     }
 }

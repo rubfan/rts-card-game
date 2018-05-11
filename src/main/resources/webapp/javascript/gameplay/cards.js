@@ -8,11 +8,11 @@ function prepareCardFullList(dataObject) {
     }
 }
 
-function createCardList(/*dataObject*/) {
-    var accountCardList = {"1":{id:"1"},"2":{id:"1"},"3":{id:"1"}};//JSON.parse(dataObject);
+function createCardList(dataObject) {
+    var accountCardList = JSON.parse(dataObject);
     var content = "";
     for (var i in accountCardList) {
-        var id = accountCardList[i]['id'];
+        var id = accountCardList[i];
         content +=  '<button class="glow-effect card-button"'+
             ' onmousemove="prepareCardTooltip(' + id + '); showTooltip(event)"' +
             ' onmouseout="hideTooltip()"' +
@@ -25,8 +25,8 @@ function createCardList(/*dataObject*/) {
 }
 
 function applyCard(cardId) {
-    restRequest("GET", REST_API_URL + "/card/apply", function (dataObject) {
-        alert("Action!!!");
+    restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/card/" + cardId + "/apply", function (dataObject) {
+        playSoundFx('sounds/chicken_cluck_single.mp3');
     });
 }
 
@@ -65,14 +65,14 @@ function prepareP1BuildingQuantityDtoList(num) {
 function prepareP2BuildingQuantityDtoList(num) {
     var content = '';
     if(cardFullList[num]['p2BuildingQuantityDtoList'] != undefined) {
-        content += '<br>This card takes the following Buildings from your opponent::' + '<br>';
+        content += '<br>This card takes the following Buildings from your opponent:' + '<br>';
         for (var numBld in cardFullList[num]['p2BuildingQuantityDtoList']) {
             content += '<img class="small-icon" src="' +
                 IMG_BUILDINGS_URL[cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['id']] + '">';
             content += ' ' + cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['name'];
             content += ' (' + cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['description'] + ') ';
             content += ' <b style="color: #ff0600">' +
-                cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['quantity'] + '%</b><br>';
+                cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['quantity'] + '</b><br>';
         }
     }
     return content;
@@ -88,7 +88,7 @@ function prepareP1ResourceQuantityDtoList(num) {
             content += ' ' + cardFullList[num]['p1ResourceQuantityDtoList'][numRes]['name'];
             content += ' (' + cardFullList[num]['p1ResourceQuantityDtoList'][numRes]['description'] + ')';
             content += ' <b style="color: #7cff03">' +
-                cardFullList[num]['p1ResourceQuantityDtoList'][numRes]['quantity'] + '%</b><br>';
+                cardFullList[num]['p1ResourceQuantityDtoList'][numRes]['quantity'] + '</b><br>';
         }
     }
     return content;
