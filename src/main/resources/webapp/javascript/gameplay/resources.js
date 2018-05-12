@@ -50,11 +50,14 @@ function createResourceList(dataObject) {
     var content = '';
     var count = 0;
     for (var i in accountResourceList) {
-        if((count%3) == 0){
+        if((count%6) == 0){
             var num = accountResourceList.length - count;
-            if (num >= 3) content += '<div style="grid-template-columns: auto auto auto" class="inner-container">';
-            else if (num == 2) content += '<div style="grid-template-columns: auto auto auto 55px" class="inner-container">';
-            else if (num == 1) content += '<div style="grid-template-columns: auto auto 55px auto 55px" class="inner-container">';
+            if (num >= 6) content += '<div style="grid-template-columns: auto auto auto auto auto auto" class="inner-container">';
+            else if (num == 5) content += '<div style="grid-template-columns: auto auto auto auto auto 55px" class="inner-container">';
+            else if (num == 4) content += '<div style="grid-template-columns: auto auto auto auto 55px 55px" class="inner-container">';
+            else if (num == 3) content += '<div style="grid-template-columns: auto auto auto 55px 55px 55px" class="inner-container">';
+            else if (num == 2) content += '<div style="grid-template-columns: auto auto 55px 55px 55px 55px" class="inner-container">';
+            else if (num == 1) content += '<div style="grid-template-columns: auto 55px 55px 55px 55px 55px" class="inner-container">';
         }
         var id = accountResourceList[i]['resourceId'];
         content += '<div class="resource-item">';
@@ -64,10 +67,10 @@ function createResourceList(dataObject) {
             ' onmouseout="hideTooltip()">';
         content += '<span class="small-text">' + accountResourceList[i]['quantity'] + '</span>';
         count++;
-        if((count%3) == 0) content += '</div>';
+        if((count%6) == 0) content += '</div>';
         content += '</div>';
         if (resourceFullList[id]['id'] == POWER) {
-            myPower = accountResourceList[i]['quantity']
+            myPower = accountResourceList[i]['quantity'];
             createKings();
         }
     }
@@ -80,13 +83,19 @@ function createEnemyResourceList(dataObject) {
     var content = '';
     var count = 0;
     for (var i in accountResourceList) {
-        if((count%3) == 0){
+        if((count%6) == 0){
             var num = accountResourceList.length - count;
-            if (num >= 3) content += '<div style="grid-template-columns: auto auto auto" class="inner-container">';
-            else if (num == 2) content += '<div style="grid-template-columns: auto 55px auto 55px" class="inner-container">' +
+            if (num >= 3) content += '<div style="grid-template-columns: auto auto auto auto auto auto" class="inner-container">';
+            else if (num == 5) content += '<div style="grid-template-columns: auto auto auto auto auto 55px" class="inner-container">' +
                     '<div class="resource-item"></div><div class="resource-item"></div>';
-            else if (num == 1) content += '<div style="grid-template-columns: auto 55px" class="inner-container">' +
+            else if (num == 4) content += '<div style="grid-template-columns: auto auto auto auto 55px 55px" class="inner-container">' +
                  '<div class="resource-item"></div>';
+            else if (num == 3) content += '<div style="grid-template-columns: auto auto auto 55px 55px 55px" class="inner-container">' +
+                '<div class="resource-item"></div>';
+            else if (num == 2) content += '<div style="grid-template-columns: auto auto 55px 55px 55px 55px" class="inner-container">' +
+                '<div class="resource-item"></div>';
+            else if (num == 1) content += '<div style="grid-template-columns: auto 55px 55px 55px 55px 55px" class="inner-container">' +
+                '<div class="resource-item"></div>';
         }
         var id = accountResourceList[i]['resourceId'];
         content += '<div class="resource-item">';
@@ -96,10 +105,10 @@ function createEnemyResourceList(dataObject) {
             ' onmouseout="hideTooltip()">';
         content += '<span class="small-text">' + accountResourceList[i]['quantity'] + '</span>';
         count++;
-        if((count%3) == 0) content += '</div>';
+        if((count%6) == 0) content += '</div>';
         content += '</div>';
         if (resourceFullList[id]['id'] == POWER) {
-            enemyPower = accountResourceList[i]['quantity']
+            enemyPower = accountResourceList[i]['quantity'];
             createKings();
         }
     }
@@ -109,7 +118,8 @@ function createEnemyResourceList(dataObject) {
 
 function prepareResourceTooltip(num) {
     var content = '';
-    content += 'Resource: ' + resourceFullList[num]['name'].split('_').join(' ');
+    content += '<b style="font-size: 20px; color: #ff8000">Resource: '
+        + resourceFullList[num]['name'].split('_').join(' ') + '</b><br>';
     content += ' (' + resourceFullList[num]['description'] + ')';
     document.getElementById("tooltip_component").innerHTML = content;
 }

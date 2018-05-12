@@ -31,7 +31,8 @@ function applyCard(cardId) {
 }
 
 function prepareCardTooltip(num) {
-    var content = 'Card: ' + cardFullList[num]['cardDto']['name'].split('_').join(' ');
+    var content = '<b style="font-size: 20px; color: #ff8000">Card: '
+        + cardFullList[num]['cardDto']['name'].split('_').join(' ') + '</b><br>';
     content += ' (' + cardFullList[num]['cardDto']['description'] + ')<br><br>';
 
     content += prepareP1BuildingQuantityDtoList(num);
@@ -52,7 +53,7 @@ function prepareP1BuildingQuantityDtoList(num) {
         content += '<br>This card subtracts or adds you the following Buildings:' + '<br>';
         for (var numBld in cardFullList[num]['p1BuildingQuantityDtoList']) {
             content += '<img class="small-icon" src="' +
-                IMG_BUILDINGS_URL[cardFullList[num]['p1BuildingQuantityDtoList'][numBld]['id']] + '">';
+                IMG_BUILDINGS_URL[cardFullList[num]['p1BuildingQuantityDtoList'][numBld]['id']]['url'] + '">';
             content += ' ' + cardFullList[num]['p1BuildingQuantityDtoList'][numBld]['name'];
             content += ' (' + cardFullList[num]['p1BuildingQuantityDtoList'][numBld]['description'] + ') ';
             content += ' <b style="color: #7cff03">' +
@@ -68,7 +69,7 @@ function prepareP2BuildingQuantityDtoList(num) {
         content += '<br>This card takes the following Buildings from your opponent:' + '<br>';
         for (var numBld in cardFullList[num]['p2BuildingQuantityDtoList']) {
             content += '<img class="small-icon" src="' +
-                IMG_BUILDINGS_URL[cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['id']] + '">';
+                IMG_BUILDINGS_URL[cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['id']]['url'] + '">';
             content += ' ' + cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['name'];
             content += ' (' + cardFullList[num]['p2BuildingQuantityDtoList'][numBld]['description'] + ') ';
             content += ' <b style="color: #ff0600">' +
@@ -144,7 +145,7 @@ function prepareNecessaryBuildingQuantityDtoList(num) {
         content += '<br>This card requires the following Buildings:' + '<br>';
         for (var numBld in cardFullList[num]['necessaryBuildingQuantityDtoList']) {
             content += '<img class="small-icon" src="' +
-                IMG_BUILDINGS_URL[cardFullList[num]['necessaryBuildingQuantityDtoList'][numBld]['id']] + '">';
+                IMG_BUILDINGS_URL[cardFullList[num]['necessaryBuildingQuantityDtoList'][numBld]['id']]['url'] + '">';
             content += ' ' + cardFullList[num]['necessaryBuildingQuantityDtoList'][numBld]['name'];
             content += ' (' + cardFullList[num]['necessaryBuildingQuantityDtoList'][numBld]['description'] + ')';
             content += ' <b style="color: #ff8000">' +
