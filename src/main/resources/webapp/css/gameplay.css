@@ -12,6 +12,7 @@
     font-size: 8px;
     padding: 0;
     white-space: normal;
+    vertical-align: middle;
 }
 
 .update-button {
@@ -103,7 +104,7 @@
 .inner-container {
     display: grid;
     grid-column-gap: 2px;
-    grid-template-columns: auto auto auto;
+    /*grid-template-columns: auto auto auto;*/
 }
 
 .left-resource-container {

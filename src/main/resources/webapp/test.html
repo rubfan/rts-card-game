@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/test.css">
         <script src="javascript/main.js"></script>
         <script src="javascript/test.js"></script>
     </head>
@@ -25,6 +26,8 @@
             <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/building/all/clear', jsonToString)">Clear Account Building list</button></li>
             <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/building/1/add', jsonToString)">Add Building to Account</button></li>
             <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/upgrade/list', jsonToTable)">List of User Upgrades</button> --- test works!</li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/card/list', jsonToTable)">List of User Cards</button> </li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/card/1/use', jsonToTable)">Use Cards</button> </li>
             <li><button onclick="restRequest('GET', REST_API_URL + '/card/product/list', jsonToTable)">List of User Cards</button></li>
 
             <li><button onclick="restRequest('GET', REST_API_URL + '/room/1/exit', jsonToString)">Action End Game</button></li>
@@ -32,6 +35,9 @@
             <li><button onclick="restRequest('GET', REST_API_URL + '/card/33/use', jsonToString)">Action Use Card</button></li>
 
             <li><button onclick="restRequest('GET', REST_API_URL + '/notification/list', jsonToTable)">List of All Notifications</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/notification/list', jsonToTable)">List of User Notifications</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/notification/10/add', jsonToString)">Add Shown Notification to Account</button></li>
+            <li><button onclick="restRequest('GET', REST_API_URL + '/account/1/notification/all/clear', jsonToString)">Clear User Notification list</button></li>
 
             <li><button onclick="restRequest('GET', REST_API_URL + '/account/refresh', jsonToString)">Update All Data</button></li>
         </ul>

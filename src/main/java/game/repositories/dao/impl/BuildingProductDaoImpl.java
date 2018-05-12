@@ -10,56 +10,63 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class BuildingProductDaoImpl implements BuildingProductDao {
-    @Override
-    public List<BuildingProductEntity> getListOfBuildingResources() {
-        return new QueryHelper<List<BuildingProductEntity>>() {
-            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                List<BuildingProductEntity> buildingProducts = new LinkedList<>();
-                ResultSet rs = statement.executeQuery("select building_id, b.name, b.description " +
-                                                            "from Building_Product bp " +
-                                                            "inner join Building b " +
-                                                            "on bp.building_id = b.id");
-                while(rs.next()) {
-                    BuildingProductEntity buildingProduct = new BuildingProductEntity(
-                            new BuildingEntity(
-                                    rs.getInt("building_id"),
-                                    rs.getString("name"),
-                                    rs.getString("description")
-                            ),
-                            prepareProductList(rs.getInt("building_id"))
 
-                    );
-                    buildingProducts.add(buildingProduct);
+    @Override
+    public Collection<BuildingProductEntity> getListOfBuildingResources() {
+        return new QueryHelper<Collection<BuildingProductEntity>>() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+
+                Map<Integer,BuildingProductEntity> buildingProducts = new HashMap<>();
+
+                ResultSet rs = statement.executeQuery("SELECT bp.id," +
+                        "building_id," +
+                        "b.name `building_name`," +
+                        "b.description `building_description`," +
+                        "resource_id," +
+                        "r.name `resource_name`," +
+                        "r.description `resource_description`," +
+                        "bp.number_per_sec " +
+                        "FROM Building_Product bp " +
+                        "LEFT JOIN Building b " +
+                        "ON building_id = b.id " +
+                        "LEFT JOIN Resource r " +
+                        "ON resource_id = r.id");
+
+                while(rs.next()) {
+                    BuildingProductEntity buildingProduct = new BuildingProductEntity();
+                    buildingProduct.setBuildingEntity(prepareBuilding(rs));
+                    if(!buildingProducts.containsKey(buildingProduct.getBuildingEntity().getId())) {
+                        buildingProduct.setId(rs.getInt("id"));
+                        buildingProduct.setProductEntityList(new LinkedList<>());
+                        buildingProducts.put(buildingProduct.getBuildingEntity().getId(),buildingProduct);
+                    } else {
+                        buildingProduct = buildingProducts.get(buildingProduct.getBuildingEntity().getId());
+                    }
+                    buildingProduct.getProductEntityList().add(prepareProduct(rs));
                 }
-                returnResult(buildingProducts);
+                returnResult(buildingProducts.values());
             }
         }.run();
     }
 
-    private List<ProductEntity> prepareProductList(Integer buildingId) {
-        return new QueryHelper<List<ProductEntity>>() {
-            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                List<ProductEntity> productEntityList = new LinkedList<>();
-                ResultSet rs = statement.executeQuery("select r.id, r.name, r.description,bp.number_per_sec " +
-                                                            "from Building_Product bp " +
-                                                            "inner join Resource r " +
-                                                            "on bp.resource_id = r.id " +
-                                                            "where bp.building_id = "+ buildingId +";");
-                while(rs.next()) {
-                    ProductEntity productEntity = new ProductEntity(
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getString("description"),
-                            rs.getInt("number_per_sec")
-                    );
-                    productEntityList.add(productEntity);
-                }
-                returnResult(productEntityList);
-            }
-        }.run();
+
+    private BuildingEntity prepareBuilding(ResultSet rs) throws SQLException {
+        return new BuildingEntity(){{
+            setId(rs.getInt("building_id"));
+            setName(rs.getString("building_name"));
+            setDescription(rs.getString("building_description"));
+        }};
+    }
+
+    private ProductEntity prepareProduct(ResultSet rs) throws SQLException {
+        return new ProductEntity(){{
+            setId(rs.getInt("resource_id"));
+            setName(rs.getString("resource_name"));
+            setDescription(rs.getString("resource_description"));
+            setNumPerSec(rs.getInt("number_per_sec"));
+        }};
     }
 }

@@ -23,12 +23,12 @@ public class BuildingProductServiceImpl implements BuildingProductService {
 
             buildingProductDao.getListOfBuildingResources().forEach(buildingProductEntity -> {
                 buildingProducts.add(new BuildingProductDto(){{
+                    setId(buildingProductEntity.getId());
                     setBuildingDto(new BuildingDto(
                             buildingProductEntity.getBuildingEntity().getId(),
                             buildingProductEntity.getBuildingEntity().getName(),
                             buildingProductEntity.getBuildingEntity().getDescription())
                     );
-
                     setProductDtoList(getProductList(buildingProductEntity));
                 }});
             });

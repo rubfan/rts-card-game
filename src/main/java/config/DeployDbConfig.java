@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class DeployDbConfig extends QueryHelper {
 
     public static final String DB_USER = "root";
-    public static final String DB_PASSWORD = "root";
+    public static final String DB_PASSWORD = "";
     public static final String USER_PASSWORD = "?user=" + DB_USER + "&password=" + DB_PASSWORD;
     public static final String DB_NAME = "card_battle_rts";
     public static final String DB_DRIVER = "com.mysql.jdbc.Driver";

@@ -3,6 +3,12 @@
  */
 var hours = 1;
 var countDownDate = (new Date().getTime()) + (hours * 60 * 60 * 1000);
+var countDownLatchCounter = 0;
+
+function playSoundFx(file) {
+    var audio = new Audio(file);
+    audio.play();
+}
 
 function showTooltip(event) {
     var style = document.getElementById("tooltip_component").style;
@@ -30,34 +36,57 @@ function logout() {
     window.location.replace(RESOURCE_URL + '/login.html');
 }
 
+function redirectToRooms() {
+    window.location.replace(RESOURCE_URL + '/rooms.html');
+}
+
 //************************************************
 //******************GAME STARTER******************
 //************************************************
-function startGameCycle() {
+function startGame() {
+    countDownLatchCounter = 0;
+    restRequest('GET', REST_API_URL + '/account/info', function (dataObject) {
+        countDownLatchCounter++;
+        prepareAccountInfo(dataObject);
+        if(getAccountId() == null) {
+            redirectToRooms();
+        } else {
+            runGameCycle();
+        }
+    });
+}
+function runGameCycle() {
     //====INIT STATIC DATA(always the same)====
-    restRequest('GET', REST_API_URL + '/account/info', prepareAccountInfo);
-    restRequest("GET", REST_API_URL + "/building/product/list", prepareBuildingFullList);
-    restRequest("GET", REST_API_URL + "/upgrade/product/list", prepareUpgradeFullList);
-    restRequest("GET", REST_API_URL + "/resource/list", prepareResourceFullList);
-    restRequest("GET", REST_API_URL + "/card/product/list", prepareCardFullList);
-    createCardList();
+    restRequest("GET", REST_API_URL + "/building/product/list",
+        function(dataObject){ countDownLatchCounter++; prepareBuildingFullList(dataObject) });
+    restRequest("GET", REST_API_URL + "/upgrade/product/list",
+        function(dataObject){ countDownLatchCounter++; prepareUpgradeFullList(dataObject) });
+    restRequest("GET", REST_API_URL + "/resource/list",
+        function(dataObject){ countDownLatchCounter++; prepareResourceFullList(dataObject) });
+    restRequest("GET", REST_API_URL + "/card/product/list",
+        function(dataObject){ countDownLatchCounter++; prepareCardFullList(dataObject) });
 
     //====CYCLE OF DYNAMIC DATA(always changing during gameplay)====
-    setInterval(function() {
+    var si = setInterval(function() {
+        if(getAccountId() == null) {
+            clearInterval(si);
+            redirectToRooms();
+        }
+        if(getEnemyAccountId() == null) {
+            restRequest('GET', REST_API_URL + '/account/info', prepareAccountInfo);
+            return;
+        }
+        if(countDownLatchCounter != 5) {
+            return;
+        }
         restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/building/list", createBuildingList);
         restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/upgrade/list", createUpgradeList);
         restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/resource/list", createResourceList);
+        restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/card/list", createCardList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/building/list", createEnemyBuildingList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/upgrade/list", createEnemyUpgradeList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resource/list", createEnemyResourceList);
-        //restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/card/list", createCardList);
         restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
-
-        resourceQuantityList[POWER]['quantity'] = Math.floor(Math.random()*99);
-        resourceEnemyQuantityList[POWER]['quantity'] = Math.floor(Math.random()*99);
-        prepareKingImages();
-        createKing();
-        createEnemyKing();
     }, 2000);
 
     var x = setInterval(function() {
@@ -72,4 +101,8 @@ function startGameCycle() {
         }
     }, 1000);
 }
+
+//########ENTER POINT#########
+startGame();
+//############################
 

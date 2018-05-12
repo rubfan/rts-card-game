@@ -4,15 +4,25 @@ import java.util.List;
 
 public class BuildingProductEntity {
 
+    private Integer id;
     private BuildingEntity buildingEntity;
     private List<ProductEntity> productEntityList;
 
     public BuildingProductEntity() {
     }
 
-    public BuildingProductEntity(BuildingEntity buildingEntity, List<ProductEntity> productEntityList) {
+    public BuildingProductEntity(Integer id, BuildingEntity buildingEntity, List<ProductEntity> productEntityList) {
+        this.id = id;
         this.buildingEntity = buildingEntity;
         this.productEntityList = productEntityList;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public BuildingEntity getBuildingEntity() {
@@ -34,7 +44,8 @@ public class BuildingProductEntity {
     @Override
     public String toString() {
         return "BuildingProductEntity{" +
-                "buildingEntity=" + buildingEntity +
+                "id=" + id +
+                ", buildingEntity=" + buildingEntity +
                 ", productEntityList=" + productEntityList +
                 '}';
     }

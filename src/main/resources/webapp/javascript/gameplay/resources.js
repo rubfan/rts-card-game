@@ -1,11 +1,5 @@
 const POWER = "24";
 var resourceFullList = {};
-var resourceQuantityList = {
-    "24": {quantity: 100, persecond: 100}
-};
-var resourceEnemyQuantityList = {
-    "24": {quantity: 50, persecond: 100}
-};
 
 const IMG_RESOURCES_URL = {
     "1": "images/resources/wheat_resource.png",
@@ -30,6 +24,7 @@ const IMG_RESOURCES_URL = {
     "20": "images/resources/mana_resource.png",
     "21": "images/resources/wizard_resource.png",
     "22": "images/resources/prophet_resource.png",
+    "23": "images/resources/experience_resource.png",
     "24": "images/resources/power_resource.png"
 };
 
@@ -40,6 +35,7 @@ const IMG_KING_URL = {
 };
 
 var myImage = IMG_KING_URL.plaing, enemyImage = myImage;
+var myPower = 0, enemyPower = 0;
 
 function prepareResourceFullList(dataObject) {
     var jsonResourceFullList = JSON.parse(dataObject);
@@ -56,7 +52,7 @@ function createResourceList(dataObject) {
     for (var i in accountResourceList) {
         if((count%3) == 0){
             var num = accountResourceList.length - count;
-            if (num > 3) content += '<div style="grid-template-columns: auto auto auto" class="inner-container">';
+            if (num >= 3) content += '<div style="grid-template-columns: auto auto auto" class="inner-container">';
             else if (num == 2) content += '<div style="grid-template-columns: auto auto auto 55px" class="inner-container">';
             else if (num == 1) content += '<div style="grid-template-columns: auto auto 55px auto 55px" class="inner-container">';
         }
@@ -71,8 +67,8 @@ function createResourceList(dataObject) {
         if((count%3) == 0) content += '</div>';
         content += '</div>';
         if (resourceFullList[id]['id'] == POWER) {
-            prepareKingImages();
-            createKing();
+            myPower = accountResourceList[i]['quantity']
+            createKings();
         }
     }
     content += '</div>';
@@ -86,11 +82,11 @@ function createEnemyResourceList(dataObject) {
     for (var i in accountResourceList) {
         if((count%3) == 0){
             var num = accountResourceList.length - count;
-            if (num > 3) content += '<div style="grid-template-columns: auto auto auto" class="inner-container">';
+            if (num >= 3) content += '<div style="grid-template-columns: auto auto auto" class="inner-container">';
             else if (num == 2) content += '<div style="grid-template-columns: auto 55px auto 55px" class="inner-container">' +
                     '<div class="resource-item"></div><div class="resource-item"></div>';
             else if (num == 1) content += '<div style="grid-template-columns: auto 55px" class="inner-container">' +
-                '<div class="resource-item"></div>';
+                 '<div class="resource-item"></div>';
         }
         var id = accountResourceList[i]['resourceId'];
         content += '<div class="resource-item">';
@@ -103,8 +99,8 @@ function createEnemyResourceList(dataObject) {
         if((count%3) == 0) content += '</div>';
         content += '</div>';
         if (resourceFullList[id]['id'] == POWER) {
-            prepareKingImages();
-            createKing();
+            enemyPower = accountResourceList[i]['quantity']
+            createKings();
         }
     }
     content += '</div>';
@@ -118,32 +114,26 @@ function prepareResourceTooltip(num) {
     document.getElementById("tooltip_component").innerHTML = content;
 }
 
-function prepareKingImages() {
-    if (resourceQuantityList[POWER]['quantity'] >= 100 && resourceEnemyQuantityList[POWER]['quantity'] < 100) {
+function createKings() {
+    if (myPower >= 100 && enemyPower < 100) {
         myImage = IMG_KING_URL.won;
         enemyImage = IMG_KING_URL.lost;
-    } else if (resourceQuantityList[POWER]['quantity'] < 100 && resourceEnemyQuantityList[POWER]['quantity'] >= 100) {
+    } else if (myPower < 100 && enemyPower >= 100) {
         myImage = IMG_KING_URL.lost;
         enemyImage = IMG_KING_URL.won;
-    } else if (resourceQuantityList[POWER]['quantity'] > 0 && resourceEnemyQuantityList[POWER]['quantity'] <= 0) {
+    } else if (myPower > 0 && enemyPower <= 0) {
         myImage = IMG_KING_URL.won;
         enemyImage = IMG_KING_URL.lost;
-    } else if (resourceQuantityList[POWER]['quantity'] <= 0 && resourceEnemyQuantityList[POWER]['quantity'] > 0) {
+    } else if (myPower <= 0 && enemyPower > 0) {
         myImage = IMG_KING_URL.lost;
         enemyImage = IMG_KING_URL.won;
     }
-}
-
-function createKing() {
-    document.getElementById("left_king").innerHTML = getCylinder(resourceQuantityList[POWER]['quantity'] % 100)
+    document.getElementById("left_king").innerHTML = getCylinder(myPower % 100)
         + '<img src="'+ myImage +'" class="left-chicken-img" style="bottom:'
-        + (resourceQuantityList[POWER]['quantity'] % 100 * 3 - 8) + 'px">';
-}
-
-function createEnemyKing() {
-    document.getElementById("right_king").innerHTML = getCylinder(resourceEnemyQuantityList[POWER]['quantity'] % 100)
+        + (myPower % 100 * 3 - 8) + 'px">';
+    document.getElementById("right_king").innerHTML = getCylinder(enemyPower % 100)
         + '<img src="' + enemyImage + '" class="right-chicken-img" style="bottom:'
-        + (resourceEnemyQuantityList[POWER]['quantity'] % 100 * 3 - 8) + 'px">';
+        + (enemyPower % 100 * 3 - 8) + 'px">';
 }
 
 function getCylinder(percent) {
