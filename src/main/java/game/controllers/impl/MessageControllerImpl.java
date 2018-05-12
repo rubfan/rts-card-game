@@ -4,9 +4,6 @@ import game.controllers.MessageController;
 import game.controllers.dto.MessageDto;
 import game.controllers.dto.UserDto;
 import game.services.MessageService;
-import game.controllers.RoomController;
-import game.controllers.dto.RoomDto;
-import game.controllers.dto.UserDto;
 import game.services.RoomService;
 import game.services.UserService;
 
@@ -24,26 +21,31 @@ public class MessageControllerImpl implements MessageController{
     @Inject
     public MessageService messageService;
     @Inject
-    public RoomService roomService;
-    @Inject
     public UserService userService;
 
     @GET
     @Path("list")
-    public List<MessageDto> getMessageList() {
-        List<MessageDto> messageList = messageService.getListOfMessages();
-        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, messageList.toString());
-        return messageList;
+    public List<MessageDto> getMessagesList() {
+        List<MessageDto> messagesList = messageService.getListOfMessages();
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, messagesList.toString());
+        return messagesList;
     }
-
 
     @GET
     @Path("/send")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response sendMessage(String text, Integer fromAccountId, Integer toAccountId, String token) {
-//        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"room=" + roomId);
+    public Response sendMessage(String text, String token) {
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"message=" + text);
         UserDto user = userService.getUserByToken(token);
-//        roomService.joinRoom(user, Integer.parseInt(roomId));
+        messageService.sendMessage(text, user, 10);
         return Response.status(200).entity("User send message").build();
+    }
+
+    @Override
+    public List<MessageDto> getMessages(String token) {
+        UserDto user = userService.getUserByToken(token);
+        List<MessageDto> messagesOfAcount = messageService.getMessages(user);
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, messagesOfAcount.toString());
+        return messagesOfAcount;
     }
 }
