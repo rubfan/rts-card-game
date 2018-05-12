@@ -25,4 +25,14 @@ public class AccountBuildingServiceImpl implements AccountBuildingService {
         });
         return accountBuildings;
     }
+
+    @Override
+    public void clearAccountBuildingsList(int accountId) {
+        accountBuildingDao.clearAccountBuildingsList(accountId);
+    }
+
+    @Override
+    public void addBuildingToAccount(int accountId, int buildingId) {
+        accountBuildingDao.addBuildingToAccount(accountId,buildingId);
+    }
 }

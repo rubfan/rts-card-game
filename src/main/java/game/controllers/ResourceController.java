@@ -1,9 +1,9 @@
 package game.controllers;
 
-import game.controllers.dto.ResourсeDto;
+import game.controllers.dto.ResourceDto;
 
 import java.util.List;
 
 public interface ResourceController {
-    List<ResourсeDto> getListOfResources();
+    List<ResourceDto> getListOfResources();
 }

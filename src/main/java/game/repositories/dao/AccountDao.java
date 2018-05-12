@@ -10,5 +10,6 @@ public interface AccountDao {
     void deleteRoomFromAccount(Integer userId);
     Integer getAccountIdByUserId(Integer userId);
     AccountEntity getAccountByUser(UserEntity user);
+    AccountEntity getUserIdByAccountId(Integer accountId);
 
 }

@@ -29,7 +29,7 @@ public class UserControllerImpl implements UserController {
     @Path("login")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response loginUser(UserDto user) {
-        String token = userService.loginUser(user);
+        String token = userService.getTokenByUserId(user);
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, user.toString());
         Cookie preCookie = new Cookie("token", token, "/", "", 1);
         NewCookie newCookie = new NewCookie(preCookie, "Added cookie and logged in", -1, false);
@@ -54,11 +54,14 @@ public class UserControllerImpl implements UserController {
     @Path("new")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createNewUser(UserDto user) {
-        String token = userService.createNewUser(user);
+        String token = userService.getTokenByUserId(user);
+        if(token == null) {
+            token = userService.createNewUser(user);
+            accountService.createAccount(userService.getUserByToken(token));
+        }
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, user.toString());
         Cookie preCookie = new Cookie("token", token, "/", "", 1);
-        NewCookie newCookie = new NewCookie(preCookie, "Created new user and logged in", -1, false);
-        accountService.createAccount(userService.getUserByToken(token));
+        NewCookie newCookie = new NewCookie(preCookie, "Created new user and logged in/Or loggin if this user is exist", -1, false);
         return Response.status(201).entity("User").cookie(newCookie).build();
     }
 }

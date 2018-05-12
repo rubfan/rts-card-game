@@ -2,7 +2,7 @@ package game.controllers.impl;
 
 
 import game.controllers.ResourceController;
-import game.controllers.dto.ResourсeDto;
+import game.controllers.dto.ResourceDto;
 import game.services.ResourceService;
 
 import javax.inject.Inject;
@@ -21,8 +21,8 @@ public class ResourceControllerImpl implements ResourceController {
 
     @GET
     @Path("/list")
-    public List<ResourсeDto> getListOfResources(){
-        List<ResourсeDto> ResourcesList = resourceService.getListOfResources();
+    public List<ResourceDto> getListOfResources(){
+        List<ResourceDto> ResourcesList = resourceService.getListOfResources();
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ResourcesList.toString());
         return ResourcesList;
     }
