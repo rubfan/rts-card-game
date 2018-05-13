@@ -42,6 +42,7 @@ public class MessageDaoImpl implements MessageDao {
                 pstmt.setInt(3, toAccountId);
                 pstmt.setString(4, time);
                 int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
@@ -56,6 +57,7 @@ public class MessageDaoImpl implements MessageDao {
                 pstmt.setInt(2, maxMessages);
                 pstmt.setInt(3, fromAccountId);
                 int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }

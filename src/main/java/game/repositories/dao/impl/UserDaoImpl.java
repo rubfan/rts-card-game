@@ -49,6 +49,7 @@ public class UserDaoImpl implements UserDao {
                 pstmt.setString(2, user.getPassword());
                 pstmt.setString(3, user.getToken());
                 int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
         return user.getToken();

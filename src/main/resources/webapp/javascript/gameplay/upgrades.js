@@ -20,7 +20,7 @@ function createUpgradeList(dataObject) {
                         '<span class="big-text-number">' + accountUpgradeList[i]['quantity'] + '</span>' +
                     '</button>';
     }
-    document.getElementById("upgrade_items").innerHTML = content;
+    //document.getElementById("upgrade_items").innerHTML = content;
 }
 
 function createEnemyUpgradeList(dataObject) {
@@ -35,7 +35,7 @@ function createEnemyUpgradeList(dataObject) {
                         '<span class="big-text-number">' + accountUpgradeList[i]['quantity'] + '</span>' +
                     '</button>';
     }
-    document.getElementById("enemy_upgrade_items").innerHTML = content;
+    //document.getElementById("enemy_upgrade_items").innerHTML = content;
 }
 
 function prepareUpgradeTooltip(num) {
@@ -56,7 +56,7 @@ function prepareUpgradeTooltip(num) {
         content += '<br>For following buildings:' + '<br>';
         for (var numBld in upgradeFullList[num]['buildingDtoList']) {
             content += '<img class="small-icon" src="' +
-                IMG_BUILDINGS_URL[upgradeFullList[num]['buildingDtoList'][numBld]['id']] + '">';
+                IMG_BUILDINGS_URL[upgradeFullList[num]['buildingDtoList'][numBld]['id']]['url'] + '">';
             content += ' ' + upgradeFullList[num]['buildingDtoList'][numBld]['name'];
             content += ' (' + upgradeFullList[num]['buildingDtoList'][numBld]['description'] + ')<br>';
         }

@@ -3,6 +3,11 @@
     padding-left: 200px;
     padding-right: 200px;
 }
+body{
+    background-image: url("../images/gameplay_background.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+}
 
 /*===========BUTTONS===========*/
 .card-button {
@@ -22,35 +27,6 @@
     font-size: 8px;
     padding: 0;
     white-space: normal;
-}
-
-.building-button {
-    height:120px;
-    width: 150px;
-    text-align: left !important;
-    font-size: 8px;
-    padding: 0;
-    white-space: normal;
-}
-
-.building-img {
-    height: auto;
-    width: auto;
-    max-width: 140px;
-    max-height: 140px;
-    margin: -50px 0 -20px -14px;
-    pointer-events: none;
-}
-
-.building-text {
-    text-shadow: 2px 0 0 #15222a, -2px 0 0 #15222a, 0 2px 0 #15222a, 0 -2px 0 #15222a, 1px 1px #BFBFBF, -2px -2px 0 #15222A, 1px -1px 0 #BFBFBF, -1px 1px 0 #BFBFBF;
-}
-
-.big-text-number {
-    position: absolute;
-    top: 0;
-    right: 2px;
-    font-size: 20px;
 }
 
 .small-icon {
@@ -93,8 +69,8 @@
     border-color: rgba(0,0,0,0);
 }
 .resource-item-img:hover {
-    border-color: #af6b03;
-    box-shadow: #af6b03 0px 0px 0px 3px;
+    border-color: #ff8000;
+    box-shadow: #ff8000 0px 0px 0px 3px;
 }
 .small-text {
     margin-left: -55px;
@@ -109,37 +85,27 @@
 
 .left-resource-container {
     position: absolute;
-    left: 200px;
+    left: 3px;
     top: 55px;
-    bottom: 200px;
     text-align: left;
 }
 
 .right-resource-container {
     position: absolute;
-    right: 200px;
+    right: 3px;
     top: 55px;
-    bottom: 200px;
     text-align: left;
 }
 
-/*====================BOTTOM CONTAINER==================*/
+/*====================CARDS CONTAINER==================*/
 .cards-container {
-    background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
-    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 4px;
-    border-style: inset;
-    border-radius: 8px;
-    border-color: #668092 #556774 #556774 #668092;
     position: absolute;
-    right: 190px;
+    right: 330px;
     bottom: 0;
-    left: 190px;
-    margin: 10px;
+    left: 330px;
 }
 
 div.cards {
-    padding-top: 10px;
     height: 175px;
     overflow: auto;
     white-space: nowrap;
@@ -160,84 +126,15 @@ div.cards button:hover {
     background-color: #3e4b57;
 }
 
-
-/*====================LEFT CONTAINER==================*/
-.container-left {
-    background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
-    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 4px;
-    border-style: inset;
-    border-radius: 8px;
-    border-color: #668092 #556774 #556774 #668092;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 45px;
-    margin: 10px;
-    width: 175px;
-    overflow-y: scroll;
-}
-
-div.items-header {
-    width: 100%;
-    height: 10px;
-    font-size: 20px;
-    text-align: center;
-    color: #ffd000;
-    padding-bottom: 7px;
-    padding-top: 3px;
-    text-shadow:1px 1px 10px #ffd000, 1px 1px 30px #ee0011;
-}
-
-div.items {
-    padding-left: 7px;
-    padding-bottom: 5px;
-    width: 175px;
-    overflow: auto;
-    white-space: nowrap;
-}
-
-div.items button {
-    font-size: 12px;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px;
-    text-decoration: none;
-    transition : border 500ms ease-out;
-}
-
-div.items button:hover {
-    border-color: #ffd000;
-    background-color: #3e4b57;
-}
-
-/*====================RIGHT CONTAINER==================*/
-.container-right {
-    background: -webkit-radial-gradient(center,ellipse cover, #4d5b69 50%, #000000 100%);
-    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 3px 0px inset;
-    border-width: 4px;
-    border-style: inset;
-    border-radius: 8px;
-    border-color: #668092 #556774 #556774 #668092;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    top: 45px;
-    margin: 10px;
-    width: 175px;
-    overflow-y: scroll;
-}
-
 /*======================CHAT CONTAINER=====================*/
 .chat-component {
-    background-color: rgba(130, 150, 170, 0.4);
+    background-color: rgba(130, 150, 170, 0.9);
     border-width: 4px;
     border-style: outset;
     border-radius: 8px;
     border-color: #556774 #668092 #668092 #556774;
     position: absolute;
-    bottom: 200px;
+    bottom: 175px;
     right: 500px;
     left: 500px;
     margin: 10px;
@@ -369,7 +266,72 @@ div.chat-items {
     width: 150px;
     margin-left: -75px;
     text-align: center;
-    color: #ffd000;
+    color: #ff8000;
     font-size: 50px;
     text-shadow:1px 1px 10px #ffd000, 1px 1px 30px #ee0011;
+}
+
+/*============BUILDINGS=============*/
+.building-items {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.enemy-building-items {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.building-selector {
+    cursor:hand;
+    text-align: left !important;
+    font-size: 8px;
+    padding: 0;
+    white-space: normal;
+}
+
+.building-img {
+    height: auto;
+    width: auto;
+    max-width: 100px;
+    max-height: 100px;
+}
+.building-img:hover {
+    -webkit-filter: drop-shadow(2px 2px 0 #ff8000) drop-shadow(-2px -2px 0 #ff8000)
+        drop-shadow(-2px 2px 0 #ff8000) drop-shadow(2px -2px 0 #ff8000);
+    filter:drop-shadow(2px 2px 0 #ff8000) drop-shadow(-2px -2px 0 #ff8000)
+        drop-shadow(-2px 2px 0 #ff8000) drop-shadow(2px -2px 0 #ff8000);
+}
+
+.building-text {
+    -webkit-filter: drop-shadow(2px 2px 0 #ffd000) drop-shadow(-2px -2px 0 #ffd000)
+    drop-shadow(-2px 2px 0 #ffd000) drop-shadow(2px -2px 0 #ffd000);
+    filter:drop-shadow(2px 2px 0 #ffd000) drop-shadow(-2px -2px 0 #ffd000)
+    drop-shadow(-2px 2px 0 #ffd000) drop-shadow(2px -2px 0 #ffd000);
+}
+
+.big-text-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    -webkit-filter: drop-shadow(1px 1px 0 #ffd000) drop-shadow(-1px -1px 0 #ffd000)
+    drop-shadow(-1px 1px 0 #ffd000) drop-shadow(1px -1px 0 #ffd000);
+    filter:drop-shadow(1px 1px 0 #ffd000) drop-shadow(-1px -1px 0 #ffd000)
+    drop-shadow(-1px 1px 0 #ffd000) drop-shadow(1px -1px 0 #ffd000);
+}
+
+
+/*---------------------------------------*/
+
+
+.bg-img {
+    content: '';
+
+    background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
+    opacity: .6;
+    background: url('http://unsplash.it/1200x800') center center no-repeat;
+    background-size: cover;
 }

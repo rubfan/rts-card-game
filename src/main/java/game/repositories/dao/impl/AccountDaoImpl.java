@@ -18,6 +18,7 @@ public class AccountDaoImpl implements AccountDao {
                         "INSERT IGNORE INTO Account (user_id) VALUES (?);");
                 pstmt.setInt(1, account.getUser().getId());
                 int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
@@ -31,6 +32,7 @@ public class AccountDaoImpl implements AccountDao {
                 pstmt.setInt(1, roomId);
                 pstmt.setInt(2, userId);
                 int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
@@ -43,6 +45,7 @@ public class AccountDaoImpl implements AccountDao {
                         "UPDATE Account SET room_id=NULL WHERE user_id=?;");
                 pstmt.setInt(1, userId);
                 int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
