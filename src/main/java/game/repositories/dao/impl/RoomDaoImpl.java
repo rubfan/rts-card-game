@@ -65,15 +65,16 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public void joinRoom(Integer roomId, Integer userId, Integer id) {
+    public void joinRoom(Integer roomId, Integer accountId, Integer slotNumber) {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
                         "UPDATE Room SET account_?_id=? WHERE id=?;");
-                pstmt.setInt(1, id);
-                pstmt.setInt(2, userId);
+                pstmt.setInt(1, slotNumber);
+                pstmt.setInt(2, accountId);
                 pstmt.setInt(3, roomId);
-                int status = pstmt.executeUpdate();
+                pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
@@ -83,21 +84,10 @@ public class RoomDaoImpl implements RoomDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "UPDATE Room SET account_1_id=NULL, account_2_id=NULL WHERE id=?;");
+                        "UPDATE Room SET account_1_id=NULL, account_2_id=NULL, start_game_time=NULL WHERE id=?;");
                 pstmt.setInt(1, roomId);
                 int status = pstmt.executeUpdate();
-            }
-        }.run();
-    }
-
-    @Override
-    public void setStartTime(Integer roomId) {
-        new QueryHelper() {
-            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                PreparedStatement pstmt = connection.prepareStatement(
-                        "UPDATE Room SET start_game_time=NOW() WHERE id=? AND account_2_id IS NOT NULL;");
-                pstmt.setInt(1, roomId);
-                int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
@@ -122,13 +112,15 @@ public class RoomDaoImpl implements RoomDao {
         return new QueryHelper<Integer>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 ResultSet rs = statement.executeQuery(
-                        "SELECT (COUNT(a.account_1_id)+COUNT(a.account_2_id)) qty from Room a " +
-                                "where id="+ roomId + " and (account_1_id IS NOT NULL or account_2_id IS NOT NULL);");
+                        "SELECT a.account_1_id, a.account_2_id from Room a where id="+ roomId);
                 if(rs.next()) {
-                    Integer playersInRoom = rs.getInt("qty");
-                    if(playersInRoom == 0) {
+                    Integer acc1 = rs.getInt("account_1_id");
+                    Integer acc2 = rs.getInt("account_2_id");
+                    if(acc1 != 0 && acc2 != 0) {
+                        returnResult(0);
+                    } else if(acc1 == 0) {
                         returnResult(1);
-                    } else if(playersInRoom == 1) {
+                    } else {
                         returnResult(2);
                     }
                 } else {

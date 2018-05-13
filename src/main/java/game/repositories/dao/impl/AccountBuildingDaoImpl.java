@@ -34,6 +34,7 @@ public class AccountBuildingDaoImpl implements AccountBuildingDao {
                             "(account_id, building_id, number)" +
                             "VALUES (" + accountId + "," + buildingId + "," + 1 + ")");
                 }
+                connection.commit();
             }
         }.run();
     }

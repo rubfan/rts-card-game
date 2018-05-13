@@ -38,6 +38,7 @@ public class AccountNotificationDaoImpl implements AccountNotificationDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 statement.executeUpdate("DELETE FROM Account_Notification WHERE account_id = " + accountId);
+                connection.commit();
             }
         }.run();
     }
@@ -52,6 +53,7 @@ public class AccountNotificationDaoImpl implements AccountNotificationDao {
                     statement.executeUpdate("INSERT INTO Account_Notification " +
                             "(account_id, notification_id)" +
                             "VALUES (" + accountId + "," + notificationId + ")");
+                    connection.commit();
                 }
 //                } else {
 //

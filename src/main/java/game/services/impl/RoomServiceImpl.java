@@ -61,7 +61,6 @@ public class RoomServiceImpl implements RoomService {
     public void joinRoom(UserDto user, Integer roomId) {
         accountDao.setRoomForAccount(user.getId(),roomId);
         roomDao.joinRoom(roomId, accountDao.getAccountIdByUserId(user.getId()), roomDao.getFreeAccountNumberForQuery(roomId));
-        roomDao.setStartTime(roomId);
     }
 
     @Override
