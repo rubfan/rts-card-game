@@ -8,5 +8,5 @@ import java.util.List;
 public interface MessageService {
     List<MessageDto> getListOfMessages();
     void sendMessage(String text, UserDto user, int maxMessage);
-    List<MessageDto> getMessages(UserDto user);
+    List<MessageDto> getRoomMessages(UserDto user);
 }
