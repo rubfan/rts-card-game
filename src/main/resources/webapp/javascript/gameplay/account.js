@@ -30,10 +30,12 @@ function prepareAccountInfo(dataObject) {
 }
 
 function createAccountInfo() {
-    var content = (accountInfo['room'] != undefined ? "Current Room: "
-            + accountInfo['room']['name'] + " (" + accountInfo['room']['description'] + ")" : "");
-    content += ' <b style="color: #7cff03">' + getUserName() + '</b> VS <b style="color: red">' + getEnemyUserName() + '</b>';
-    document.getElementById("accountInfo").innerHTML = content;
+    var content = (accountInfo['room'] != undefined ? "Current Room: <br>"
+            + accountInfo['room']['name'] + "<br>(" + accountInfo['room']['description'] + ")" : "");
+    content += '<h1 style="color: #00c135">' + getUserName() + '</h1>';
+    content += 'VS';
+    content += '<h1 style="color: #eb3214">' + getEnemyUserName() + '</h1>';
+    document.getElementById("account_info").innerHTML = content;
 }
 
 function getAccountId() {

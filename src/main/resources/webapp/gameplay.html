@@ -9,7 +9,6 @@
                 <li><a href="rooms.html">Rooms</a></li>
                 <li><a class="active" href="gameplay.html">Gameplay</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="#" style="padding-left: 60px; padding-right: 60px; color: #ffff00" id="accountInfo"></a></li>
                 <li style="float: right">
                     <a href="#" onclick="restRequest('GET',
                         REST_API_URL + '/user/logout', logout);">Logout
@@ -19,6 +18,9 @@
         </div>
 
         <div class="game-screen">
+
+            <div id="account_info" class="account-info"></div>
+
             <div id="cards_container" class="cards-container">
                 <div id="cards" class="cards"></div>
             </div>
@@ -39,11 +41,10 @@
                 </div>
                 <div style="width: 100%; display: table">
                     <input style="width: 63%" id="message" type="text" class="game-input"
-                           placeholder="Enter message">
+                           onkeyup="onEnterMessageTextBox(event)" placeholder="Enter message">
                     <button style="width: 20%" id="send_message" class="game-button" onclick="restRequest('POST',
-                        REST_API_URL + '/message/send', createChatMessageList, {
-                            account_id: getAccountId(),
-                            message: document.getElementById('message').value
+                        REST_API_URL + '/message/send', clearMessageTextBox, {
+                            text: document.getElementById('message').value
                         })">Send
                     </button>
                 </div>

@@ -34,10 +34,10 @@ public class MessageControllerImpl implements MessageController {
     @POST
     @Path("/send")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response sendMessage(String text, @CookieParam("token") Cookie cookie) {
-        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"message=" + text);
+    public Response sendMessage(MessageDto message, @CookieParam("token") Cookie cookie) {
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"message=" + message.getText());
         UserDto user = userService.getUserByToken(cookie.getValue());
-        messageService.sendMessage(text, user, 10);
+        messageService.sendMessage(message.getText(), user, 10);
         return Response.status(200).entity("User send message").build();
     }
 

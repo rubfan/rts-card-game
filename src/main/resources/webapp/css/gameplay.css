@@ -63,6 +63,7 @@ body{
     cursor: hand;
 }
 .resource-item-img {
+    box-shadow:0px 3px 3px rgba(0,0,0,0.45);
     border-width: 0px;
     border-style: outset;
     border-radius: 8px;
@@ -128,11 +129,12 @@ div.cards button:hover {
 
 /*======================CHAT CONTAINER=====================*/
 .chat-component {
-    background-color: rgba(130, 150, 170, 0.9);
+    box-shadow:0px 0px 10px rgba(0,0,0,0.85);
+    background-color: rgba(83, 95, 111, 0.9);
     border-width: 4px;
     border-style: outset;
     border-radius: 8px;
-    border-color: #556774 #668092 #668092 #556774;
+    border-color: #6f818e #668092 #668092 #6f818e;
     position: absolute;
     bottom: 175px;
     right: 500px;
@@ -169,7 +171,7 @@ div.chat-items {
 }
 
 .chat-table td, .chat-table th {
-    border: 1px solid #9a6300;
+    border: 1px solid rgba(140,90,00,0.2);
     padding: 5px;
 }
 
@@ -260,15 +262,21 @@ div.chat-items {
 
 /*=============CLOCK============*/
 .count-down-time {
+    z-index: 99999;
     position: absolute;
-    top: 80px;
+    top: -5px;
     left: 50%;
     width: 150px;
     margin-left: -75px;
     text-align: center;
     color: #ff8000;
     font-size: 50px;
-    text-shadow:1px 1px 10px #ffd000, 1px 1px 30px #ee0011;
+    text-shadow: 0 1px 0 #627e8d,
+    0 2px 0 #4e6270,
+    0 3px 0 #4e6270,
+    0 4px 0 #4e6270,
+    0 5px 0 #20282f,
+    0px 3px 4px rgba(0,0,0,0.95);;
 }
 
 /*============BUILDINGS=============*/
@@ -323,15 +331,17 @@ div.chat-items {
     drop-shadow(-1px 1px 0 #ffd000) drop-shadow(1px -1px 0 #ffd000);
 }
 
-
-/*---------------------------------------*/
-
-
-.bg-img {
-    content: '';
-
-    background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
-    opacity: .6;
-    background: url('http://unsplash.it/1200x800') center center no-repeat;
-    background-size: cover;
+.account-info {
+    opacity: 0.8;
+    color: #7f76ff;
+    position: absolute;
+    right: 40%;
+    top: 60px;
+    left: 40%;
+    text-align: center;
+    line-height: 15px;
+    text-shadow: 0 1px 0 #212b30,
+    0 2px 0 #272e37,
+    0 2px 0 #4e6270,
+    0 3px 0 #20282f;
 }

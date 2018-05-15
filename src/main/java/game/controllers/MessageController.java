@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MessageController {
     List<MessageDto> getMessagesList();
-    Response sendMessage(String text, Cookie cookie);
+    Response sendMessage(MessageDto message, Cookie cookie);
     List<MessageDto> getRoomMessages(Cookie cookie);
 }
