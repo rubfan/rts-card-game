@@ -46,7 +46,7 @@ public class MessageControllerImpl implements MessageController {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<MessageDto> getRoomMessages(@CookieParam("token") Cookie cookie) {
         UserDto user = userService.getUserByToken(cookie.getValue());
-        List<MessageDto> messagesOfAccount = messageService.getMessages(user);
+        List<MessageDto> messagesOfAccount = messageService.getRoomMessages(user);
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, messagesOfAccount.toString());
         return messagesOfAccount;
     }
