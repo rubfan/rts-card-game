@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface NotificationService {
     List<NotificationDto> getListOfNotifications();
+    String getNotification(int notificationId);
 }

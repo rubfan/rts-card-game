@@ -2,6 +2,7 @@ package game.services.impl;
 
 import game.controllers.dto.NotificationDto;
 import game.repositories.dao.NotificationDao;
+import game.repositories.entities.NotificationEntity;
 import game.services.NotificationService;
 
 import javax.inject.Inject;
@@ -24,5 +25,16 @@ public class NotificationServiceImpl implements NotificationService {
             }});
         });
         return notifications;
+    }
+
+    @Override
+    public String getNotification(int notificationId) {
+//        String notification = notificationDao.getNotification(notificationId);
+//                new NotificationDto();
+//        NotificationEntity notificationEntity = notificationDao.getNotification(notificationId);
+//        notification.setId(notificationEntity.getId());
+//        notification.setName(notificationEntity.getName());
+//        notification.setDescription(notificationEntity.getDescription());
+        return notificationDao.getNotification(notificationId);
     }
 }

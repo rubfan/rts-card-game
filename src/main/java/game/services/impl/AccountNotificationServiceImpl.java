@@ -1,6 +1,7 @@
 package game.services.impl;
 
 import game.controllers.dto.AccountNotificationDto;
+import game.controllers.dto.NotificationDto;
 import game.repositories.dao.AccountNotificationDao;
 import game.services.AccountNotificationService;
 
@@ -18,7 +19,6 @@ public class AccountNotificationServiceImpl implements AccountNotificationServic
         final List<AccountNotificationDto> accountNotifications = new LinkedList<>();
         accountNotificationDao.getListOfAccountNotifications(accountId).forEach(accountNotificationEntity -> {
             accountNotifications.add(new AccountNotificationDto(){{
-                setId(accountNotificationEntity.getId());
                 setAccountId(accountNotificationEntity.getAccountId());
                 setNotificationId(accountNotificationEntity.getNotificationId());
             }});
@@ -34,5 +34,18 @@ public class AccountNotificationServiceImpl implements AccountNotificationServic
     @Override
     public void addShownNotificationToAccount(int accountId, int notificationId) {
         accountNotificationDao.addShownNotificationToAccount(accountId, notificationId);
+    }
+
+    @Override
+    public List<NotificationDto> getListOfAccountRecentNotification(int accountId) {
+        final List<NotificationDto> recentNotifications = new LinkedList<>();
+        accountNotificationDao.getListOfAccountRecentNotifications(accountId).forEach(recentNotificationEntity -> {
+            recentNotifications.add(new NotificationDto(){{
+                setId(recentNotificationEntity.getId());
+                setName(recentNotificationEntity.getName());
+                setDescription(recentNotificationEntity.getDescription());
+            }});
+        });
+        return recentNotifications;
     }
 }

@@ -30,4 +30,20 @@ public class NotificationDaoImpl implements NotificationDao {
             }
         }.run();
     }
+
+    @Override
+    public String getNotification(int notificationId) {
+        return new QueryHelper<String>() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                NotificationEntity notification = new NotificationEntity();
+                ResultSet rs = statement.executeQuery("SELECT * FROM Notification WHERE id = " + notificationId);
+                while(rs.next()) {
+                    notification.setId(rs.getInt("id"));
+                    notification.setName(rs.getString("name"));
+                    notification.setDescription(rs.getString("description"));
+                }
+                returnResult(notification.getName());
+            }
+        }.run();
+    }
 }

@@ -2,25 +2,15 @@ package game.repositories.entities;
 
 public class AccountNotificationEntity {
 
-    private Integer id;
     private Integer accountId;
     private Integer notificationId;
 
     public AccountNotificationEntity() {
     }
 
-    public AccountNotificationEntity(Integer id, Integer accountId, Integer notificationId) {
-        this.id = id;
+    public AccountNotificationEntity(Integer accountId, Integer notificationId) {
         this.accountId = accountId;
         this.notificationId = notificationId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getAccountId() {
@@ -42,7 +32,6 @@ public class AccountNotificationEntity {
     @Override
     public String toString() {
         return "AccountNotificationEntity{" +
-                "id=" + id +
                 ", accountId=" + accountId +
                 ", notificationId=" + notificationId +
                 '}';

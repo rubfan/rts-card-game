@@ -2,25 +2,15 @@ package game.controllers.dto;
 
 public class AccountNotificationDto {
 
-    private Integer id;
     private Integer accountId;
     private Integer notificationId;
 
-    public AccountNotificationDto(Integer id, Integer accountId, Integer notificationId) {
-        this.id = id;
+    public AccountNotificationDto(Integer accountId, Integer notificationId) {
         this.accountId = accountId;
         this.notificationId = notificationId;
     }
 
     public AccountNotificationDto() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getAccountId() {
@@ -42,7 +32,6 @@ public class AccountNotificationDto {
     @Override
     public String toString() {
         return "AccountNotificationDto{" +
-                "id=" + id +
                 ", accountId=" + accountId +
                 ", notificationId=" + notificationId +
                 '}';
