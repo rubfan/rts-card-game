@@ -55,7 +55,7 @@ public class AccountNotificationDaoImpl implements AccountNotificationDao {
                                 "        ON account_unshown.id = Trigger_Notification.notification_id) as to_check\n" +
                                 "WHERE (to_check.building_number <= (SELECT number FROM Account_Building WHERE account_id = " + accountId + " AND building_id = to_check.building_id))\n" +
                                 "AND (to_check.resource_number <= (SELECT number FROM Account_Resource WHERE account_id = " + accountId + " AND resource_id = to_check.resource_id))\n" +
-                                "AND (to_check.upgrade_id <= (SELECT number FROM Account_Upgrade WHERE account_id = " + accountId + " AND upgrade_id = to_check.upgrade_id))");
+                                "AND (to_check.upgrade_number <= (SELECT number FROM Account_Upgrade WHERE account_id = " + accountId + " AND upgrade_id = to_check.upgrade_id))");
                 while(rs.next()) {
                     NotificationEntity recentNotification = new NotificationEntity(
                             rs.getInt("notification_id"),
