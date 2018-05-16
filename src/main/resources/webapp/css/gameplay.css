@@ -148,7 +148,7 @@ div.cards button:hover {
     border-width: 3px;
     border-style: inset;
     border-radius: 8px;
-    border-color: #dd9000;
+    border-color: #668092;
     top: 0;
     bottom: 25px;
     right: 0;
@@ -157,24 +157,6 @@ div.cards button:hover {
     height: 200px;
     overflow-y: scroll;
 }
-
-div.chat-items {
-    width: 100%;
-    overflow: auto;
-    white-space: nowrap;
-}
-
-/*==================CHAT TABLE=============*/
-.chat-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.chat-table td, .chat-table th {
-    border: 1px solid rgba(140,90,00,0.2);
-    padding: 5px;
-}
-
 
 /*================KINGS===================*/
 .power-percent {
@@ -690,4 +672,87 @@ div.chat-items {
         left: 110%;
         transform: translateY(0vh) scale(0.45);
     }
+}
+
+
+/*===========CHAT BUBBLES=============*/
+.row-left {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+.row-right {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.right-msg {
+    font-size: 12px;
+    margin: 7px;
+    position: relative;
+    min-height: 20px;
+    padding:4px 4px 4px 12px;
+    background: rgba(255, 60, 63, 0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.right-msg:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 0 6px 12px;
+    border-color: transparent rgba(255, 60, 63, 0.2);
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -12px;
+    top: 3px;
+}
+
+.left-msg {
+    font-size: 12px;
+    margin: 7px;
+    position: relative;
+    min-height: 20px;
+    padding:4px 4px 4px 12px;
+    background: rgba(58, 187, 0, 0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.left-msg:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 12px 6px 0;
+    border-color: transparent rgba(58, 187, 0, 0.2);
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -12px;
+    top: 3px;
+}
+
+.right-msg {
+    float:left;
+}
+
+.left-msg {
+    float:right;
+}
+
+.left-user {
+    font-size: 14px;
+    padding: 8px;
+    color: #138b00;
+    float:left;
+}
+
+.right-user {
+    font-size: 14px;
+    padding: 8px;
+    color: #c80c00;
+    float:right;
 }
