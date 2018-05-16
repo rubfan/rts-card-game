@@ -22,33 +22,33 @@
 }
 
 /*==================ACHIEVEMENTS TABLE=============*/
-.room-table {
+.achievements-table {
     border-collapse: collapse;
     width: 100%;
-    color: #bd9831;
+    color: #bd9600;
     text-align: center;
 }
 
-.room-table td, .info-table th {
-    border: 1px solid rgba(221, 2, 2, 0.1);;
+.achievements-table td, .achievements-table th {
+    border: 1px solid rgba(0, 221, 13, 0.1);;
     padding: 8px;
 }
 
-.room-table tr:nth-child(even){background-color: rgba(100, 0, 0, 0.3);}
+.achievements-table tr:nth-child(even){background-color: rgba(0, 100, 9, 0.3);}
 
-.room-table tr:hover {
-    background: -webkit-radial-gradient(center,ellipse cover, #bd0100 10%, rgba(0, 0, 0, 0.0) 60%);
+.achievements-table tr:hover {
+    background: -webkit-radial-gradient(center,ellipse cover, #02bd00 10%, rgba(0, 0, 0, 0.0) 60%);
 }
 
-.room-table tr:nth-child(even):hover {
-    background: -webkit-radial-gradient(center,ellipse cover, #bd0100 10%, rgba(100, 0, 0, 0.3) 60%);
+.achievements-table tr:nth-child(even):hover {
+    background: -webkit-radial-gradient(center,ellipse cover, #07bd00 10%, rgba(0, 100, 8, 0.3) 60%);
 }
 
-.room-table th {
+.achievements-table th {
     font-family: 'game-font';
     text-align: center;
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #7d0012;
+    background-color: #007d01;
     color: white;
 }
