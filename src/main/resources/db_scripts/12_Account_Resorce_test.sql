@@ -1,7 +1,7 @@
 INSERT INTO `Account_Resource`
     (`account_id`,`resource_id`,`number`)
 VALUES
-    ('1','1','111'),
+    ('1','1','200'),
     ('1','2','2345'),
     ('1','3','26657'),
     ('1','4','2242234'),

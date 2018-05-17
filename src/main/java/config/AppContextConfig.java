@@ -143,6 +143,9 @@ public class AppContextConfig {
                     bindAsContract(CardProductServiceImpl.class).to(CardProductService.class);
                     bindAsContract(CardProductControllerImpl.class).to(CardProductController.class);
 
+                    bindAsContract(AccountCardControllerImpl.class).to(AccountCardController.class);
+                    bindAsContract(AccountCardSeviceImpl.class).to(AccountCardService.class);
+
                     bindAsContract(AchievementDaoImpl.class).to(AchievementDao.class);
                     bindAsContract(AchievementServiceImpl.class).to(AchievementService.class);
                     bindAsContract(AchievementControllerImpl.class).to(AchievementController.class);

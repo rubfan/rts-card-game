@@ -1,9 +1,12 @@
 package game.controllers.impl;
 
 import game.controllers.AccountCardController;
+import game.services.AccountCardService;
+import jdk.internal.instrumentation.InstrumentationMethod;
 //import jdk.nashorn.internal.parser.JSONParser;
 //import jdk.nashorn.internal.runtime.JSONListAdapter;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,23 +15,27 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Path("/account")
 public class AccountCardControllerImpl implements AccountCardController {
 
-    //TODO: change hardCode to real elemets
+    @Inject
+    public AccountCardService accountCardService;
+
+
     @Override
     @GET
     @Path("/{account_id}/card/list")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getAccountCards(@PathParam("account_id") Integer accountId) {
-        List<Integer> accountCards = new LinkedList<>();
-        accountCards.add(1);
-        accountCards.add(2);
-        accountCards.add(3);
-        return Response.ok(accountCards.toString()).build();
+    public Response getAllowAccountCards(@PathParam("account_id") Integer accountId) {
+        List<Integer> allowCards = accountCardService.getAllowAccountCards(accountId);
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, allowCards.toString());
+        return Response.ok(allowCards.toString()).build();
     }
 
-    //TODO: change hardCode to real elemets
+    //TODO: change hardCode to real elements
     @Override
     @GET
     @Path("/{account_id}/card/{card_id}/apply")
