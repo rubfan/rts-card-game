@@ -9,6 +9,11 @@
                 <li><a href="rooms.html">Rooms</a></li>
                 <li><a class="active" href="gameplay.html">Gameplay</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
+                <li>
+                    <a href="#" onclick="restRequest('GET',
+                        REST_API_URL + '/room/' + accountInfo['room']['id'] + '/exit', redirectToRooms);">End Game
+                    </a>
+                </li>
                 <li style="float: right">
                     <a href="#" onclick="restRequest('GET',
                         REST_API_URL + '/user/logout', logout);">Logout
