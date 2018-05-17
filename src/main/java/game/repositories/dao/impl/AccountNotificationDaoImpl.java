@@ -3,6 +3,7 @@ package game.repositories.dao.impl;
 import game.repositories.dao.AccountNotificationDao;
 import game.repositories.dao.helpers.QueryHelper;
 import game.repositories.entities.AccountNotificationEntity;
+import game.repositories.entities.NotificationEntity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,13 +23,48 @@ public class AccountNotificationDaoImpl implements AccountNotificationDao {
                         "SELECT * FROM Account_Notification WHERE account_id = " + accountId);
                 while(rs.next()) {
                     AccountNotificationEntity accountNotification = new AccountNotificationEntity(
-                            rs.getInt("id"),
+                           // rs.getInt("id"),
                             rs.getInt("account_id"),
                             rs.getInt("notification_id")
                     );
                     accountNotifications.add(accountNotification);
                 }
                 returnResult(accountNotifications);
+            }
+        }.run();
+    }
+
+    @Override
+    public List<NotificationEntity> getListOfAccountRecentNotifications(int accountId) {
+        return new QueryHelper<List<NotificationEntity>>() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                List<NotificationEntity> recentNotifications = new LinkedList<>();
+                ResultSet rs = statement.executeQuery(
+                        "SELECT notification_id, name, description FROM\n" +
+                                "  (SELECT trigger_notification.notification_id, name, description,\n" +
+                                "                            building_id, building_number,\n" +
+                                "                            resource_id, resource_number,\n" +
+                                "                            upgrade_id, upgrade_number\n" +
+                                "FROM\n" +
+                                "  (SELECT Notification.id,name,description\n" +
+                                "      FROM Notification LEFT JOIN\n" +
+                                "        (SELECT * FROM Account_Notification WHERE account_id = 1) AS account_shown\n" +
+                                "        ON Notification.id = account_shown.notification_id\n" +
+                                "        WHERE account_shown.notification_id IS NULL) AS account_unshown\n" +
+                                "        LEFT JOIN trigger_notification\n" +
+                                "        ON account_unshown.id = Trigger_Notification.notification_id) as to_check\n" +
+                                "WHERE (to_check.building_number <= (SELECT number FROM Account_Building WHERE account_id = " + accountId + " AND building_id = to_check.building_id))\n" +
+                                "AND (to_check.resource_number <= (SELECT number FROM Account_Resource WHERE account_id = " + accountId + " AND resource_id = to_check.resource_id))\n" +
+                                "AND (to_check.upgrade_number <= (SELECT number FROM Account_Upgrade WHERE account_id = " + accountId + " AND upgrade_id = to_check.upgrade_id))");
+                while(rs.next()) {
+                    NotificationEntity recentNotification = new NotificationEntity(
+                            rs.getInt("notification_id"),
+                            rs.getString("name"),
+                            rs.getString("description")
+                    );
+                    recentNotifications.add(recentNotification);
+                }
+                returnResult(recentNotifications);
             }
         }.run();
     }
@@ -55,11 +91,6 @@ public class AccountNotificationDaoImpl implements AccountNotificationDao {
                             "VALUES (" + accountId + "," + notificationId + ")");
                     connection.commit();
                 }
-//                } else {
-//
-//                    statement.executeUpdate("UPDATE Account_Building SET number = number + 1 " +
-//                            "WHERE account_id = " + accountId + " AND building_id = " + notificationId);
-//                }
             }
         }.run();
     }

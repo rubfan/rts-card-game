@@ -7,4 +7,5 @@ import java.util.List;
 public interface NotificationController {
 
     List<NotificationDto> getNotificationsList();
+    String getNotification(Integer notificationId);
 }
