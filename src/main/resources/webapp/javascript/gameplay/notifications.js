@@ -1,12 +1,8 @@
-var notificationList = {
-    "1": {name: "aaaaa", description: "eeeeee"},
-    "2": {name: "bbbbb", description: "cccccc"},
-    "3": {name: "ddddd", description: "qqqqqq"},
-    "4": {name: "fffff", description: "gggggg"}
-};
+var notificationList = {};
 
 function createNotificationList(dataObject) {
-    //notificationList = JSON.parse(dataObject);
+    notificationList = JSON.parse(dataObject);
+    console.log(notificationList);
     var content = "";
     var index = 0.5;
     for (var i in notificationList) {
