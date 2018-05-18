@@ -46,6 +46,11 @@ public class AccountNotificationServiceImpl implements AccountNotificationServic
                 setDescription(recentNotificationEntity.getDescription());
             }});
         });
+
+        recentNotifications.forEach(recentNotificationEntity -> {
+            accountNotificationDao.addShownNotificationToAccount(accountId, recentNotificationEntity.getId());
+        });
+
         return recentNotifications;
     }
 }
