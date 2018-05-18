@@ -45,7 +45,7 @@ function redirectToRooms() {
 //************************************************
 function startGame() {
     countDownLatchCounter = 0;
-    restRequest('GET', REST_API_URL + '/account/info', function (dataObject) {
+    restRequest("GET", REST_API_URL + "/account/info", function (dataObject) {
         countDownLatchCounter++;
         prepareAccountInfo(dataObject);
         if(getAccountId() == null) {
@@ -73,7 +73,7 @@ function runGameCycle() {
             redirectToRooms();
         }
         if(getEnemyAccountId() == null) {
-            restRequest('GET', REST_API_URL + '/account/info', prepareAccountInfo);
+            restRequest('GET', REST_API_URL + "/account/info", prepareAccountInfo);
             return;
         }
         if(countDownLatchCounter != 5) {
@@ -86,15 +86,21 @@ function runGameCycle() {
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/building/list", createEnemyBuildingList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/upgrade/list", createEnemyUpgradeList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resource/list", createEnemyResourceList);
-        restRequest('GET', REST_API_URL + '/message/list', createChatMessageList);
+        restRequest("GET", REST_API_URL + "/message/list", createChatMessageList);
     }, 2000);
+
+    setInterval(function() {
+        restRequest('GET', REST_API_URL + "/account/" + getAccountId() + "/notification/recent", createNotificationList);
+    }, 20000);
 
     var x = setInterval(function() {
         var now = new Date().getTime();
         var distance = countDownDate - now;
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("count_down_time").innerHTML = minutes + ":" + seconds;
+        document.getElementById("count_down_time").innerHTML =
+            (minutes.toString().length > 1 ? minutes : "0" + minutes) + ":" +
+            (seconds.toString().length > 1 ? seconds : "0" + seconds);
         if (distance < 0) {
             clearInterval(x);
             document.getElementById("count_down_time").innerHTML = "EXPIRED";

@@ -43,7 +43,7 @@ body{
     font-size: 12px;
     visibility: hidden;
     position: absolute;
-    background: rgba(49, 60, 69, 0.9);
+    background: -webkit-radial-gradient(center,ellipse cover, rgba(49, 60, 69, 0.8) 50%, rgba(0, 0, 0, 0.8) 100%);
     padding: 10px;
     color: #eee;
     box-shadow:0px 0px 20px rgba(0,0,0,0.95);
@@ -755,4 +755,58 @@ div.cards button:hover {
     padding: 8px;
     color: #c80c00;
     float:right;
+}
+
+/*=====================NOTIFICATIONS======================*/
+.notification-container {
+    pointer-events: none;
+    position: fixed;
+    overflow-y: scroll;
+    padding-top: 60px;
+    height: 100%;
+    width: 25%;
+    margin-left: 25%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.notification {
+    font-size: 14px;
+    background: -webkit-radial-gradient(center,ellipse cover, rgba(255, 255, 255, 0.6) 50%, rgba(143, 184, 255, 0.8) 100%);
+    padding: 5px 25px 5px 25px;
+    color: #000000;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.95);
+    border-width: 3px;
+    border-style: outset;
+    border-radius: 40px;
+    border-color: rgba(44, 88, 146, 0.57) rgba(31, 59, 100, 0.57) rgba(31, 59, 100, 0.57) rgba(44, 88, 146, 0.57);
+    margin: 7px;
+    position: relative;
+    min-height: 10px;
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+@keyframes fade {
+    0% {
+        right: -300px;
+        opacity: 0;
+        visibility: visible;
+    }
+    10% {
+        right: 0px;
+        opacity: 1;
+    }
+    90% {
+        visibility: visible;
+        opacity: 1;
+        right: 0px;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+        right: -300px;
+    }
 }
