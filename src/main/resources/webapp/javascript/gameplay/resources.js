@@ -60,12 +60,13 @@ function createResourceList(dataObject) {
             else if (num == 1) content += '<div style="grid-template-columns: auto 55px 55px 55px 55px 55px" class="inner-container">';
         }
         var id = accountResourceList[i]['resourceId'];
+        var quantity = accountResourceList[i]['quantity'];
         content += '<div class="resource-item">';
         content += '<img class="resource-item-img" width="55px" height="55px" src="'
-            + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"' +
-            ' onmousemove="prepareResourceTooltip(' + id + '); showTooltip(event)"' +
-            ' onmouseout="hideTooltip()">';
-        content += '<span class="small-text">' + accountResourceList[i]['quantity'] + '</span>';
+            + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"'
+            + ' onmousemove="prepareResourceTooltip(' + id + ', ' + quantity + '); showTooltip(event)"'
+            + ' onmouseout="hideTooltip()">';
+        content += '<span class="small-text">' + quantity + '</span>';
         count++;
         if((count%6) == 0) content += '</div>';
         content += '</div>';
@@ -98,12 +99,13 @@ function createEnemyResourceList(dataObject) {
                 '<div class="resource-item"></div>';
         }
         var id = accountResourceList[i]['resourceId'];
+        var quantity = accountResourceList[i]['quantity'];
         content += '<div class="resource-item">';
         content += '<img class="resource-item-img" width="55px" height="55px" src="'
-            + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"' +
-            ' onmousemove="prepareResourceTooltip(' + id + '); showTooltip(event)"' +
-            ' onmouseout="hideTooltip()">';
-        content += '<span class="small-text">' + accountResourceList[i]['quantity'] + '</span>';
+            + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"'
+            + ' onmousemove="prepareResourceTooltip(' + id + ', ' + quantity + '); showTooltip(event)"'
+            + ' onmouseout="hideTooltip()">';
+        content += '<span class="small-text">' + quantity + '</span>';
         count++;
         if((count%6) == 0) content += '</div>';
         content += '</div>';
@@ -116,11 +118,12 @@ function createEnemyResourceList(dataObject) {
     document.getElementById("right_resource_container").innerHTML = content;
 }
 
-function prepareResourceTooltip(num) {
+function prepareResourceTooltip(num, quantity) {
     var content = '';
     content += '<b style="font-size: 20px; color: #ff8000">Resource: '
         + resourceFullList[num]['name'].split('_').join(' ') + '</b><br>';
     content += ' (' + resourceFullList[num]['description'] + ')';
+    content += ' <div class="resource-quantity">' + quantity + '</div>';
     document.getElementById("tooltip_component").innerHTML = content;
 }
 

@@ -98,6 +98,14 @@ body{
     text-align: left;
 }
 
+.resource-quantity {
+    position: relative;
+    text-align: right;
+    margin-bottom: -10px;
+    font-size: 30px;
+    opacity: 0.4;
+}
+
 /*====================CARDS CONTAINER==================*/
 .cards-container {
     position: absolute;
