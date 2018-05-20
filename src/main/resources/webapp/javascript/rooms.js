@@ -2,7 +2,7 @@ function startRoomLoop() {
     restRequest('GET', REST_API_URL + '/room/list', createRoomsTable);
     setInterval(function () {
         restRequest('GET', REST_API_URL + '/room/list', createRoomsTable);
-    }, 30000);
+    }, 5000);
 }
 
 function createRoomsTable(dataObject) {

@@ -7,18 +7,18 @@ function createAchievementsTable(dataObject) {
     for (var x in dataObject) {
         if(!content) {
             content += "<tr>";
-            for (var prop in dataObject[x]) {
-                content += "<th>" + prop + "</th>";
-            }
-            content += "</tr>";
+            content +=      "<th width='100px'>Achievement Number</th>";
+            content +=      "<th>Achievement Name</th>";
+            content +=      "<th>Achievement Description</th>";
+            content += "</tr>"
         }
-        content += "<tr>";
-        for (var prop in dataObject[x]) {
-            content += "<td>" + dataObject[x][prop] + "</td>";
-        }
-        content += "</tr>";
+        content +=  "<tr>";
+        content +=      "<td>" + dataObject[x]['id'] + "</td>";
+        content +=      "<td>" + dataObject[x]['name'] + "</td>";
+        content +=      "<td>" + dataObject[x]['description'] + "</td>";
+        content +=  "</tr>"
     }
-    document.getElementById("achievementsTable").innerHTML = "<h1 class='achievements-header'>Achievements</h1>"
+    document.getElementById("achievements_table").innerHTML = "<h1 class='achievements-header'>Achievements</h1>"
         + "<table class='achievements-table'>" + content + "</table>";
 }
 

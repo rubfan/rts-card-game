@@ -4,19 +4,21 @@ function createChatMessageList(dataObject) {
     var content = "";
     var currentTime = null;
     for (var i in messagesList) {
-        content += '<tr>';
         var fromAccId = messagesList[i]['fromAccountId'];
         if(fromAccId == getAccountId()){
-            content += '<td width="100px" style="text-align: right; color: #138b00">' + getUserName() + ':</td>';
+            content += '<div class="row-left">';
+            content += '<div class="left-user">' + getUserName() + '</div>';
+            content += '<div class="left-msg">' + messagesList[i]['text'] + '</div>';
         } else if(fromAccId == getEnemyAccountId()){
-            content += '<td width="100px" style="text-align: right; color: #c80c00">' + getEnemyUserName() + ':</td>';
+            content += '<div class="row-right">';
+            content += '<div class="right-msg">' + messagesList[i]['text'] + '</div>';
+            content += '<div class="right-user">' + getEnemyUserName() + '</div>';
         }
-        content += '<td style="font-size: 12px">' + messagesList[i]['text'] + '</td>';
-        content += '</tr>';
+        content += '</div>';
         currentTime = messagesList[i]['time'];
     }
     var chat = document.getElementById("chat_items");
-    chat.innerHTML = "<table class='chat-table'>" + content + "</table>";
+    chat.innerHTML = content;
     if(currentTime != null && currentTime != lastTime) {
         document.getElementById("chat_container").scrollTop = document.getElementById("chat_container").scrollHeight;
     }

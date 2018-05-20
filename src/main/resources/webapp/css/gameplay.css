@@ -43,7 +43,7 @@ body{
     font-size: 12px;
     visibility: hidden;
     position: absolute;
-    background: rgba(49, 60, 69, 0.9);
+    background: -webkit-radial-gradient(center,ellipse cover, rgba(49, 60, 69, 0.8) 50%, rgba(0, 0, 0, 0.8) 100%);
     padding: 10px;
     color: #eee;
     box-shadow:0px 0px 20px rgba(0,0,0,0.95);
@@ -98,6 +98,14 @@ body{
     text-align: left;
 }
 
+.resource-quantity {
+    position: relative;
+    text-align: right;
+    margin-bottom: -10px;
+    font-size: 30px;
+    opacity: 0.4;
+}
+
 /*====================CARDS CONTAINER==================*/
 .cards-container {
     position: absolute;
@@ -148,7 +156,7 @@ div.cards button:hover {
     border-width: 3px;
     border-style: inset;
     border-radius: 8px;
-    border-color: #dd9000;
+    border-color: #668092;
     top: 0;
     bottom: 25px;
     right: 0;
@@ -157,24 +165,6 @@ div.cards button:hover {
     height: 200px;
     overflow-y: scroll;
 }
-
-div.chat-items {
-    width: 100%;
-    overflow: auto;
-    white-space: nowrap;
-}
-
-/*==================CHAT TABLE=============*/
-.chat-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.chat-table td, .chat-table th {
-    border: 1px solid rgba(140,90,00,0.2);
-    padding: 5px;
-}
-
 
 /*================KINGS===================*/
 .power-percent {
@@ -551,4 +541,280 @@ div.chat-items {
     box-shadow: 0px 0px 20px 5px #b0deff;
     -moz-box-shadow: 0px 0px 20px 5px #b0deff;
     -webkit-box-shadow: 0px 0px 20px 5px #b0deff;
+}
+
+
+/*====================BIRDS===============*/
+.birds-container {
+    left: 0;
+    right: 0;
+    top: -30px;
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 12rem;
+    background-blend-mode: soft-light;
+    background-size: cover;
+    background-position: center center;
+}
+
+.bird {
+    background-image: url(../images/bird-cells.svg);
+    background-size: auto 100%;
+    width: 88px;
+    height: 125px;
+    will-change: background-position;
+
+    animation-name: fly-cycle;
+    animation-timing-function: steps(10);
+    animation-iteration-count: infinite;
+}
+
+.bird-one {
+    animation-duration: 1.3s;
+    animation-delay: -0.2s;
+}
+
+.bird-two {
+    animation-duration: 1.3s;
+    animation-delay: -0.4s;
+}
+
+.bird-container {
+    position: absolute;
+    top: 20%;
+    left: -7.5vw;
+    transform: scale(0);
+    will-change: transform;
+
+    animation-name: fly-right-one;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.bird-container-one {
+    animation-duration: 25s;
+    animation-delay: 0;
+}
+
+.bird-container-two {
+    animation-duration: 26s;
+    animation-delay: 1s;
+}
+
+@keyframes fly-cycle {
+    100% {
+        background-position: -900px 0;
+    }
+}
+
+@keyframes fly-right-one {
+    0% {
+        left: -10%;
+        transform: scale(0.3);
+    }
+    10% {
+        left: 10%;
+        transform: translateY(2vh) scale(0.4);
+    }
+    20% {
+        left: 30%;
+        transform: translateY(0vh) scale(0.5);
+    }
+    30% {
+        left: 50%;
+        transform: translateY(4vh) scale(0.6);
+    }
+    40% {
+        left: 70%;
+        transform: translateY(2vh) scale(0.6);
+    }
+    50% {
+        left: 90%;
+        transform: translateY(0vh) scale(0.6);
+    }
+    60% {
+        left: 110%;
+        transform: translateY(0vh) scale(0.6);
+    }
+    100% {
+        left: 110%;
+        opacity: 1;
+        transform: translateY(0vh) scale(0.6);
+    }
+}
+
+@keyframes fly-right-two {
+    0% {
+        left: -10%;
+        opacity: 1;
+        transform: translateY(-2vh) scale(0.5);
+    }
+    10% {
+        left: 10%;
+        transform: translateY(0vh) scale(0.4);
+    }
+    20% {
+        left: 30%;
+        transform: translateY(-4vh) scale(0.6);
+    }
+    30% {
+        left: 50%;
+        transform: translateY(1vh) scale(0.45);
+    }
+    40% {
+        left: 70%;
+        transform: translateY(-2.5vh) scale(0.5);
+    }
+    50% {
+        left: 90%;
+        transform: translateY(0vh) scale(0.45);
+    }
+    51% {
+        left: 110%;
+        transform: translateY(0vh) scale(0.45);
+    }
+    100% {
+        left: 110%;
+        transform: translateY(0vh) scale(0.45);
+    }
+}
+
+
+/*===========CHAT BUBBLES=============*/
+.row-left {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+.row-right {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.right-msg {
+    font-size: 12px;
+    margin: 7px;
+    position: relative;
+    min-height: 20px;
+    padding:4px 4px 4px 12px;
+    background: rgba(255, 60, 63, 0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.right-msg:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 0 6px 12px;
+    border-color: transparent rgba(255, 60, 63, 0.2);
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -12px;
+    top: 3px;
+}
+
+.left-msg {
+    font-size: 12px;
+    margin: 7px;
+    position: relative;
+    min-height: 20px;
+    padding:4px 4px 4px 12px;
+    background: rgba(58, 187, 0, 0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.left-msg:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 12px 6px 0;
+    border-color: transparent rgba(58, 187, 0, 0.2);
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -12px;
+    top: 3px;
+}
+
+.right-msg {
+    float:left;
+}
+
+.left-msg {
+    float:right;
+}
+
+.left-user {
+    font-size: 14px;
+    padding: 8px;
+    color: #138b00;
+    float:left;
+}
+
+.right-user {
+    font-size: 14px;
+    padding: 8px;
+    color: #c80c00;
+    float:right;
+}
+
+/*=====================NOTIFICATIONS======================*/
+.notification-container {
+    pointer-events: none;
+    position: fixed;
+    overflow-y: scroll;
+    padding-top: 60px;
+    height: 100%;
+    width: 25%;
+    margin-left: 25%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.notification {
+    font-size: 14px;
+    background: -webkit-radial-gradient(center,ellipse cover, rgba(255, 255, 255, 0.8) 50%, rgba(196, 205, 255, 0.8) 100%);
+    padding: 5px 25px 5px 25px;
+    color: #000000;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.95);
+    border-width: 3px;
+    border-style: outset;
+    border-radius: 40px;
+    border-color: rgba(44, 88, 146, 0.57) rgba(31, 59, 100, 0.57) rgba(31, 59, 100, 0.57) rgba(44, 88, 146, 0.57);
+    margin: 7px;
+    position: relative;
+    min-height: 10px;
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+@keyframes fade {
+    0% {
+        right: -300px;
+        opacity: 0;
+        visibility: visible;
+    }
+    10% {
+        right: 0px;
+        opacity: 1;
+    }
+    90% {
+        visibility: visible;
+        opacity: 1;
+        right: 0px;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+        right: -300px;
+    }
 }

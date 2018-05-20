@@ -2,6 +2,7 @@ package game.controllers.impl;
 
 import game.controllers.AccountNotificationController;
 import game.controllers.dto.AccountNotificationDto;
+import game.controllers.dto.NotificationDto;
 import game.services.AccountNotificationService;
 
 import javax.inject.Inject;
@@ -49,5 +50,15 @@ public class AccountNotificationControllerImpl implements AccountNotificationCon
                                               @PathParam("notification_id") Integer notificationId) {
         accountNotificationService.addShownNotificationToAccount(accountId, notificationId);
         return Response.status(201).entity("Notification").build();
+    }
+
+    @Override
+    @GET
+    @Path("/{account_id}/notification/recent")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public List<NotificationDto> getListOfAccountRecentNotifications(@PathParam("account_id") Integer accountId) {
+        List<NotificationDto> recentNotificationList = accountNotificationService.getListOfAccountRecentNotification(accountId);
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, recentNotificationList.toString());
+        return recentNotificationList;
     }
 }
