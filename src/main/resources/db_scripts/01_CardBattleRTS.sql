@@ -101,7 +101,7 @@ CREATE TABLE `Achievement` (
 
 CREATE TABLE `Card` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` varchar(16) NOT NULL,
+	`name` varchar(64) NOT NULL,
 	`description` varchar(128) NOT NULL,
 	PRIMARY KEY (`id`)
 );
