@@ -1,5 +1,5 @@
 INSERT INTO `Card`
-    (`name`,`description`)
+    (`id`,`name`,`description`)
 VALUES
     ('1','Granary','Granary ---> corn'),
     ('2','Chicken House','Chicken House ---> eggs'),
