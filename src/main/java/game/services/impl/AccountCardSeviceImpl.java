@@ -17,4 +17,9 @@ public class AccountCardSeviceImpl implements AccountCardService {
         List<Integer> allowCards = cardProductDao.getAllowAccountCards();
         return allowCards;
     }
+
+    @Override
+    public void cardApply(Integer accountId, Integer cardId) {
+        cardProductDao.applyCard(accountId,cardId);
+    }
 }

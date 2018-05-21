@@ -66,6 +66,11 @@ public class CardProductDaoImpl implements CardProductDao {
         }.run();
     }
 
+    @Override
+    public void applyCard(Integer accountId, Integer cardId) {
+
+    }
+
     private String prepareListOfAllowCardsforAccountQuery(){
         StringBuilder q = new StringBuilder();
         q.append("select card_id ");
