@@ -20,7 +20,7 @@ public class CardProductDaoImpl implements CardProductDao {
                 while (rs.next()) {
                     CardProductEntity cardProduct = new CardProductEntity();
                     cardProduct.setCardEntity(getCardEntity(rs));
-                    if(!cardProducts.containsKey(cardProduct.getCardEntity().getId())){
+                    if (!cardProducts.containsKey(cardProduct.getCardEntity().getId())) {
                         cardProduct.setId(rs.getInt("id"));
                         cardProduct.setP1BuildingQuantityEntityList(new LinkedList<>());
                         cardProduct.setP2BuildingQuantityEntityList(new LinkedList<>());
@@ -34,16 +34,16 @@ public class CardProductDaoImpl implements CardProductDao {
                     } else {
                         cardProduct = cardProducts.get(cardProduct.getCardEntity().getId());
                     }
-                        cardProduct.getP1BuildingQuantityEntityList().add(getP1BuildingQuantityEntity(rs));
-                        cardProduct.getP2BuildingQuantityEntityList().add(getP2BuildingQuantityEntity(rs));
-                        cardProduct.getP1ResourceQuantityEntityList().add(getP1ResourceQuantityEntity(rs));
-                        cardProduct.getP2ResourceQuantityEntityList().add(getP2ResourceQuantityEntity(rs));
-                        cardProduct.getP1UpgradeQuantityEntityList().add(getP1UpgradeQuantityEntity(rs));
-                        cardProduct.getP2UpgradeQuantityEntityList().add(getP2UpgradeQuantityEntity(rs));
-                        cardProduct.getNecessaryBuildingQuantityEntityList().add(getNecessaryBuildingQuantityEntity(rs));
-                        cardProduct.getNecessaryUpgradeQuantityEntityList().add(getNecessaryUpgradeQuantityEntity(rs));
+                    cardProduct.getP1BuildingQuantityEntityList().add(getP1BuildingQuantityEntity(rs));
+                    cardProduct.getP2BuildingQuantityEntityList().add(getP2BuildingQuantityEntity(rs));
+                    cardProduct.getP1ResourceQuantityEntityList().add(getP1ResourceQuantityEntity(rs));
+                    cardProduct.getP2ResourceQuantityEntityList().add(getP2ResourceQuantityEntity(rs));
+                    cardProduct.getP1UpgradeQuantityEntityList().add(getP1UpgradeQuantityEntity(rs));
+                    cardProduct.getP2UpgradeQuantityEntityList().add(getP2UpgradeQuantityEntity(rs));
+                    cardProduct.getNecessaryBuildingQuantityEntityList().add(getNecessaryBuildingQuantityEntity(rs));
+                    cardProduct.getNecessaryUpgradeQuantityEntityList().add(getNecessaryUpgradeQuantityEntity(rs));
                 }
-                if(cardProducts.size() > 0) {
+                if (cardProducts.size() > 0) {
                     returnResult(cardProducts.values());
                 }
             }
@@ -56,10 +56,10 @@ public class CardProductDaoImpl implements CardProductDao {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 List<Integer> allowCards = new LinkedList<>();
                 ResultSet rs = statement.executeQuery(prepareListOfAllowCardsforAccountQuery());
-                while (rs.next()){
+                while (rs.next()) {
                     allowCards.add(rs.getInt("card_id"));
                 }
-                if(allowCards.size() > 0) {
+                if (allowCards.size() > 0) {
                     returnResult(allowCards);
                 }
             }
@@ -68,28 +68,52 @@ public class CardProductDaoImpl implements CardProductDao {
 
     @Override
     public void applyCard(Integer accountId, Integer cardId) {
+        String pid, pnum;
+        if (accountId == 1) {
+            pid = "p1_building_id";
+            pnum = "p1_building_number";
+        } else {
+            pid = "p2_building_id";
+            pnum = "p2_building_number";
+        }
 
+        new QueryHelper() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                if (statement.executeQuery("SELECT * FROM Account_Building WHERE account_id = " +
+                        accountId + " AND building_id = (SELECT " + pid + " FROM Card_Product)").next()) {
+                    statement.executeUpdate("UPDATE Account_Building SET number = number + " +
+                            "(SELECT " + pnum + " FROM Card_Product WHERE card_id = " + cardId +
+                            " AND account_id = " + accountId + ") ");
+                } else {
+                    statement.executeUpdate("INSERT INTO Account_Building (account_id, building_id, number)" +
+                            "VALUES (" + accountId + ", (SELECT DISTINCT " + pid + " FROM Card_product WHERE Card_id = " + cardId + "),"+
+                            "(SELECT DISTINCT " + pnum + " FROM Card_product WHERE Card_id = " + cardId + ")");
+                }
+
+                connection.commit();
+            }
+        }.run();
     }
 
-    private String prepareListOfAllowCardsforAccountQuery(){
+    private String prepareListOfAllowCardsforAccountQuery() {
         StringBuilder q = new StringBuilder();
         q.append("select card_id ");
-                q.append("from (select ");
-                q.append("cp.card_id, ");
-                q.append("(ar.number + cp.p1_resource_number) res_num, ");
-                q.append("(ab.number + cp.p1_building_number) build_num, ");
-                q.append("(au.number + cp.p1_upgrade_number) upgr_num, ");
-                q.append("(anu.number + cp.necessary_upgrade_number) neces_upgr_num, ");
-                q.append("(anb.number + cp.necessary_building_number) neces_build_num ");
-                q.append("from Card_Product cp ");
-                q.append("left join Account_Resource ar on cp.p1_resource_id = ar.resource_id ");
-                q.append("left join Account_Building ab on cp.p1_building_id = ab.building_id ");
-                q.append("left join Account_Upgrade au on cp.p1_upgrade_id = au.upgrade_id ");
-                q.append("left join Account_Building anb on cp.necessary_building_id = anb.building_id ");
-                q.append("left join Account_Upgrade anu on cp.necessary_upgrade_id = anu.upgrade_id ");
-                q.append("WHERE ar.account_id = 1 ");
-                q.append("group by cp.card_id ");
-                q.append(" having (res_num is null or res_num >= 0) ");
+        q.append("from (select ");
+        q.append("cp.card_id, ");
+        q.append("(ar.number + cp.p1_resource_number) res_num, ");
+        q.append("(ab.number + cp.p1_building_number) build_num, ");
+        q.append("(au.number + cp.p1_upgrade_number) upgr_num, ");
+        q.append("(anu.number + cp.necessary_upgrade_number) neces_upgr_num, ");
+        q.append("(anb.number + cp.necessary_building_number) neces_build_num ");
+        q.append("from Card_Product cp ");
+        q.append("left join Account_Resource ar on cp.p1_resource_id = ar.resource_id ");
+        q.append("left join Account_Building ab on cp.p1_building_id = ab.building_id ");
+        q.append("left join Account_Upgrade au on cp.p1_upgrade_id = au.upgrade_id ");
+        q.append("left join Account_Building anb on cp.necessary_building_id = anb.building_id ");
+        q.append("left join Account_Upgrade anu on cp.necessary_upgrade_id = anu.upgrade_id ");
+        q.append("WHERE ar.account_id = 1 ");
+        q.append("group by cp.card_id ");
+        q.append(" having (res_num is null or res_num >= 0) ");
         q.append("and (build_num is null or build_num >= 0) ");
         q.append("and (upgr_num is null or upgr_num >= 0) ");
         q.append("and (neces_upgr_num is null or neces_upgr_num >= 0) ");
@@ -102,19 +126,19 @@ public class CardProductDaoImpl implements CardProductDao {
     private String prepareListOfCardsProductQuery() {
         StringBuilder q = new StringBuilder();
         q.append("SELECT cp.id, cp.card_id, c.name 'card_name', c.description 'card_description', ");
-            q.append("cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, ");
-            q.append("cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, ");
-            q.append("cp.p1_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, ");
-            q.append("cp.necessary_upgrade_id, cp.necessary_building_id, ");
-            q.append("cp.necessary_building_number, cp.necessary_upgrade_number, ");
-            q.append("b.name 'necessary_building_name', b.description 'necessary_building_description', ");
-            q.append("u.name 'necessary_upgrade_name', u.description 'necessary_upgrade_description', ");
-            q.append("b1.name 'p1_building_name', b1.description 'p1_building_description', ");
-            q.append("b2.name 'p2_building_name', b2.description 'p2_building_description', ");
-            q.append("r1.name 'p1_resource_name', r1.description 'p1_resource_description', ");
-            q.append("r2.name 'p2_resource_name', r2.description 'p2_resource_description', ");
-            q.append("u1.name 'p1_upgrade_name', u1.description 'p1_upgrade_description', ");
-            q.append("u2.name 'p2_upgrade_name', u2.description 'p2_upgrade_description' ");
+        q.append("cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, ");
+        q.append("cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, ");
+        q.append("cp.p1_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, ");
+        q.append("cp.necessary_upgrade_id, cp.necessary_building_id, ");
+        q.append("cp.necessary_building_number, cp.necessary_upgrade_number, ");
+        q.append("b.name 'necessary_building_name', b.description 'necessary_building_description', ");
+        q.append("u.name 'necessary_upgrade_name', u.description 'necessary_upgrade_description', ");
+        q.append("b1.name 'p1_building_name', b1.description 'p1_building_description', ");
+        q.append("b2.name 'p2_building_name', b2.description 'p2_building_description', ");
+        q.append("r1.name 'p1_resource_name', r1.description 'p1_resource_description', ");
+        q.append("r2.name 'p2_resource_name', r2.description 'p2_resource_description', ");
+        q.append("u1.name 'p1_upgrade_name', u1.description 'p1_upgrade_description', ");
+        q.append("u2.name 'p2_upgrade_name', u2.description 'p2_upgrade_description' ");
         q.append("FROM Card_Product cp ");
         q.append("LEFT JOIN Card c ON c.id = cp.card_id ");
         q.append("LEFT JOIN Building b ON b.id = cp.necessary_building_id ");
