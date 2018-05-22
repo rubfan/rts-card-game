@@ -79,18 +79,17 @@ public class CardProductDaoImpl implements CardProductDao {
 
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                if (statement.executeQuery("SELECT * FROM Account_Building WHERE account_id = " +
-                        accountId + " AND building_id = (SELECT " + pid + " FROM Card_Product)").next()) {
+                if (statement.executeQuery("SELECT DISTINCT * FROM Account_Building WHERE account_id = " +
+                        accountId + " AND building_id = (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = "+cardId+")").next()) {
                     statement.executeUpdate("UPDATE Account_Building SET number = number + " +
-                            "(SELECT " + pnum + " FROM Card_Product WHERE card_id = " + cardId +
-                            " AND account_id = " + accountId + ") ");
+                            "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId +" ) ");
                 } else {
-                    statement.executeUpdate("INSERT INTO Account_Building (account_id, building_id, number)" +
-                            "VALUES (" + accountId + ", (SELECT DISTINCT " + pid + " FROM Card_product WHERE Card_id = " + cardId + "),"+
-                            "(SELECT DISTINCT " + pnum + " FROM Card_product WHERE Card_id = " + cardId + ")");
+                    statement.executeUpdate("INSERT INTO Account_Building (account_id, building_id, number) " +
+                            " VALUES (" + accountId + ", (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = " + cardId + "),"+
+                            "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId + "));");
                 }
 
-                connection.commit();
+//                connection.commit();
             }
         }.run();
     }

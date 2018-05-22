@@ -41,7 +41,7 @@ public class AccountCardControllerImpl implements AccountCardController {
     @Path("/{account_id}/card/{card_id}/apply")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response cardApply(@PathParam("account_id") Integer accountId, @PathParam("card_id") Integer cardId) {
-        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"cardId=" + cardId);
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"cardId = " + cardId + " accountId = "+ accountId);
         accountCardService.cardApply(accountId, cardId);
         return Response.ok().status(200).build();
     }
