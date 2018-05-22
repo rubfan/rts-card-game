@@ -6,10 +6,9 @@ INSERT INTO `Card_Product`
     `necessary_upgrade_id`,`necessary_building_number`,`necessary_upgrade_number`)
 VALUES
     ('1','1','1',NULL,'1',NULL,'1',NULL,'-150',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-    ('2','1','1',NULL,'1',NULL,'2',NULL,'-150',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+    ('2','1','1',NULL,NULL,NULL,'2',NULL,'-150',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
     ('3','2','1',NULL,NULL,NULL,'1',NULL,'-150',NULL,'1',NULL,NULL,NULL,'1',NULL,'1',NULL),
     ('4','2','1',NULL,NULL,NULL,'2',NULL,'-150',NULL,'1',NULL,NULL,NULL,'1',NULL,'1',NULL),
-
     ('5','3',NULL,NULL,NULL,NULL,'1','2','-2000','-1000',NULL,NULL,NULL,NULL,'3','3','1','10'),
     ('6','4',NULL,NULL,NULL,NULL,NULL,'3',NULL,'-1000',NULL,NULL,NULL,NULL,'3','3','1','10'),
     ('7','5',NULL,NULL,NULL,NULL,NULL,'5',NULL,'-1000',NULL,NULL,NULL,NULL,'3','3','1','10'),
