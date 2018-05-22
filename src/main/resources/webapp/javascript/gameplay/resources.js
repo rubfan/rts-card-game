@@ -1,5 +1,9 @@
 const POWER = "24";
 var resourceFullList = {};
+var resourcePerMin =[];
+var resourceEnemyPerMin =[];
+var lastDate = new Date();
+var lastEnemyDate = new Date();
 
 const IMG_RESOURCES_URL = {
     "1": "images/resources/wheat_resource.png",
@@ -45,8 +49,38 @@ function prepareResourceFullList(dataObject) {
     }
 }
 
+setInterval(function() {
+    refreshResources();
+    refreshEnemyResources();
+}, 1000);
+
+function refreshResources() {
+    for (var i in resourcePerMin) {
+        var id = resourcePerMin[i]['id'];
+        var quantity = resourcePerMin[i]['quantity'];
+        var perMin = resourcePerMin[i]['per_min'];
+        var now = new Date().getTime();
+        var delta = Math.abs(now - lastDate) / 1000;
+        var resResult = Math.floor(quantity + perMin / 60 * delta).toString();
+        document.getElementById("resource_quantity" + id).innerHTML = resResult;
+    }
+}
+
+function refreshEnemyResources() {
+    for (var i in resourceEnemyPerMin) {
+        var id = resourceEnemyPerMin[i]['id'];
+        var quantity = resourceEnemyPerMin[i]['quantity'];
+        var perMin = resourceEnemyPerMin[i]['per_min'];
+        var now = new Date().getTime();
+        var delta = Math.abs(now - lastEnemyDate) / 1000;
+        var resResult = Math.floor(quantity + perMin / 60 * delta).toString();
+        document.getElementById("resource_enemy_quantity" + id).innerHTML = resResult;
+    }
+}
+
 function createResourceList(dataObject) {
     var accountResourceList = JSON.parse(dataObject);
+    resourcePerMin = [];
     var content = '';
     var count = 0;
     for (var i in accountResourceList) {
@@ -66,7 +100,8 @@ function createResourceList(dataObject) {
             + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"'
             + ' onmousemove="prepareResourceTooltip(' + id + ', ' + quantity + '); showTooltip(event)"'
             + ' onmouseout="hideTooltip()">';
-        content += '<span class="small-text">' + quantity + '</span>';
+        resourcePerMin.push({id: id, quantity: quantity, per_min: 50});
+        content += '<span id="resource_quantity' + id + '" class="small-text">' + quantity + '</span>';
         count++;
         if((count%6) == 0) content += '</div>';
         content += '</div>';
@@ -77,10 +112,12 @@ function createResourceList(dataObject) {
     }
     content += '</div>';
     document.getElementById("left_resource_container").innerHTML = content;
+    lastDate = new Date();
 }
 
 function createEnemyResourceList(dataObject) {
     var accountResourceList = JSON.parse(dataObject);
+    resourceEnemyPerMin = [];
     var content = '';
     var count = 0;
     for (var i in accountResourceList) {
@@ -105,7 +142,8 @@ function createEnemyResourceList(dataObject) {
             + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"'
             + ' onmousemove="prepareResourceTooltip(' + id + ', ' + quantity + '); showTooltip(event)"'
             + ' onmouseout="hideTooltip()">';
-        content += '<span class="small-text">' + quantity + '</span>';
+        resourceEnemyPerMin.push({id: id, quantity: quantity, per_min: 50});
+        content += '<span id="resource_enemy_quantity' + id + '" class="small-text">' + quantity + '</span>';
         count++;
         if((count%6) == 0) content += '</div>';
         content += '</div>';
@@ -116,6 +154,7 @@ function createEnemyResourceList(dataObject) {
     }
     content += '</div>';
     document.getElementById("right_resource_container").innerHTML = content;
+    lastEnemyDate = new Date();
 }
 
 function prepareResourceTooltip(num, quantity) {
