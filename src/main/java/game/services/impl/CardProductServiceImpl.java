@@ -29,59 +29,69 @@ public class CardProductServiceImpl implements CardProductService {
                 cardDto.setDescription(cardProductEntity.getCardEntity().getDescription());
                 setCardDto(cardDto);
 
-                List<BuildingQuantityDto> p1BuildingQuantityDtoList = new LinkedList<>();
-                cardProductEntity.getP1BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
-                    setBuildingQuantityDto(p1BuildingQuantityDtoList, buildingQuantityEntity);
-                });
-                setP1BuildingQuantityDtoList(p1BuildingQuantityDtoList);
+                if (cardProductEntity.getP1BuildingQuantityEntityList() != null) {
+                    List<BuildingQuantityDto> p1BuildingQuantityDtoList = new LinkedList<>();
+                    cardProductEntity.getP1BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
+                        setBuildingQuantityDto(p1BuildingQuantityDtoList, buildingQuantityEntity);
+                    });
+                    setP1BuildingQuantityDtoList(p1BuildingQuantityDtoList);
+                }
 
-                List<BuildingQuantityDto> p2BuildingQuantityDtoList = new LinkedList<>();
-                cardProductEntity.getP2BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
-                    setBuildingQuantityDto(p2BuildingQuantityDtoList, buildingQuantityEntity);
-                });
-                setP2BuildingQuantityDtoList(p2BuildingQuantityDtoList);
+                if (cardProductEntity.getP2BuildingQuantityEntityList() != null) {
+                    List<BuildingQuantityDto> p2BuildingQuantityDtoList = new LinkedList<>();
+                    cardProductEntity.getP2BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
+                        setBuildingQuantityDto(p2BuildingQuantityDtoList, buildingQuantityEntity);
+                    });
+                    setP2BuildingQuantityDtoList(p2BuildingQuantityDtoList);
+                }
 
+                if (cardProductEntity.getP1ResourceQuantityEntityList() != null) {
+                    List<ResourceQuantityDto> p1resourceQuantityDtoList = new LinkedList<>();
+                    cardProductEntity.getP1ResourceQuantityEntityList().forEach(resourceQuantityEntity -> {
+                        setResourceQuantityDto(p1resourceQuantityDtoList, resourceQuantityEntity);
+                    });
+                    setP1ResourceQuantityDtoList(p1resourceQuantityDtoList);
+                }
 
+                if (cardProductEntity.getP2ResourceQuantityEntityList() != null) {
+                    List<ResourceQuantityDto> p2resourceQuantityDtoList = new LinkedList<>();
+                    cardProductEntity.getP2ResourceQuantityEntityList().forEach(resourceQuantityEntity -> {
+                        setResourceQuantityDto(p2resourceQuantityDtoList, resourceQuantityEntity);
+                    });
+                    setP2ResourceQuantityDtoList(p2resourceQuantityDtoList);
+                }
 
-                List<ResourceQuantityDto> p1resourceQuantityDtoList = new LinkedList<>();
-                cardProductEntity.getP1ResourceQuantityEntityList().forEach(resourceQuantityEntity -> {
-                    setResourceQuantityDto(p1resourceQuantityDtoList, resourceQuantityEntity);
-                });
-                setP1ResourceQuantityDtoList(p1resourceQuantityDtoList);
+                if (cardProductEntity.getP1UpgradeQuantityEntityList() != null) {
+                    List<UpgradeQuantityDto> p1UpgradeQuantityDtoList = new LinkedList<>();
+                    cardProductEntity.getP1UpgradeQuantityEntityList().forEach(upgradeQuantityEntity -> {
+                        setUpgradeQuantityDto(p1UpgradeQuantityDtoList, upgradeQuantityEntity);
+                    });
+                    setP1UpgradeQuantityDtoList(p1UpgradeQuantityDtoList);
+                }
 
-                List<ResourceQuantityDto> p2resourceQuantityDtoList = new LinkedList<>();
-                cardProductEntity.getP2ResourceQuantityEntityList().forEach(resourceQuantityEntity -> {
-                    setResourceQuantityDto(p2resourceQuantityDtoList, resourceQuantityEntity);
-                });
-                setP2ResourceQuantityDtoList(p2resourceQuantityDtoList);
+                if (cardProductEntity.getP2UpgradeQuantityEntityList() != null) {
+                    List<UpgradeQuantityDto> p2UpgradeQuantityDtoList = new LinkedList<>();
+                    cardProductEntity.getP2UpgradeQuantityEntityList().forEach(upgradeQuantityEntity -> {
+                        setUpgradeQuantityDto(p2UpgradeQuantityDtoList, upgradeQuantityEntity);
+                    });
+                    setP2UpgradeQuantityDtoList(p2UpgradeQuantityDtoList);
+                }
 
+                if (cardProductEntity.getNecessaryBuildingQuantityEntityList() != null) {
+                    List<BuildingQuantityDto> necessaryBuildingList = new LinkedList<>();
+                    cardProductEntity.getNecessaryBuildingQuantityEntityList().forEach(necessaryBuildingEntity -> {
+                        setBuildingQuantityDto(necessaryBuildingList, necessaryBuildingEntity);
+                    });
+                    setNecessaryBuildingQuantityDtoList(necessaryBuildingList);
+                }
 
-
-                List<UpgradeQuantityDto> p1UpgradeQuantityDtoList = new LinkedList<>();
-                cardProductEntity.getP1UpgradeQuantityEntityList().forEach(upgradeQuantityEntity ->  {
-                    setUpgradeQuantityDto(p1UpgradeQuantityDtoList, upgradeQuantityEntity);
-                });
-                setP1UpgradeQuantityDtoList(p1UpgradeQuantityDtoList);
-
-                List<UpgradeQuantityDto> p2UpgradeQuantityDtoList = new LinkedList<>();
-                cardProductEntity.getP2UpgradeQuantityEntityList().forEach(upgradeQuantityEntity ->  {
-                    setUpgradeQuantityDto(p2UpgradeQuantityDtoList, upgradeQuantityEntity);
-                });
-                setP2UpgradeQuantityDtoList(p2UpgradeQuantityDtoList);
-
-
-                List<BuildingQuantityDto> necessaryBuildingList = new LinkedList<>();
-                cardProductEntity.getNecessaryBuildingQuantityEntityList().forEach(necessaryBuildingEntity -> {
-                    setBuildingQuantityDto(necessaryBuildingList, necessaryBuildingEntity);
-                });
-                setNecessaryBuildingQuantityDtoList(necessaryBuildingList);
-
-
-                List<UpgradeQuantityDto> necessaryUpgradeList = new LinkedList<>();
-                cardProductEntity.getNecessaryUpgradeQuantityEntityList().forEach(necessaryUpgradeEntity -> {
-                    setUpgradeQuantityDto(necessaryUpgradeList, necessaryUpgradeEntity);
-                });
-                setNecessaryUpgradeQuantityDtoList(necessaryUpgradeList);
+                if (cardProductEntity.getNecessaryUpgradeQuantityEntityList() != null) {
+                    List<UpgradeQuantityDto> necessaryUpgradeList = new LinkedList<>();
+                    cardProductEntity.getNecessaryUpgradeQuantityEntityList().forEach(necessaryUpgradeEntity -> {
+                        setUpgradeQuantityDto(necessaryUpgradeList, necessaryUpgradeEntity);
+                    });
+                    setNecessaryUpgradeQuantityDtoList(necessaryUpgradeList);
+                }
             }});
         });
         return cardProducts;

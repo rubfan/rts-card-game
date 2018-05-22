@@ -22,26 +22,18 @@ public class CardProductDaoImpl implements CardProductDao {
                     cardProduct.setCardEntity(getCardEntity(rs));
                     if (!cardProducts.containsKey(cardProduct.getCardEntity().getId())) {
                         cardProduct.setId(rs.getInt("id"));
-                        cardProduct.setP1BuildingQuantityEntityList(new LinkedList<>());
-                        cardProduct.setP2BuildingQuantityEntityList(new LinkedList<>());
-                        cardProduct.setP1ResourceQuantityEntityList(new LinkedList<>());
-                        cardProduct.setP2ResourceQuantityEntityList(new LinkedList<>());
-                        cardProduct.setP1UpgradeQuantityEntityList(new LinkedList<>());
-                        cardProduct.setP2UpgradeQuantityEntityList(new LinkedList<>());
-                        cardProduct.setNecessaryBuildingQuantityEntityList(new LinkedList<>());
-                        cardProduct.setNecessaryUpgradeQuantityEntityList(new LinkedList<>());
                         cardProducts.put(cardProduct.getCardEntity().getId(), cardProduct);
                     } else {
                         cardProduct = cardProducts.get(cardProduct.getCardEntity().getId());
                     }
-                    cardProduct.getP1BuildingQuantityEntityList().add(getP1BuildingQuantityEntity(rs));
-                    cardProduct.getP2BuildingQuantityEntityList().add(getP2BuildingQuantityEntity(rs));
-                    cardProduct.getP1ResourceQuantityEntityList().add(getP1ResourceQuantityEntity(rs));
-                    cardProduct.getP2ResourceQuantityEntityList().add(getP2ResourceQuantityEntity(rs));
-                    cardProduct.getP1UpgradeQuantityEntityList().add(getP1UpgradeQuantityEntity(rs));
-                    cardProduct.getP2UpgradeQuantityEntityList().add(getP2UpgradeQuantityEntity(rs));
-                    cardProduct.getNecessaryBuildingQuantityEntityList().add(getNecessaryBuildingQuantityEntity(rs));
-                    cardProduct.getNecessaryUpgradeQuantityEntityList().add(getNecessaryUpgradeQuantityEntity(rs));
+                    addP1BuildingQuantityEntity(rs, cardProduct);
+                    addP2BuildingQuantityEntity(rs, cardProduct);
+                    addP1ResourceQuantityEntity(rs, cardProduct);
+                    addP2ResourceQuantityEntity(rs, cardProduct);
+                    addP1UpgradeQuantityEntity(rs, cardProduct);
+                    addP2UpgradeQuantityEntity(rs, cardProduct);
+                    addNecessaryBuildingQuantityEntity(rs, cardProduct);
+                    addNecessaryUpgradeQuantityEntity(rs, cardProduct);
                 }
                 if (cardProducts.size() > 0) {
                     returnResult(cardProducts.values());
@@ -80,12 +72,12 @@ public class CardProductDaoImpl implements CardProductDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 if (statement.executeQuery("SELECT DISTINCT * FROM Account_Building WHERE account_id = " +
-                        accountId + " AND building_id = (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = "+cardId+")").next()) {
+                        accountId + " AND building_id = (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = " + cardId + ")").next()) {
                     statement.executeUpdate("UPDATE Account_Building SET number = number + " +
-                            "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId +" ) ");
+                            "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId + " ) ");
                 } else {
                     statement.executeUpdate("INSERT INTO Account_Building (account_id, building_id, number) " +
-                            " VALUES (" + accountId + ", (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = " + cardId + "),"+
+                            " VALUES (" + accountId + ", (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = " + cardId + ")," +
                             "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId + "));");
                 }
 
@@ -127,7 +119,7 @@ public class CardProductDaoImpl implements CardProductDao {
         q.append("SELECT cp.id, cp.card_id, c.name 'card_name', c.description 'card_description', ");
         q.append("cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, ");
         q.append("cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, ");
-        q.append("cp.p1_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, ");
+        q.append("cp.p1_upgrade_id, cp.p2_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, ");
         q.append("cp.necessary_upgrade_id, cp.necessary_building_id, ");
         q.append("cp.necessary_building_number, cp.necessary_upgrade_number, ");
         q.append("b.name 'necessary_building_name', b.description 'necessary_building_description', ");
@@ -160,76 +152,124 @@ public class CardProductDaoImpl implements CardProductDao {
         }};
     }
 
-    private BuildingQuantityEntity getP1BuildingQuantityEntity(ResultSet rs) throws SQLException {
-        return new BuildingQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addP1BuildingQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("p1_building_number");
+        if (num == 0) return;
+        if (cardProduct.getP1BuildingQuantityEntityList() == null){
+            cardProduct.setP1BuildingQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getP1BuildingQuantityEntityList().add(
+        new BuildingQuantityEntity() {{
+            setId(rs.getInt("p1_building_id"));
             setName(rs.getString("p1_building_name"));
             setDescription(rs.getString("p1_building_description"));
             setQuantity(rs.getFloat("p1_building_number"));
-        }};
+        }});
     }
 
-    private BuildingQuantityEntity getP2BuildingQuantityEntity(ResultSet rs) throws SQLException {
-        return new BuildingQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addP2BuildingQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("p2_building_number");
+        if (num == 0) return;
+        if (cardProduct.getP2BuildingQuantityEntityList() == null){
+            cardProduct.setP2BuildingQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getP2BuildingQuantityEntityList().add(
+        new BuildingQuantityEntity() {{
+            setId(rs.getInt("p2_building_id"));
             setName(rs.getString("p2_building_name"));
             setDescription(rs.getString("p2_building_description"));
             setQuantity(rs.getFloat("p2_building_number"));
-        }};
+        }});
     }
 
-    private ResourceQuantityEntity getP1ResourceQuantityEntity(ResultSet rs) throws SQLException {
-        return new ResourceQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addP1ResourceQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("p1_resource_number");
+        if (num == 0) return;
+        if (cardProduct.getP1ResourceQuantityEntityList() == null){
+            cardProduct.setP1ResourceQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getP1ResourceQuantityEntityList().add(
+        new ResourceQuantityEntity() {{
+            setId(rs.getInt("p1_resource_id"));
             setName(rs.getString("p1_resource_name"));
             setDescription(rs.getString("p1_resource_description"));
             setQuantity(rs.getFloat("p1_resource_number"));
-        }};
+        }});
     }
 
-    private ResourceQuantityEntity getP2ResourceQuantityEntity(ResultSet rs) throws SQLException {
-        return new ResourceQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addP2ResourceQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("p2_resource_number");
+        if (num == 0) return;
+        if (cardProduct.getP2ResourceQuantityEntityList() == null){
+            cardProduct.setP2ResourceQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getP2ResourceQuantityEntityList().add(
+        new ResourceQuantityEntity() {{
+            setId(rs.getInt("p2_resource_id"));
             setName(rs.getString("p2_resource_name"));
             setDescription(rs.getString("p2_resource_description"));
             setQuantity(rs.getFloat("p2_resource_number"));
-        }};
+        }});
     }
 
-    private UpgradeQuantityEntity getP1UpgradeQuantityEntity(ResultSet rs) throws SQLException {
-        return new UpgradeQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addP1UpgradeQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("p1_upgrade_number");
+        if (num == 0) return;
+        if (cardProduct.getP1UpgradeQuantityEntityList() == null){
+            cardProduct.setP1UpgradeQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getP1UpgradeQuantityEntityList().add(
+        new UpgradeQuantityEntity() {{
+            setId(rs.getInt("p1_upgrade_id"));
             setName(rs.getString("p1_upgrade_name"));
             setDescription(rs.getString("p1_upgrade_description"));
             setQuantity(rs.getFloat("p1_upgrade_number"));
-        }};
+        }});
     }
 
-    private UpgradeQuantityEntity getP2UpgradeQuantityEntity(ResultSet rs) throws SQLException {
-        return new UpgradeQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addP2UpgradeQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("p2_upgrade_number");
+        if (num == 0) return;
+        if (cardProduct.getP2UpgradeQuantityEntityList() == null){
+            cardProduct.setP2UpgradeQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getP2UpgradeQuantityEntityList().add(
+        new UpgradeQuantityEntity() {{
+            setId(rs.getInt("p2_upgrade_id"));
             setName(rs.getString("p2_upgrade_name"));
             setDescription(rs.getString("p2_upgrade_description"));
             setQuantity(rs.getFloat("p2_upgrade_number"));
-        }};
+        }});
     }
 
-    private BuildingQuantityEntity getNecessaryBuildingQuantityEntity(ResultSet rs) throws SQLException {
-        return new BuildingQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addNecessaryBuildingQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("necessary_building_number");
+        if (num == 0) return;
+        if (cardProduct.getNecessaryBuildingQuantityEntityList() == null){
+            cardProduct.setNecessaryBuildingQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getNecessaryBuildingQuantityEntityList().add(
+        new BuildingQuantityEntity() {{
+            setId(rs.getInt("necessary_building_id"));
             setName(rs.getString("necessary_building_name"));
             setDescription(rs.getString("necessary_building_description"));
             setQuantity(rs.getFloat("necessary_building_number"));
-        }};
+        }});
     }
 
-    private UpgradeQuantityEntity getNecessaryUpgradeQuantityEntity(ResultSet rs) throws SQLException {
-        return new UpgradeQuantityEntity() {{
-            setId(rs.getInt("id"));
+    private void addNecessaryUpgradeQuantityEntity(ResultSet rs, CardProductEntity cardProduct) throws SQLException {
+        Float num = rs.getFloat("necessary_upgrade_number");
+        if (num == 0) return;
+        if (cardProduct.getNecessaryUpgradeQuantityEntityList() == null){
+            cardProduct.setNecessaryUpgradeQuantityEntityList(new LinkedList<>());
+        }
+        cardProduct.getNecessaryUpgradeQuantityEntityList().add(
+        new UpgradeQuantityEntity() {{
+            setId(rs.getInt("necessary_upgrade_id"));
             setName(rs.getString("necessary_upgrade_name"));
             setDescription(rs.getString("necessary_upgrade_description"));
             setQuantity(rs.getFloat("necessary_upgrade_number"));
-        }};
+        }});
     }
 
 }
