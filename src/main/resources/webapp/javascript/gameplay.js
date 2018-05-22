@@ -87,7 +87,7 @@ function runGameCycle() {
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/upgrade/list", createEnemyUpgradeList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resource/list", createEnemyResourceList);
         restRequest("GET", REST_API_URL + "/message/list", createChatMessageList);
-    }, 2000);
+    }, 4000);
 
     setInterval(function() {
         restRequest('GET', REST_API_URL + "/account/" + getAccountId() + "/notification/recent", createNotificationList);
