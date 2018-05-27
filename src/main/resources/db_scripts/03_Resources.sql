@@ -5,7 +5,7 @@ VALUES
     ('2','Eggs','eggs'),
     ('3','Chickens','chickens'),
     ('4','Dung','dung'),
-    ('5','Chickens','chickens'),
+    ('5','Hens','hens'),
     ('6','Cocks','cocks'),
     ('7','Fighting Cocks','fighting cocks'),
     ('8','Stone',' stone'),
