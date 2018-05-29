@@ -63,14 +63,23 @@ public class CardProductDaoImpl implements CardProductDao {
     public void applyCard(Integer accountId, Integer cardId) {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate(prepareApplyCard(cardId));
+                statement.executeUpdate(prepareApplyCard(accountId, cardId));
             }
         }.run();
     }
 
-    private String prepareApplyCard(Integer cardId){
+    private String prepareApplyCard(Integer accountId, Integer cardId){
         StringBuilder q = new StringBuilder();
         String card = cardId.toString();
+        String playerOne, playerTwo;
+        if (accountId.equals(1)){
+            playerOne = "1";
+            playerTwo = "2";
+        } else {
+            playerOne = "2";
+            playerTwo = "1";
+        }
+
         q.append("UPDATE (SELECT ");
         q.append("cp.card_id cardId, cp.p1_building_id p1BId, cp.p2_building_id p2BId, ");
         q.append("cp.p1_building_number p1BNum, cp.p2_building_number p2BNum, ");
@@ -104,13 +113,20 @@ public class CardProductDaoImpl implements CardProductDao {
         q.append("LEFT JOIN Account_Upgrade au1 ON au1.upgrade_id = result.p1UId ");
         q.append("LEFT JOIN Account_Upgrade au2 ON au2.upgrade_id = result.p2UId ");
         q.append("SET ");
-        q.append("ab1.number = IF(ab1.account_id = 1 AND result.p1_building_summary is not null, result.p1_building_summary, ab1.number), ");
-        q.append("ab2.number = IF(ab2.account_id = 2 AND result.p2_building_summary is not null, result.p2_building_summary, ab2.number), ");
-        q.append("ar1.number = IF(ar1.account_id = 1 AND result.p1_resource_summary is not null, result.p1_resource_summary, ar1.number), ");
-        q.append("ar2.number = IF(ar2.account_id = 2 AND result.p2_resource_summary is not null, result.p2_resource_summary, ar2.number), ");
-        q.append("au1.number = IF(au1.account_id = 1 AND result.p1_upgrade_summary is not null, result.p1_upgrade_summary, au1.number), ");
-        q.append("au2.number = IF(au2.account_id = 2 AND result.p2_upgrade_summary is not null, result.p2_upgrade_summary, au2.number) ");
-        q.append("WHERE ab1.account_id = 1 OR ab2.account_id = 2 ");
+        q.append("ab1.number = IF(ab1.account_id = " + playerOne +
+                " AND result.p1_building_summary is not null, result.p1_building_summary, ab1.number), ");
+        q.append("ab2.number = IF(ab2.account_id = " + playerTwo +
+                " AND result.p2_building_summary is not null, result.p2_building_summary, ab2.number), ");
+        q.append("ar1.number = IF(ar1.account_id = " + playerOne +
+                " AND result.p1_resource_summary is not null, result.p1_resource_summary, ar1.number), ");
+        q.append("ar2.number = IF(ar2.account_id = " + playerTwo +
+                " AND result.p2_resource_summary is not null, result.p2_resource_summary, ar2.number), ");
+        q.append("au1.number = IF(au1.account_id = " + playerOne +
+                " AND result.p1_upgrade_summary is not null, result.p1_upgrade_summary, au1.number), ");
+        q.append("au2.number = IF(au2.account_id = " + playerTwo +
+                " AND result.p2_upgrade_summary is not null, result.p2_upgrade_summary, au2.number) ");
+        q.append("WHERE ab1.account_id = " + playerOne +
+                " OR ab2.account_id = " + playerTwo + " ");
 
         return q.toString();
     }
