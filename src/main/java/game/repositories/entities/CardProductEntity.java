@@ -5,6 +5,7 @@ import java.util.List;
 public class CardProductEntity {
     private Integer id;
     private CardEntity cardEntity;
+    private CardGroupEntity cardGroupEntity;
     private List<BuildingQuantityEntity> p1BuildingQuantityEntityList;
     private List<BuildingQuantityEntity> p2BuildingQuantityEntityList;
     private List<ResourceQuantityEntity> p1ResourceQuantityEntityList;
@@ -17,7 +18,8 @@ public class CardProductEntity {
     public CardProductEntity() {
     }
 
-    public CardProductEntity(Integer id, CardEntity cardEntity, List<BuildingQuantityEntity> p1BuildingQuantityEntityList,
+    public CardProductEntity(Integer id, CardEntity cardEntity, CardGroupEntity cardGroupEntity,
+                             List<BuildingQuantityEntity> p1BuildingQuantityEntityList,
                              List<BuildingQuantityEntity> p2BuildingQuantityEntityList,
                              List<ResourceQuantityEntity> p1ResourceQuantityEntityList,
                              List<ResourceQuantityEntity> p2ResourceQuantityEntityList,
@@ -27,6 +29,7 @@ public class CardProductEntity {
                              List<UpgradeQuantityEntity> necessaryUpgradeQuantityEntityList) {
         this.id = id;
         this.cardEntity = cardEntity;
+        this.cardGroupEntity = cardGroupEntity;
         this.p1BuildingQuantityEntityList = p1BuildingQuantityEntityList;
         this.p2BuildingQuantityEntityList = p2BuildingQuantityEntityList;
         this.p1ResourceQuantityEntityList = p1ResourceQuantityEntityList;
@@ -51,6 +54,14 @@ public class CardProductEntity {
 
     public void setCardEntity(CardEntity cardEntity) {
         this.cardEntity = cardEntity;
+    }
+
+    public CardGroupEntity getCardGroupEntity() {
+        return cardGroupEntity;
+    }
+
+    public void setCardGroupEntity(CardGroupEntity cardGroupEntity) {
+        this.cardGroupEntity = cardGroupEntity;
     }
 
     public List<BuildingQuantityEntity> getP1BuildingQuantityEntityList() {
@@ -122,6 +133,7 @@ public class CardProductEntity {
         return "CardProductEntity{" +
                 "id=" + id +
                 ", cardEntity=" + cardEntity +
+                ", cardGroupEntity=" + cardGroupEntity +
                 ", p1BuildingQuantityEntityList=" + p1BuildingQuantityEntityList +
                 ", p2BuildingQuantityEntityList=" + p2BuildingQuantityEntityList +
                 ", p1ResourceQuantityEntityList=" + p1ResourceQuantityEntityList +

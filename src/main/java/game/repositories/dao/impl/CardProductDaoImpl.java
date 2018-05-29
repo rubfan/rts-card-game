@@ -20,6 +20,7 @@ public class CardProductDaoImpl implements CardProductDao {
                 while (rs.next()) {
                     CardProductEntity cardProduct = new CardProductEntity();
                     cardProduct.setCardEntity(getCardEntity(rs));
+                    cardProduct.setCardGroupEntity(getCardGroupEntity(rs));
                     if (!cardProducts.containsKey(cardProduct.getCardEntity().getId())) {
                         cardProduct.setId(rs.getInt("id"));
                         cardProducts.put(cardProduct.getCardEntity().getId(), cardProduct);
@@ -47,7 +48,7 @@ public class CardProductDaoImpl implements CardProductDao {
         return new QueryHelper<List<Integer>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 List<Integer> allowCards = new LinkedList<>();
-                ResultSet rs = statement.executeQuery(prepareListOfAllowCardsforAccountQuery());
+                ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery());
                 while (rs.next()) {
                     allowCards.add(rs.getInt("card_id"));
                 }
@@ -86,7 +87,7 @@ public class CardProductDaoImpl implements CardProductDao {
         }.run();
     }
 
-    private String prepareListOfAllowCardsforAccountQuery() {
+    private String prepareListOfAllowCardsForAccountQuery() {
         StringBuilder q = new StringBuilder();
         q.append("select card_id ");
         q.append("from (select ");
@@ -117,6 +118,7 @@ public class CardProductDaoImpl implements CardProductDao {
     private String prepareListOfCardsProductQuery() {
         StringBuilder q = new StringBuilder();
         q.append("SELECT cp.id, cp.card_id, c.name 'card_name', c.description 'card_description', ");
+        q.append("cp.card_group_id, cg.name 'card_group_name', cg.description 'card_group_description', ");
         q.append("cp.p1_building_id, cp.p2_building_id, cp.p1_building_number, cp.p2_building_number, ");
         q.append("cp.p1_resource_id, cp.p2_resource_id, cp.p1_resource_number, cp.p2_resource_number, ");
         q.append("cp.p1_upgrade_id, cp.p2_upgrade_id, cp.p1_upgrade_number, cp.p2_upgrade_number, ");
@@ -132,6 +134,7 @@ public class CardProductDaoImpl implements CardProductDao {
         q.append("u2.name 'p2_upgrade_name', u2.description 'p2_upgrade_description' ");
         q.append("FROM Card_Product cp ");
         q.append("LEFT JOIN Card c ON c.id = cp.card_id ");
+        q.append("LEFT JOIN Card_Group cg ON cg.id = cp.card_group_id ");
         q.append("LEFT JOIN Building b ON b.id = cp.necessary_building_id ");
         q.append("LEFT JOIN Upgrade u ON u.id = cp.necessary_upgrade_id ");
         q.append("LEFT JOIN Building b1 ON b1.id = cp.p1_building_id ");
@@ -149,6 +152,13 @@ public class CardProductDaoImpl implements CardProductDao {
             setId(rs.getInt("card_id"));
             setName(rs.getString("card_name"));
             setDescription(rs.getString("card_description"));
+        }};
+    }
+    private CardGroupEntity getCardGroupEntity(ResultSet rs) throws SQLException {
+        return new CardGroupEntity() {{
+            setId(rs.getInt("card_group_id"));
+            setName(rs.getString("card_group_name"));
+            setDescription(rs.getString("card_group_description"));
         }};
     }
 

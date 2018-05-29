@@ -29,6 +29,12 @@ public class CardProductServiceImpl implements CardProductService {
                 cardDto.setDescription(cardProductEntity.getCardEntity().getDescription());
                 setCardDto(cardDto);
 
+                CardGroupDto cardGroupDto = new CardGroupDto();
+                cardGroupDto.setId(cardProductEntity.getCardGroupEntity().getId());
+                cardGroupDto.setName(cardProductEntity.getCardGroupEntity().getName());
+                cardGroupDto.setDescription(cardProductEntity.getCardGroupEntity().getDescription());
+                setCardGroupDto(cardGroupDto);
+
                 if (cardProductEntity.getP1BuildingQuantityEntityList() != null) {
                     List<BuildingQuantityDto> p1BuildingQuantityDtoList = new LinkedList<>();
                     cardProductEntity.getP1BuildingQuantityEntityList().forEach(buildingQuantityEntity -> {
