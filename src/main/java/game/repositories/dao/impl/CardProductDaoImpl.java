@@ -61,30 +61,58 @@ public class CardProductDaoImpl implements CardProductDao {
 
     @Override
     public void applyCard(Integer accountId, Integer cardId) {
-        String pid, pnum;
-        if (accountId == 1) {
-            pid = "p1_building_id";
-            pnum = "p1_building_number";
-        } else {
-            pid = "p2_building_id";
-            pnum = "p2_building_number";
-        }
-
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                if (statement.executeQuery("SELECT DISTINCT * FROM Account_Building WHERE account_id = " +
-                        accountId + " AND building_id = (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = " + cardId + ")").next()) {
-                    statement.executeUpdate("UPDATE Account_Building SET number = number + " +
-                            "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId + " ) ");
-                } else {
-                    statement.executeUpdate("INSERT INTO Account_Building (account_id, building_id, number) " +
-                            " VALUES (" + accountId + ", (SELECT DISTINCT " + pid + " FROM Card_Product WHERE card_id = " + cardId + ")," +
-                            "(SELECT DISTINCT " + pnum + " FROM Card_Product WHERE card_id = " + cardId + "));");
-                }
-
-//                connection.commit();
+                statement.executeUpdate(prepareApplyCard(cardId));
             }
         }.run();
+    }
+
+    private String prepareApplyCard(Integer cardId){
+        StringBuilder q = new StringBuilder();
+        String card = cardId.toString();
+        q.append("UPDATE (SELECT ");
+        q.append("cp.card_id cardId, cp.p1_building_id p1BId, cp.p2_building_id p2BId, ");
+        q.append("cp.p1_building_number p1BNum, cp.p2_building_number p2BNum, ");
+        q.append("cp.p1_resource_id p1RId, cp.p2_resource_id p2RId, ");
+        q.append("cp.p1_resource_number p1RNum, cp.p2_resource_number p2RNum, ");
+        q.append("cp.p1_upgrade_id p1UId, cp.p2_upgrade_id p2UId, ");
+        q.append("cp.p1_upgrade_number p1UNum, cp.p2_upgrade_number p2UNum, ");
+        q.append("ab1.account_id bAccId, ab1.building_id bBildId, ab1.number bNum, ");
+        q.append("ar1.account_id rAccId, ar1.resource_id rResId, ar1.number rNum, ");
+        q.append("au1.account_id uAccId, au1.upgrade_id uUpId, au1.number uNum, ");
+        q.append("(p1_building_number + ab1.number) p1_building_summary, ");
+        q.append("(p2_building_number + ab2.number) p2_building_summary, ");
+        q.append("(p1_resource_number + ar1.number) p1_resource_summary, ");
+        q.append("(p2_resource_number + ar2.number) p2_resource_summary, ");
+        q.append("(p1_upgrade_number + au1.number) p1_upgrade_summary, ");
+        q.append("(p2_upgrade_number + au2.number) p2_upgrade_summary ");
+        q.append("FROM Card_Product cp ");
+        q.append("LEFT JOIN Account_Building ab1 ON ab1.building_id = cp.p1_building_id ");
+        q.append("LEFT JOIN Account_Building ab2 ON ab2.building_id = cp.p2_building_id ");
+        q.append("LEFT JOIN Account_Resource ar1 ON ar1.resource_id = cp.p1_resource_id ");
+        q.append("LEFT JOIN Account_Resource ar2 ON ar2.resource_id = cp.p2_resource_id ");
+        q.append("LEFT JOIN Account_Upgrade au1 ON au1.upgrade_id = cp.p1_upgrade_id ");
+        q.append("LEFT JOIN Account_Upgrade au2 ON au2.upgrade_id = cp.p2_upgrade_id ");
+        q.append("WHERE cp.card_id = ");
+        q.append(card);
+        q.append(" group by p1_building_id, p2_building_id, p1_resource_id, p2_resource_id, p1_upgrade_id, p2_upgrade_id) result ");
+        q.append("LEFT JOIN Account_Building ab1 ON ab1.building_id = result.p1BId ");
+        q.append("LEFT JOIN Account_Building ab2 ON ab2.building_id = result.p2BId ");
+        q.append("LEFT JOIN Account_Resource ar1 ON ar1.resource_id = result.p1RId ");
+        q.append("LEFT JOIN Account_Resource ar2 ON ar2.resource_id = result.p2RId ");
+        q.append("LEFT JOIN Account_Upgrade au1 ON au1.upgrade_id = result.p1UId ");
+        q.append("LEFT JOIN Account_Upgrade au2 ON au2.upgrade_id = result.p2UId ");
+        q.append("SET ");
+        q.append("ab1.number = IF(ab1.account_id = 1 AND result.p1_building_summary is not null, result.p1_building_summary, ab1.number), ");
+        q.append("ab2.number = IF(ab2.account_id = 2 AND result.p2_building_summary is not null, result.p2_building_summary, ab2.number), ");
+        q.append("ar1.number = IF(ar1.account_id = 1 AND result.p1_resource_summary is not null, result.p1_resource_summary, ar1.number), ");
+        q.append("ar2.number = IF(ar2.account_id = 2 AND result.p2_resource_summary is not null, result.p2_resource_summary, ar2.number), ");
+        q.append("au1.number = IF(au1.account_id = 1 AND result.p1_upgrade_summary is not null, result.p1_upgrade_summary, au1.number), ");
+        q.append("au2.number = IF(au2.account_id = 2 AND result.p2_upgrade_summary is not null, result.p2_upgrade_summary, au2.number) ");
+        q.append("WHERE ab1.account_id = 1 OR ab2.account_id = 2 ");
+
+        return q.toString();
     }
 
     private String prepareListOfAllowCardsForAccountQuery() {
