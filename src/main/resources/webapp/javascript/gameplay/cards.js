@@ -1,4 +1,5 @@
 var cardFullList = {};
+var currentTabId = 1;
 
 function prepareCardFullList(dataObject) {
     var jsonCardFullList = JSON.parse(dataObject);
@@ -11,8 +12,22 @@ function prepareCardFullList(dataObject) {
 function createCardList(dataObject) {
     var accountCardList = JSON.parse(dataObject);
     var content = "";
+    var tabGroupId = -1;
     for (var i in accountCardList) {
         var id = accountCardList[i];
+        var groupId = cardFullList[id]['cardGroupDto']['id'];
+        if(tabGroupId !== groupId) {
+            if(tabGroupId >= 0) {
+                content += '</div></div></div>';
+            }
+            tabGroupId = groupId;
+            content += '<div class="tab" onclick="changeCurrentTabId(' + groupId + ')">';
+            content += '<input type="radio" id="tab-' + groupId + '" name="tab-group" '+
+                (groupId === currentTabId ? 'checked' : '') + '>';
+            content += '<label for="tab-' + groupId + '">' + cardFullList[id]['cardGroupDto']['name'] + '</label>';
+            content += '<div class="content">';
+            content += '<div class="cards">';
+        }
         content +=  '<button class="glow-effect card-button"'+
             ' onmousemove="prepareCardTooltip(' + id + '); showTooltip(event)"' +
             ' onmouseout="hideTooltip()"' +
@@ -21,7 +36,12 @@ function createCardList(dataObject) {
             '<span>' + cardFullList[id]['cardDto']['name'].split('_').join(' ') + '</span>' +
             '</button>';
     }
-    document.getElementById("cards").innerHTML = content;
+    content += '</div></div></div>';
+    document.getElementById("cards_container").innerHTML = content;
+}
+
+function changeCurrentTabId(id) {
+    currentTabId = id;
 }
 
 function applyCard(cardId) {

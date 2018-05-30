@@ -25,6 +25,7 @@ function showTooltip(event) {
     }
     style.visibility = 'visible';
     style.opacity = 1;
+    style.zIndex = 9999;
 }
 function hideTooltip() {
     document.getElementById("tooltip_component").style.visibility = 'hidden';

@@ -106,12 +106,69 @@ body{
     opacity: 0.4;
 }
 
+/*=========================CARD-TABS=========================*/
+.tab label {
+    position: relative;
+    display: inline-block;
+    float: left;
+    left: 25%;
+    right: 25%;
+
+    cursor: pointer;
+    margin: -30px 0px 6px 0px;
+    padding: 5px 8px 2px 8px;
+
+    background-color: rgba(83, 95, 111, 1);
+    border-width: 4px;
+    border-style: outset;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-color: #6f818e #668092 #668092 #6f818e;
+    border-bottom-width: 0;
+}
+.tab [type=radio] {
+    display: none;
+}
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 5px;
+
+    background: -webkit-radial-gradient(center,ellipse cover, #3b0006 50%, #15222a 100%);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7) inset;
+    border-width: 3px;
+    border-style: inset;
+    border-radius: 10px;
+    border-color: #668092;
+}
+[type=radio]:checked ~ label {
+    z-index: 99;
+    color: #ffd000;
+    text-shadow:1px 1px 10px #ffd000, 1px 1px 30px #eee;
+    margin-top: -36px;
+    padding: 8px;
+}
+[type=radio]:checked ~ label ~ .content {
+    z-index: 9;
+}
 /*====================CARDS CONTAINER==================*/
 .cards-container {
     position: absolute;
     right: 330px;
-    bottom: 0;
     left: 330px;
+    bottom: 0;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.85);
+    background-color: rgba(83, 95, 111, 1);
+    border-width: 4px;
+    border-style: outset;
+    border-radius: 8px;
+    border-color: #6f818e #668092 #668092 #6f818e;
+    margin: 5px;
+    clear: both;
+    min-height: 177px;
 }
 
 div.cards {
@@ -144,7 +201,7 @@ div.cards button:hover {
     border-radius: 8px;
     border-color: #6f818e #668092 #668092 #6f818e;
     position: absolute;
-    bottom: 175px;
+    bottom: 215px;
     right: 500px;
     left: 500px;
     margin: 10px;
