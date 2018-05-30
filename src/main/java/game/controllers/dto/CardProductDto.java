@@ -5,6 +5,7 @@ import java.util.List;
 public class CardProductDto {
     private Integer id;
     private CardDto cardDto;
+    private CardGroupDto cardGroupDto;
     private List<BuildingQuantityDto> p1BuildingQuantityDtoList;
     private List<BuildingQuantityDto> p2BuildingQuantityDtoList;
     private List<ResourceQuantityDto> p1ResourceQuantityDtoList;
@@ -16,8 +17,8 @@ public class CardProductDto {
 
     public CardProductDto() {}
 
-
-    public CardProductDto(Integer id, CardDto cardDto, List<BuildingQuantityDto> p1BuildingQuantityDtoList,
+    public CardProductDto(Integer id, CardDto cardDto, CardGroupDto cardGroupDto,
+                          List<BuildingQuantityDto> p1BuildingQuantityDtoList,
                           List<BuildingQuantityDto> p2BuildingQuantityDtoList,
                           List<ResourceQuantityDto> p1ResourceQuantityDtoList,
                           List<ResourceQuantityDto> p2ResourceQuantityDtoList,
@@ -27,6 +28,7 @@ public class CardProductDto {
                           List<UpgradeQuantityDto> necessaryUpgradeQuantityDtoList) {
         this.id = id;
         this.cardDto = cardDto;
+        this.cardGroupDto = cardGroupDto;
         this.p1BuildingQuantityDtoList = p1BuildingQuantityDtoList;
         this.p2BuildingQuantityDtoList = p2BuildingQuantityDtoList;
         this.p1ResourceQuantityDtoList = p1ResourceQuantityDtoList;
@@ -51,6 +53,14 @@ public class CardProductDto {
 
     public void setCardDto(CardDto cardDto) {
         this.cardDto = cardDto;
+    }
+
+    public CardGroupDto getCardGroupDto() {
+        return cardGroupDto;
+    }
+
+    public void setCardGroupDto(CardGroupDto cardGroupDto) {
+        this.cardGroupDto = cardGroupDto;
     }
 
     public List<BuildingQuantityDto> getP1BuildingQuantityDtoList() {
@@ -122,6 +132,7 @@ public class CardProductDto {
         return "CardProductDto{" +
                 "id=" + id +
                 ", cardDto=" + cardDto +
+                ", cardGroupDto=" + cardGroupDto +
                 ", p1BuildingQuantityDtoList=" + p1BuildingQuantityDtoList +
                 ", p2BuildingQuantityDtoList=" + p2BuildingQuantityDtoList +
                 ", p1ResourceQuantityDtoList=" + p1ResourceQuantityDtoList +

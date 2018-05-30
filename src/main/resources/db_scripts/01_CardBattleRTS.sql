@@ -106,9 +106,17 @@ CREATE TABLE `Card` (
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `Card_Group` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) NOT NULL,
+	`description` varchar(128) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `Card_Product` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`card_id` INT NOT NULL,
+	`card_group_id` INT NOT NULL,
 	`p1_building_id` INT,
 	`p2_building_id` INT,
 	`p1_building_number` FLOAT,
@@ -205,6 +213,8 @@ ALTER TABLE `Room` ADD CONSTRAINT `Room_fk1` FOREIGN KEY (`account_2_id`) REFERE
 #ALTER TABLE `Message` ADD CONSTRAINT `Message_fk1` FOREIGN KEY (`to_account_id`) REFERENCES `Account`(`id`);
 
 ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk0` FOREIGN KEY (`card_id`) REFERENCES `Card`(`id`);
+
+ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk9` FOREIGN KEY (`card_group_id`) REFERENCES `Card_Group`(`id`);
 
 ALTER TABLE `Card_Product` ADD CONSTRAINT `Card_Product_fk1` FOREIGN KEY (`p1_building_id`) REFERENCES `Building`(`id`);
 
