@@ -47,6 +47,7 @@ function prepareResourceFullList(dataObject) {
     for (var num in jsonResourceFullList) {
         resourceFullList[jsonResourceFullList[num]['id']] = jsonResourceFullList[num];
     }
+    createHtmlTableResources();
 }
 
 setInterval(function() {
@@ -78,91 +79,85 @@ function refreshEnemyResources() {
     }
 }
 
+function createHtmlTableResources() {
+    var content = '<table class="resource-table">';
+    var tdNum = 9;
+    var resId = 1;
+    for (var i = 0; i < 4; i++) {
+        content += '<tr>';
+        for (var j = 0; j < tdNum; j++) {
+            const id = (resId + j);
+            content += '<td><div id="p1res' + id + '" class="resource-item">';
+            content += '<img class="resource-item-img" width="55px" height="55px"'
+                + 'src="' + IMG_RESOURCES_URL[id.toString()] + '"'
+                + ' onmousemove="prepareResourceTooltip(' + id + '); showTooltip(event)"'
+                + ' onmouseout="hideTooltip()">';
+            content += '<span id="resource_quantity' + id + '" class="small-text"></span>';
+            content += '</div></td>';
+        }
+        content += '<td colspan="' + (i * 4 + 1) + '" style="width:100%"></td>';
+        for (var k = 0; k < tdNum; k++) {
+            const id = (resId + (tdNum - k - 1));
+            content += '<td><div id="p2res' + id + '" class="resource-item">';
+            content += '<img class="resource-item-img" width="55px" height="55px"'
+                + 'src="' + IMG_RESOURCES_URL[id.toString()] + '"'
+                + ' onmousemove="prepareResourceTooltip(' + id + '); showTooltip(event)"'
+                + ' onmouseout="hideTooltip()">';
+            content += '<span id="resource_enemy_quantity' + id + '" class="small-text"></span>';
+            content += '</div></td>';
+        }
+        content += '</tr>';
+        resId += tdNum;
+        tdNum -= 2;
+    }
+    document.getElementById("resource_container").innerHTML = content + '</table>';
+}
+
 function createResourceList(dataObject) {
     var accountResourceList = JSON.parse(dataObject);
     resourcePerMin = [];
-    var content = '';
-    var count = 0;
+    var num = 1;
     for (var i in accountResourceList) {
-        if((count%6) == 0){
-            var num = accountResourceList.length - count;
-            if (num >= 6) content += '<div style="grid-template-columns: auto auto auto auto auto auto" class="inner-container">';
-            else if (num == 5) content += '<div style="grid-template-columns: auto auto auto auto auto 55px" class="inner-container">';
-            else if (num == 4) content += '<div style="grid-template-columns: auto auto auto auto 55px 55px" class="inner-container">';
-            else if (num == 3) content += '<div style="grid-template-columns: auto auto auto 55px 55px 55px" class="inner-container">';
-            else if (num == 2) content += '<div style="grid-template-columns: auto auto 55px 55px 55px 55px" class="inner-container">';
-            else if (num == 1) content += '<div style="grid-template-columns: auto 55px 55px 55px 55px 55px" class="inner-container">';
-        }
         var id = accountResourceList[i]['resourceId'];
         var quantity = accountResourceList[i]['quantity'];
-        content += '<div class="resource-item">';
-        content += '<img class="resource-item-img" width="55px" height="55px" src="'
-            + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"'
-            + ' onmousemove="prepareResourceTooltip(' + id + ', ' + quantity + '); showTooltip(event)"'
-            + ' onmouseout="hideTooltip()">';
         resourcePerMin.push({id: id, quantity: quantity, per_min: 50});
-        content += '<span id="resource_quantity' + id + '" class="small-text">' + quantity + '</span>';
-        count++;
-        if((count%6) == 0) content += '</div>';
-        content += '</div>';
+        for (var j = num; j < id; j++) {
+            document.getElementById("p1res" + j).style.visibility = 'hidden';
+        }
         if (resourceFullList[id]['id'] == POWER) {
-            myPower = accountResourceList[i]['quantity'];
+            myPower = quantity;
             createKings();
         }
+        num = id + 1;
     }
-    content += '</div>';
-    document.getElementById("left_resource_container").innerHTML = content;
     lastDate = new Date();
 }
 
 function createEnemyResourceList(dataObject) {
     var accountResourceList = JSON.parse(dataObject);
     resourceEnemyPerMin = [];
-    var content = '';
-    var count = 0;
+    var num = 1;
     for (var i in accountResourceList) {
-        if((count%6) == 0){
-            var num = accountResourceList.length - count;
-            if (num >= 3) content += '<div style="grid-template-columns: auto auto auto auto auto auto" class="inner-container">';
-            else if (num == 5) content += '<div style="grid-template-columns: auto auto auto auto auto 55px" class="inner-container">' +
-                    '<div class="resource-item"></div><div class="resource-item"></div>';
-            else if (num == 4) content += '<div style="grid-template-columns: auto auto auto auto 55px 55px" class="inner-container">' +
-                 '<div class="resource-item"></div>';
-            else if (num == 3) content += '<div style="grid-template-columns: auto auto auto 55px 55px 55px" class="inner-container">' +
-                '<div class="resource-item"></div>';
-            else if (num == 2) content += '<div style="grid-template-columns: auto auto 55px 55px 55px 55px" class="inner-container">' +
-                '<div class="resource-item"></div>';
-            else if (num == 1) content += '<div style="grid-template-columns: auto 55px 55px 55px 55px 55px" class="inner-container">' +
-                '<div class="resource-item"></div>';
-        }
         var id = accountResourceList[i]['resourceId'];
         var quantity = accountResourceList[i]['quantity'];
-        content += '<div class="resource-item">';
-        content += '<img class="resource-item-img" width="55px" height="55px" src="'
-            + IMG_RESOURCES_URL[resourceFullList[id]['id'].toString()] + '"'
-            + ' onmousemove="prepareResourceTooltip(' + id + ', ' + quantity + '); showTooltip(event)"'
-            + ' onmouseout="hideTooltip()">';
         resourceEnemyPerMin.push({id: id, quantity: quantity, per_min: 50});
-        content += '<span id="resource_enemy_quantity' + id + '" class="small-text">' + quantity + '</span>';
-        count++;
-        if((count%6) == 0) content += '</div>';
-        content += '</div>';
+        for (var j = num; j < id; j++) {
+            document.getElementById("p2res" + j).style.visibility = 'hidden';
+        }
         if (resourceFullList[id]['id'] == POWER) {
-            enemyPower = accountResourceList[i]['quantity'];
+            enemyPower = quantity;
             createKings();
         }
+        num = id + 1;
     }
-    content += '</div>';
-    document.getElementById("right_resource_container").innerHTML = content;
     lastEnemyDate = new Date();
 }
 
-function prepareResourceTooltip(num, quantity) {
+function prepareResourceTooltip(num) {
     var content = '';
     content += '<b style="font-size: 20px; color: #ff8000">Resource: '
         + resourceFullList[num]['name'].split('_').join(' ') + '</b><br>';
     content += ' (' + resourceFullList[num]['description'] + ')';
-    content += ' <div class="resource-quantity">' + quantity + '</div>';
     document.getElementById("tooltip_component").innerHTML = content;
 }
 

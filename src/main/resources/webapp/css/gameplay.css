@@ -57,6 +57,23 @@ body{
 }
 
 /*====================RESOURCE CONTAINERS==================*/
+.resource-container {
+    width:100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0
+}
+
+.resource-table {
+    width:100%;
+    border-collapse: collapse;
+}
+
+.resource-table td {
+    padding-right: 2px;
+}
+
 .resource-item {
     color: #ffd000;
     font-size: 10px;
@@ -75,35 +92,8 @@ body{
 }
 .small-text {
     margin-left: -55px;
-    position: relative
-}
-
-.inner-container {
-    display: grid;
-    grid-column-gap: 2px;
-    /*grid-template-columns: auto auto auto;*/
-}
-
-.left-resource-container {
-    position: absolute;
-    left: 3px;
-    top: 55px;
-    text-align: left;
-}
-
-.right-resource-container {
-    position: absolute;
-    right: 3px;
-    top: 55px;
-    text-align: left;
-}
-
-.resource-quantity {
     position: relative;
-    text-align: right;
-    margin-bottom: -10px;
-    font-size: 30px;
-    opacity: 0.4;
+    line-height: 10px;
 }
 
 /*=========================CARD-TABS=========================*/
