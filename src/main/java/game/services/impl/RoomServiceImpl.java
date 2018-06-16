@@ -3,8 +3,7 @@ package game.services.impl;
 import game.controllers.dto.AccountDto;
 import game.controllers.dto.RoomDto;
 import game.controllers.dto.UserDto;
-import game.repositories.dao.AccountDao;
-import game.repositories.dao.RoomDao;
+import game.repositories.dao.*;
 import game.repositories.entities.AccountEntity;
 import game.services.RoomService;
 
@@ -21,6 +20,15 @@ public class RoomServiceImpl implements RoomService {
     public RoomDao roomDao;
     @Inject
     public AccountDao accountDao;
+    @Inject
+    public AccountBuildingDao accountBuildingDao;
+    @Inject
+    public AccountResourceDao accountResourceDao;
+    @Inject
+    public AccountUpgradeDao accountUpgradeDao;
+    @Inject
+    public AccountNotificationDao accountNotificationDao;
+
 
     public List<RoomDto> getListOfRooms() {
         final List<RoomDto> rooms = new LinkedList<>();
@@ -60,7 +68,12 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void joinRoom(UserDto user, Integer roomId) {
         accountDao.setRoomForAccount(user.getId(),roomId);
-        roomDao.joinRoom(roomId, accountDao.getAccountIdByUserId(user.getId()), roomDao.getFreeAccountNumberForQuery(roomId));
+        int accountId = accountDao.getAccountIdByUserId(user.getId());
+        accountBuildingDao.clearAccountBuildingsList(accountId);
+        accountResourceDao.cleanAccountResourses(accountId);
+        accountUpgradeDao.cleanAccountUpgrade(accountId);
+        accountNotificationDao.clearAccountNotificationList(accountId);
+        roomDao.joinRoom(roomId, accountId, roomDao.getFreeAccountNumberForQuery(roomId));
     }
 
     @Override

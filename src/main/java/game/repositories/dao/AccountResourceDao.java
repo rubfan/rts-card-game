@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AccountResourceDao {
     List<AccountResourceEntity> getListOfAccountResources(Integer accountId);
+    void cleanAccountResourses(int accountId);
 }

@@ -4,10 +4,7 @@ import game.repositories.dao.AccountResourceDao;
 import game.repositories.dao.helpers.QueryHelper;
 import game.repositories.entities.AccountResourceEntity;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +29,20 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                 returnResult(accountResources);
             }
         }.run();
+    }
+
+    @Override
+    public void cleanAccountResourses(int accountId) {
+        new QueryHelper() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                PreparedStatement pstmt = connection.prepareStatement(
+                        "UPDATE Account_Resources SET number=0 WHERE account_id=?;");
+                pstmt.setInt(1, accountId);
+                int status = pstmt.executeUpdate();
+                connection.commit();
+            }
+        }.run();
+
     }
 
 }

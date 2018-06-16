@@ -4,10 +4,7 @@ import game.repositories.dao.AccountUpgradeDao;
 import game.repositories.dao.helpers.QueryHelper;
 import game.repositories.entities.AccountUpgradeEntity;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +27,19 @@ public class AccountUpgradeDaoImpl implements AccountUpgradeDao {
                     accountUpgrades.add(accountBuilding);
                 }
                 returnResult(accountUpgrades);
+            }
+        }.run();
+    }
+
+    @Override
+    public void cleanAccountUpgrade(int accountId) {
+        new QueryHelper() {
+            protected void executeQuery(Statement statement, Connection connection) throws SQLException {
+                PreparedStatement pstmt = connection.prepareStatement(
+                        "UPDATE Account_Upgrade SET number=0 WHERE account_id=?;");
+                pstmt.setInt(1, accountId);
+                int status = pstmt.executeUpdate();
+                connection.commit();
             }
         }.run();
     }
