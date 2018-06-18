@@ -1,6 +1,7 @@
 package game.services.impl;
 
 import game.controllers.dto.AccountResourceDto;
+import game.controllers.dto.AccountResourceQuantityDto;
 import game.repositories.dao.AccountResourceDao;
 import game.services.AccountResourceService;
 
@@ -24,5 +25,18 @@ public class AccountResourceServiceImpl implements AccountResourceService {
             }});
         });
         return accountResources;
+    }
+
+    @Override
+    public List<AccountResourceQuantityDto> getAccountResourcesQuantity(Integer accountId) {
+        final List<AccountResourceQuantityDto> accountResourceQuantity = new LinkedList<>();
+        accountResourceDao.getAccountResourcesQuantity(accountId).forEach(accountResourceQuantityEntity -> {
+            accountResourceQuantity.add(new AccountResourceQuantityDto() {{
+                setResourceId(accountResourceQuantityEntity.getResourceId());
+                setResourceNumber(accountResourceQuantityEntity.getResourceNumber());
+                setResourcePerMIn(accountResourceQuantityEntity.getResourcePerMIn());
+            }});
+        });
+        return accountResourceQuantity;
     }
 }

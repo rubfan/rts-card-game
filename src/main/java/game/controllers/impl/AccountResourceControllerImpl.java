@@ -2,6 +2,7 @@ package game.controllers.impl;
 
 import game.controllers.AccountResourceController;
 import game.controllers.dto.AccountResourceDto;
+import game.controllers.dto.AccountResourceQuantityDto;
 import game.services.AccountResourceService;
 
 import javax.inject.Inject;
@@ -28,5 +29,15 @@ public class AccountResourceControllerImpl implements AccountResourceController 
         List<AccountResourceDto> accountResourceList = accountResourceService.getListOfAccountResources(accountId);
         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, accountResourceList.toString());
         return accountResourceList;
+    }
+
+    @Override
+    @GET
+    @Path("{account_id}/resourcePerMin/list")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public List<AccountResourceQuantityDto> getAccountResourcesQuantity(@PathParam("account_id") Integer accountId) {
+        List<AccountResourceQuantityDto> accountResourceQuantity = accountResourceService.getAccountResourcesQuantity(accountId);
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, accountResourceQuantity.toString());
+        return accountResourceQuantity;
     }
 }
