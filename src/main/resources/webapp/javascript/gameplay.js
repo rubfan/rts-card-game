@@ -82,11 +82,13 @@ function runGameCycle() {
         }
         restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/building/list", createBuildingList);
         restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/upgrade/list", createUpgradeList);
-        restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/resource/list", createResourceList);
+        //restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/resource/list", createResourceList);
+        restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/resourcePerMin/list", createResourceList);
         restRequest("GET", REST_API_URL + "/account/" + getAccountId() + "/card/list", createCardList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/building/list", createEnemyBuildingList);
         restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/upgrade/list", createEnemyUpgradeList);
-        restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resource/list", createEnemyResourceList);
+        //restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resource/list", createEnemyResourceList);
+        restRequest("GET", REST_API_URL + "/account/" + getEnemyAccountId() + "/resourcePerMin/list", createEnemyResourceList);
         restRequest("GET", REST_API_URL + "/message/list", createChatMessageList);
     }, 4000);
 

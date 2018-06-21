@@ -119,8 +119,9 @@ function createResourceList(dataObject) {
     var num = 1;
     for (var i in accountResourceList) {
         var id = accountResourceList[i]['resourceId'];
-        var quantity = accountResourceList[i]['quantity'];
-        resourcePerMin.push({id: id, quantity: quantity, per_min: 50});
+        var quantity = accountResourceList[i]['resourceNumber']; //['quantity'];
+        var resourcePerMIn = accountResourceList[i]['resourcePerMIn'];
+        resourcePerMin.push({id: id, quantity: quantity, per_min: resourcePerMIn});
         for (var j = num; j < id; j++) {
             document.getElementById("p1res" + j).style.visibility = 'hidden';
         }
@@ -139,8 +140,9 @@ function createEnemyResourceList(dataObject) {
     var num = 1;
     for (var i in accountResourceList) {
         var id = accountResourceList[i]['resourceId'];
-        var quantity = accountResourceList[i]['quantity'];
-        resourceEnemyPerMin.push({id: id, quantity: quantity, per_min: 50});
+        var quantity = accountResourceList[i]['resourceNumber']; //['quantity'];
+        var resourcePerMIn = accountResourceList[i]['resourcePerMIn'];
+        resourceEnemyPerMin.push({id: id, quantity: quantity, per_min: resourcePerMIn});
         for (var j = num; j < id; j++) {
             document.getElementById("p2res" + j).style.visibility = 'hidden';
         }

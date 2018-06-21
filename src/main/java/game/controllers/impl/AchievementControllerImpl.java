@@ -12,18 +12,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-    @Path("/achievements")
-    public class AchievementControllerImpl implements AchievementController {
+@Path("/achievement")
+public class AchievementControllerImpl implements AchievementController {
 
+    @Inject
+    public AchievementService achievementService;
 
-        @Inject
-        public AchievementService achievementService;
-
-        @GET
-        @Path("/list")
-        public List<AchievementDto> getListOfAchievements(){
-            List<AchievementDto> AchievementList = achievementService.getListOfAchievements();
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, AchievementList.toString());
-            return AchievementList;
-        }
+    @GET
+    @Path("/list")
+    public List<AchievementDto> getListOfAchievements(){
+        List<AchievementDto> AchievementList = achievementService.getListOfAchievements();
+        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, AchievementList.toString());
+        return AchievementList;
+    }
 }
