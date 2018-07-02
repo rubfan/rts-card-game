@@ -37,7 +37,7 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "UPDATE Account_Resources SET number=0 WHERE account_id=?;");
+                        "UPDATE Account_Resources SET number=0 WHERE account_id=? AND NOT resource_id = IN(1,2);");
                 pstmt.setInt(1, accountId);
                 int status = pstmt.executeUpdate();
                 connection.commit();
@@ -68,7 +68,7 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
 
     private String prepareListOfAllowCardsForAccountQuery(Integer accountId) {
         StringBuilder q = new StringBuilder();
-        q.append("SELECT ar.resource_id, ar.number, (ab.number * bp.number_per_sec + ab.number / 100 * up.percent) res_per_min ");
+        q.append("SELECT ar.resource_id, ar.number, SUM(ab.number * bp.number_per_sec + ab.number / 100 * up.percent) res_per_min ");
         q.append("FROM Account_Resource ar ");
         q.append("LEFT JOIN Account_Building ab ON ar.account_id = ab.account_id ");
         q.append("LEFT JOIN Account_Upgrade au ON ar.account_id = au.account_id ");

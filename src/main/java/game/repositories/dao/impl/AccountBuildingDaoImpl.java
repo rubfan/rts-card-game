@@ -16,7 +16,7 @@ public class AccountBuildingDaoImpl implements AccountBuildingDao {
     public void clearAccountBuildingsList(int accountId) {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
-                statement.executeUpdate("DELETE FROM Account_Building WHERE account_id = " + accountId);
+                statement.executeUpdate("UPDATE Account_Building SET number=0 WHERE account_id=" + accountId);
             }
         }.run();
     }
