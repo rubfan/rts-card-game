@@ -44,11 +44,11 @@ public class CardProductDaoImpl implements CardProductDao {
     }
 
     @Override
-    public List<Integer> getAllowAccountCards() {
+    public List<Integer> getAllowAccountCards(Integer accountId) {
         return new QueryHelper<List<Integer>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 List<Integer> allowCards = new LinkedList<>();
-                ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery());
+                ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery(accountId));
                 while (rs.next()) {
                     allowCards.add(rs.getInt("card_id"));
                 }
@@ -131,23 +131,23 @@ public class CardProductDaoImpl implements CardProductDao {
         return q.toString();
     }
 
-    private String prepareListOfAllowCardsForAccountQuery() {
+    private String prepareListOfAllowCardsForAccountQuery(Integer accountId) {
         StringBuilder q = new StringBuilder();
         q.append("select card_id ");
         q.append("from (select ");
         q.append("cp.card_id, ");
-        q.append("(ar.number + cp.p1_resource_number) res_num, ");
-        q.append("(ab.number + cp.p1_building_number) build_num, ");
-        q.append("(au.number + cp.p1_upgrade_number) upgr_num, ");
-        q.append("(anu.number + cp.necessary_upgrade_number) neces_upgr_num, ");
-        q.append("(anb.number + cp.necessary_building_number) neces_build_num ");
+        q.append("SUM(ar.number + cp.p1_resource_number) res_num, ");
+        q.append("SUM(ab.number + cp.p1_building_number) build_num, ");
+        q.append("SUM(au.number + cp.p1_upgrade_number) upgr_num, ");
+        q.append("SUM(anu.number + cp.necessary_upgrade_number) neces_upgr_num, ");
+        q.append("SUM(anb.number + cp.necessary_building_number) neces_build_num ");
         q.append("from Card_Product cp ");
         q.append("left join Account_Resource ar on cp.p1_resource_id = ar.resource_id ");
         q.append("left join Account_Building ab on cp.p1_building_id = ab.building_id ");
         q.append("left join Account_Upgrade au on cp.p1_upgrade_id = au.upgrade_id ");
         q.append("left join Account_Building anb on cp.necessary_building_id = anb.building_id ");
         q.append("left join Account_Upgrade anu on cp.necessary_upgrade_id = anu.upgrade_id ");
-        q.append("WHERE ar.account_id = 1 ");
+        q.append("WHERE ar.account_id = " + accountId + " ");
         q.append("group by cp.card_id ");
         q.append(" having (res_num is null or res_num >= 0) ");
         q.append("and (build_num is null or build_num >= 0) ");

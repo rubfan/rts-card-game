@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CardProductDao {
     Collection<CardProductEntity> getListOfCardProducts();
-    List<Integer> getAllowAccountCards();
+    List<Integer> getAllowAccountCards(Integer accountId);
     void applyCard(Integer accountId, Integer cardId);
 }
