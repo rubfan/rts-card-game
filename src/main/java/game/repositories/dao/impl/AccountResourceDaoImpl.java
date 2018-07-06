@@ -54,20 +54,21 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                 try {
                     //Assume a valid connection object conn
                     connection.setAutoCommit(false);
+                    statement.executeUpdate("UPDATE Account_Resource SET last_calc_time= "+deltaTimeSeconds);
+                    connection.commit();
+
                     ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery(accountId));
                     while (rs.next()) {
                         AccountResourceQuantityEntity accountResourceQuantity = new AccountResourceQuantityEntity(
                                 rs.getInt("resource_id" ),
                                 rs.getInt("number" ),
-                                rs.getInt("res_per_min" ));
+                                rs.getInt("res_per_min" ),
+                                rs.getLong("last_calc_time"));
                         accountResourceQuantityList.add(accountResourceQuantity);
                     }
                     if (accountResourceQuantityList.size() > 0) {
                         returnResult(accountResourceQuantityList);
                     }
-
-                    statement.executeUpdate("UPDATE Account_Resource SET last_calc_time= "+deltaTimeSeconds);
-                    connection.commit();
 
                 } catch(SQLException se){
                 // If there is any error.
@@ -79,7 +80,7 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
 
     private String prepareListOfAllowCardsForAccountQuery(Integer accountId) {
         StringBuilder q = new StringBuilder();
-        q.append("SELECT ar.resource_id, ar.number, SUM(ab.number * bp.number_per_sec + ab.number / 100 * up.percent) res_per_min ");
+        q.append("SELECT ar.resource_id, ar.number, SUM(ab.number * bp.number_per_sec + ab.number / 100 * up.percent) res_per_min, ar.last_calc_time ");
         q.append("FROM Account_Resource ar ");
         q.append("LEFT JOIN Account_Building ab ON ar.account_id = ab.account_id ");
         q.append("LEFT JOIN Account_Upgrade au ON ar.account_id = au.account_id ");

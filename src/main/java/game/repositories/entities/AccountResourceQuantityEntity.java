@@ -4,14 +4,16 @@ public class AccountResourceQuantityEntity {
     private Integer resourceId;
     private Integer resourceNumber;
     private Integer resourcePerMIn;
+    private Long lastCalcTime;
 
-    public AccountResourceQuantityEntity(Integer resourceId, Integer resourceNumber, Integer resourcePerMIn) {
+    public AccountResourceQuantityEntity() {
+    }
+
+    public AccountResourceQuantityEntity(Integer resourceId, Integer resourceNumber, Integer resourcePerMIn, Long lastCalcTime) {
         this.resourceId = resourceId;
         this.resourceNumber = resourceNumber;
         this.resourcePerMIn = resourcePerMIn;
-    }
-
-    public AccountResourceQuantityEntity() {
+        this.lastCalcTime = lastCalcTime;
     }
 
     public Integer getResourceId() {
@@ -38,12 +40,21 @@ public class AccountResourceQuantityEntity {
         this.resourcePerMIn = resourcePerMIn;
     }
 
+    public Long getLastCalcTime() {
+        return lastCalcTime;
+    }
+
+    public void setLastCalcTime(Long lastCalcTime) {
+        this.lastCalcTime = lastCalcTime;
+    }
+
     @Override
     public String toString() {
         return "AccountResourceQuantityEntity{" +
                 "resourceId=" + resourceId +
                 ", resourceNumber=" + resourceNumber +
                 ", resourcePerMIn=" + resourcePerMIn +
+                ", lastCalcTime=" + lastCalcTime +
                 '}';
     }
 }
