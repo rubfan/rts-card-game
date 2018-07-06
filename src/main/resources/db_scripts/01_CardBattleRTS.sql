@@ -36,6 +36,7 @@ CREATE TABLE `Account_Resource` (
 	`account_id` INT NOT NULL,
 	`resource_id` INT NOT NULL,
 	`number` FLOAT NOT NULL,
+	`last_calc_time` LONG,
 	PRIMARY KEY (`id`)
 );
 

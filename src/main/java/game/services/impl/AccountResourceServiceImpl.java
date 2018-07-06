@@ -28,9 +28,9 @@ public class AccountResourceServiceImpl implements AccountResourceService {
     }
 
     @Override
-    public List<AccountResourceQuantityDto> getAccountResourcesQuantity(Integer accountId) {
+    public List<AccountResourceQuantityDto> getAccountResourcesQuantity(Integer accountId, Long deltaTimeSeconds) {
         final List<AccountResourceQuantityDto> accountResourceQuantity = new LinkedList<>();
-        accountResourceDao.getAccountResourcesQuantity(accountId).forEach(accountResourceQuantityEntity -> {
+        accountResourceDao.getAccountResourcesQuantity(accountId, deltaTimeSeconds).forEach(accountResourceQuantityEntity -> {
             accountResourceQuantity.add(new AccountResourceQuantityDto() {{
                 setResourceId(accountResourceQuantityEntity.getResourceId());
                 setResourceNumber(accountResourceQuantityEntity.getResourceNumber());

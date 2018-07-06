@@ -47,21 +47,32 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
     }
 
     @Override
-    public List<AccountResourceQuantityEntity> getAccountResourcesQuantity(Integer accountId){
+    public List<AccountResourceQuantityEntity> getAccountResourcesQuantity(Integer accountId, Long deltaTimeSeconds){
         return new QueryHelper<List<AccountResourceQuantityEntity>>() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 List<AccountResourceQuantityEntity> accountResourceQuantityList = new LinkedList<>();
-                ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery(accountId));
-                while (rs.next()) {
-                    AccountResourceQuantityEntity accountResourceQuantity = new AccountResourceQuantityEntity(
-                    rs.getInt("resource_id"),
-                    rs.getInt("number"),
-                    rs.getInt("res_per_min"));
-                    accountResourceQuantityList.add(accountResourceQuantity);
-                }
-                if (accountResourceQuantityList.size() > 0) {
-                    returnResult(accountResourceQuantityList);
-                }
+                try {
+                    //Assume a valid connection object conn
+                    connection.setAutoCommit(false);
+                    ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery(accountId));
+                    while (rs.next()) {
+                        AccountResourceQuantityEntity accountResourceQuantity = new AccountResourceQuantityEntity(
+                                rs.getInt("resource_id" ),
+                                rs.getInt("number" ),
+                                rs.getInt("res_per_min" ));
+                        accountResourceQuantityList.add(accountResourceQuantity);
+                    }
+                    if (accountResourceQuantityList.size() > 0) {
+                        returnResult(accountResourceQuantityList);
+                    }
+
+                    statement.executeUpdate("UPDATE Account_Resource SET last_calc_time= "+deltaTimeSeconds);
+                    connection.commit();
+
+                } catch(SQLException se){
+                // If there is any error.
+                connection.rollback();
+            }
             }
         }.run();
     }
