@@ -35,7 +35,6 @@ public class AccountResourceServiceImpl implements AccountResourceService {
                 setResourceId(accountResourceQuantityEntity.getResourceId());
                 setResourceNumber(accountResourceQuantityEntity.getResourceNumber());
                 setResourcePerMIn(accountResourceQuantityEntity.getResourcePerMIn());
-                setLastCalcTime(accountResourceQuantityEntity.getLastCalcTime());
             }});
         });
         return accountResourceQuantity;

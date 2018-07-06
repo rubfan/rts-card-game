@@ -4,16 +4,15 @@ public class AccountResourceQuantityDto {
     private Integer resourceId;
     private Integer resourceNumber;
     private Integer resourcePerMIn;
-    private Long lastCalcTime;
+
 
     public AccountResourceQuantityDto() {
     }
 
-    public AccountResourceQuantityDto(Integer resourceId, Integer resourceNumber, Integer resourcePerMIn, Long lastCalcTime) {
+    public AccountResourceQuantityDto(Integer resourceId, Integer resourceNumber, Integer resourcePerMIn) {
         this.resourceId = resourceId;
         this.resourceNumber = resourceNumber;
         this.resourcePerMIn = resourcePerMIn;
-        this.lastCalcTime = lastCalcTime;
     }
 
     public Integer getResourceId() {
@@ -40,21 +39,12 @@ public class AccountResourceQuantityDto {
         this.resourcePerMIn = resourcePerMIn;
     }
 
-    public Long getLastCalcTime() {
-        return lastCalcTime;
-    }
-
-    public void setLastCalcTime(Long lastCalcTime) {
-        this.lastCalcTime = lastCalcTime;
-    }
-
     @Override
     public String toString() {
         return "AccountResourceQuantityDto{" +
                 "resourceId=" + resourceId +
                 ", resourceNumber=" + resourceNumber +
                 ", resourcePerMIn=" + resourcePerMIn +
-                ", lastCalcTime=" + lastCalcTime +
                 '}';
     }
 }
