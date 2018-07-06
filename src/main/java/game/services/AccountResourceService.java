@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface AccountResourceService {
     List<AccountResourceDto> getListOfAccountResources(Integer accountId);
-    List<AccountResourceQuantityDto> getAccountResourcesQuantity(Integer accountId);
+    List<AccountResourceQuantityDto> getAccountResourcesQuantity(Integer accountId, Long deltaTimeSeconds);
 }
