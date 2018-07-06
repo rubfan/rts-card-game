@@ -145,7 +145,7 @@ public class CardProductDaoImpl implements CardProductDao {
         q.append("left join Account_Upgrade au on cp.p1_upgrade_id = au.upgrade_id ");
         q.append("left join Account_Building anb on cp.necessary_building_id = anb.building_id ");
         q.append("left join Account_Upgrade anu on cp.necessary_upgrade_id = anu.upgrade_id ");
-        q.append("WHERE ar.account_id = 1 ");
+        q.append("WHERE ar.account_id = " + accountId + " ");
         q.append("AND (cp.necessary_building_number <= anb.number OR cp.necessary_building_number is null) ");
         q.append("AND (cp.necessary_upgrade_number <= anu.number OR cp.necessary_upgrade_number is null) ");
         q.append("group by cp.card_id ");
