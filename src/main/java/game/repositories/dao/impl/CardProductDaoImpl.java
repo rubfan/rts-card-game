@@ -138,22 +138,20 @@ public class CardProductDaoImpl implements CardProductDao {
         q.append("cp.card_id, ");
         q.append("SUM(ar.number + cp.p1_resource_number) res_num, ");
         q.append("SUM(ab.number + cp.p1_building_number) build_num, ");
-        q.append("SUM(au.number + cp.p1_upgrade_number) upgr_num, ");
-        q.append("SUM(anu.number + cp.necessary_upgrade_number) neces_upgr_num, ");
-        q.append("SUM(anb.number + cp.necessary_building_number) neces_build_num ");
+        q.append("SUM(au.number + cp.p1_upgrade_number) upgr_num ");
         q.append("from Card_Product cp ");
         q.append("left join Account_Resource ar on cp.p1_resource_id = ar.resource_id ");
         q.append("left join Account_Building ab on cp.p1_building_id = ab.building_id ");
         q.append("left join Account_Upgrade au on cp.p1_upgrade_id = au.upgrade_id ");
         q.append("left join Account_Building anb on cp.necessary_building_id = anb.building_id ");
         q.append("left join Account_Upgrade anu on cp.necessary_upgrade_id = anu.upgrade_id ");
-        q.append("WHERE ar.account_id = " + accountId + " ");
+        q.append("WHERE ar.account_id = 1 ");
+        q.append("AND (cp.necessary_building_number <= anb.number OR cp.necessary_building_number is null) ");
+        q.append("AND (cp.necessary_upgrade_number <= anu.number OR cp.necessary_upgrade_number is null) ");
         q.append("group by cp.card_id ");
-        q.append(" having (res_num is null or res_num >= 0) ");
+        q.append("having (res_num is null or res_num >= 0) ");
         q.append("and (build_num is null or build_num >= 0) ");
         q.append("and (upgr_num is null or upgr_num >= 0) ");
-        q.append("and (neces_upgr_num is null or neces_upgr_num >= 0) ");
-        q.append("and (neces_build_num is null or neces_build_num >= 0) ");
         q.append(") allow_cards; ");
 
         return q.toString();
