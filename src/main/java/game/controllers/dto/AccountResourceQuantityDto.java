@@ -5,13 +5,14 @@ public class AccountResourceQuantityDto {
     private Integer resourceNumber;
     private Integer resourcePerMIn;
 
+
+    public AccountResourceQuantityDto() {
+    }
+
     public AccountResourceQuantityDto(Integer resourceId, Integer resourceNumber, Integer resourcePerMIn) {
         this.resourceId = resourceId;
         this.resourceNumber = resourceNumber;
         this.resourcePerMIn = resourcePerMIn;
-    }
-
-    public AccountResourceQuantityDto() {
     }
 
     public Integer getResourceId() {

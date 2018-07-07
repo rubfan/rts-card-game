@@ -5,13 +5,13 @@ public class AccountResourceQuantityEntity {
     private Integer resourceNumber;
     private Integer resourcePerMIn;
 
+    public AccountResourceQuantityEntity() {
+    }
+
     public AccountResourceQuantityEntity(Integer resourceId, Integer resourceNumber, Integer resourcePerMIn) {
         this.resourceId = resourceId;
         this.resourceNumber = resourceNumber;
         this.resourcePerMIn = resourcePerMIn;
-    }
-
-    public AccountResourceQuantityEntity() {
     }
 
     public Integer getResourceId() {

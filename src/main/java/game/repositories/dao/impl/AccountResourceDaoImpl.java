@@ -6,6 +6,7 @@ import game.repositories.entities.AccountResourceEntity;
 import game.repositories.entities.AccountResourceQuantityEntity;
 
 import java.sql.*;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,6 +55,9 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                 try {
                     //Assume a valid connection object conn
                     connection.setAutoCommit(false);
+
+                    connection.commit();
+
                     ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery(accountId));
                     while (rs.next()) {
                         AccountResourceQuantityEntity accountResourceQuantity = new AccountResourceQuantityEntity(
@@ -64,10 +68,9 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                     }
                     if (accountResourceQuantityList.size() > 0) {
                         returnResult(accountResourceQuantityList);
+                    } else {
+                        returnResult(Collections.emptyList());
                     }
-
-                    statement.executeUpdate("UPDATE Account_Resource SET last_calc_time= "+deltaTimeSeconds);
-                    connection.commit();
 
                 } catch(SQLException se){
                 // If there is any error.
