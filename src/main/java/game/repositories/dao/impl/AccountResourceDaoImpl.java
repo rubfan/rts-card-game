@@ -38,7 +38,7 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
         new QueryHelper() {
             protected void executeQuery(Statement statement, Connection connection) throws SQLException {
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "UPDATE Account_Resources SET number=0 WHERE account_id=? AND NOT resource_id = IN(1,2);");
+                        "UPDATE Account_Resource SET number=0 WHERE account_id=? AND NOT resource_id = IN(1,2);");
                 pstmt.setInt(1, accountId);
                 int status = pstmt.executeUpdate();
                 connection.commit();
@@ -56,8 +56,6 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                     //Assume a valid connection object conn
                     connection.setAutoCommit(false);
 
-                    connection.commit();
-
                     ResultSet rs = statement.executeQuery(prepareListOfAllowCardsForAccountQuery(accountId));
                     while (rs.next()) {
                         AccountResourceQuantityEntity accountResourceQuantity = new AccountResourceQuantityEntity(
@@ -71,6 +69,15 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                     } else {
                         returnResult(Collections.emptyList());
                     }
+
+                    AccountResourceQuantityEntity[] accountResourceQuantityEntities =
+                            accountResourceQuantityList.toArray(new AccountResourceQuantityEntity[accountResourceQuantityList.size()]);
+                    for (int i = 0; i < accountResourceQuantityList.size(); i++) {
+                        statement.executeUpdate("UPDATE Account_Resource SET number = number * 1.1 WHERE resource_id = "
+                                + accountResourceQuantityEntities[i].getResourceId()+" AND account_id =" + accountId);
+                    }
+
+                    connection.commit();
 
                 } catch(SQLException se){
                 // If there is any error.
